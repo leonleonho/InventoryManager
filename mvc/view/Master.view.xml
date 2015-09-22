@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.scout138.inventoryManager.mvc.controller.Master" xmlns:l="sap.ui.layout">
+    <Page id="page" title="inventoryManager">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://menu2" press="onMenuPress" />
+                </contentLeft>
+                <contentMiddle>
+                    <Label text="Inventory Manager" />
+                </contentMiddle>
+            </Bar>
+        </customHeader>
+        <subHeader>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Text id="selectedDateFrom" text="Event View">
+                    <layoutData>
+                        <ToolbarLayoutData shrinkable="true" />
+                    </layoutData>
+                </Text>
+                <Text id="selectedDateTo" text="">
+                    <layoutData>
+                        <ToolbarLayoutData shrinkable="true" />
+                    </layoutData>
+                </Text>
+                <ToolbarSpacer />
+
+                <Button icon="sap-icon://slim-arrow-down" press="showSettings" />
+            </Toolbar>
+        </subHeader>
+        <content>
+
+        </content>
+        <footer>
+            <Toolbar>
+                <Button text="Add" icon="sap-icon://add" press="onAddPress" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
