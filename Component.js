@@ -50,6 +50,9 @@ sap.ui.core.UIComponent.extend("com.scout138.inventoryManager.Component", {
             }]
         }
     },
+    appConfig: {
+        "oDataService": "http://localhost/InventoryManager/mock/"
+    },
     init: function() {
         sap.ui.core.UIComponent.prototype.init.apply(this, arguments);
 
@@ -80,10 +83,9 @@ sap.ui.core.UIComponent.extend("com.scout138.inventoryManager.Component", {
             listItemType: sap.ui.Device.system.phone ? "Active" : "Inactive"
         });
         deviceModel.setDefaultBindingMode("OneWay");
+        window.appConfig = this.appConfig;
         this.setModel(deviceModel, "device");
 
         this.getRouter().initialize();
-
-
     }
 });

@@ -24,12 +24,17 @@
                     </layoutData>
                 </Text>
                 <ToolbarSpacer />
-
                 <Button icon="sap-icon://slim-arrow-down" press="showSettings" />
             </Toolbar>
         </subHeader>
         <content>
-
+            <List items="{path: '/events'}">
+                <CustomListItem class="appEventListItem">
+                    <HBox>
+                        <Link text="{name}" target="{ProductPicUrl}" press="handlePress" />
+                    </HBox>
+                </CustomListItem>
+            </List>
         </content>
         <footer>
             <Toolbar>

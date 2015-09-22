@@ -1,14 +1,2 @@
-/* Custom Styles  */
-#ui5Logo {
-    padding-left: 10px;
-}
-#myproLink {
-    color: #ffffff;
-}
-#myproLinkLP {
-    color: #ffffff;
-}
-.welcomeText {
-	font-size: 1.0rem;
-	margin: 2rem;
+.appEventListItem {
 }
