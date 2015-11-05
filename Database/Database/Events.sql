@@ -5,6 +5,7 @@
     [location] NVARCHAR(MAX) NULL, 
     [dateCreated] DATETIME NOT NULL DEFAULT getdate(), 
     [eventDate] DATETIME NULL, 
+    [eventName] NVARCHAR(50) NOT NULL, 
     CONSTRAINT [FK_Events_Users] FOREIGN KEY ([hostID]) REFERENCES [Users]([userID])
 	
 )
