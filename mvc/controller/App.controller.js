@@ -4,6 +4,7 @@ sap.ui.define([
 ], function (Controller, MessageToast) {
    "use strict";
    return Controller.extend("com.scout138.inventoryManager.mvc.controller.App", {
+
       onShowHello : function () {
          // read msg from i18n model
          var oBundle = this.getView().getModel("i18n").getResourceBundle();

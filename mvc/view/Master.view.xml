@@ -28,11 +28,6 @@
             </Toolbar>
         </subHeader>
         <content>
-            <Input
-                value="{/recipient/name}"
-                description="Hello {/recipient/name}"
-                valueLiveUpdate="true"
-                width="60%"/>
             <List items="{path: '/events'}">
                 <CustomListItem class="appEventListItem">
                     <HBox>

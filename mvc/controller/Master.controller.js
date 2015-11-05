@@ -10,9 +10,8 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
      * setup here.
      */
     onInit: function () {
-        
         //var eventsModel = new JSONModel("http://localhost/InventoryManager/mock/events.json");
-        var eventsModel = new JSONModel(window.appConfig.oDataService + 'events.json');
+        //var eventsModel = new JSONModel(window.appConfig.oDataService + 'events.json');
         /*
         $.ajax({
             dataType: "json",
@@ -23,8 +22,8 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
             eventsModel.refresh();
             console.log(data);
         });
-*/
-        this.getView().setModel(eventsModel);
+        */
+        //this.getView().setModel(eventsModel);
         
     },
     handlePress: function() {

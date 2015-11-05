@@ -11,7 +11,7 @@ sap.ui.define([
             "oDataService": "http://localhost/InventoryManager/mock/"
         },
         init : function () {
-            // call the init function of the parent
+            
             UIComponent.prototype.init.apply(this, arguments);
             // set data model
             var oData = {
@@ -19,11 +19,18 @@ sap.ui.define([
                    name : "World"
                 }
             };
+
             var oModel = new JSONModel(oData);
-            this.setModel(oModel);
+            this.setModel(oModel, "oData");
 
             window.appConfig = this.appConfig;
-            console.warn("in Component.init()");
+
+
+            var oConfig = this.getMetadata().getConfig();
+            var sNamespace = this.getMetadata().getManifestEntry("sap.app").id;
+            var oDataModel = new JSONModel(jQuery.sap.getModulePath(sNamespace, oConfig.oDataService + 'events.json'));
+            this.setModel(oDataModel, "oDataService");
+            this.getRouter().initialize();
         }
     });
 });
