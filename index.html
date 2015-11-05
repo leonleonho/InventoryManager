@@ -10,6 +10,7 @@
         <script id="sap-ui-bootstrap"
         src="../openui5-1.30.8/resources/sap-ui-core.js"
         data-sap-ui-libs="sap.m"
+        data-sap-ui-bindingSyntax="complex"
         data-sap-ui-theme="sap_bluecrystal"
         data-sap-ui-xx-bindingSyntax="complex"
         data-sap-ui-resourceroots='{
@@ -18,6 +19,14 @@
         </script>
 
         <script>
+            sap.ui.getCore().attachInit(function () {
+                new sap.ui.core.ComponentContainer({
+                   name : "com.scout138.inventoryManager",
+                   height : "100%"
+                }).placeAt("content");
+            });
+            
+        /*
             sap.ui.getCore().attachInit(function() {
                 new sap.m.Shell({
                     app: new sap.ui.core.ComponentContainer({
@@ -26,6 +35,7 @@
                     })
                 }).placeAt("content");
             });
+*/
       </script>
     </head>
 

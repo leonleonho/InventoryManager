@@ -10,7 +10,10 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
      * setup here.
      */
     onInit: function () {
-        var eventsModel = new JSONModel();
+        
+        //var eventsModel = new JSONModel("http://localhost/InventoryManager/mock/events.json");
+        var eventsModel = new JSONModel(window.appConfig.oDataService + 'events.json');
+        /*
         $.ajax({
             dataType: "json",
             url: window.appConfig.oDataService + 'events.json',
@@ -20,10 +23,21 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
             eventsModel.refresh();
             console.log(data);
         });
+*/
         this.getView().setModel(eventsModel);
+        
     },
     handlePress: function() {
-        
+        // read msg from i18n model
+         var oBundle = this.getView().getModel("i18n").getResourceBundle();
+         var sRecipient = this.getView().getModel().getProperty("/recipient/name");
+         var sMsg = oBundle.getText("helloMsg", [sRecipient]);
+         // show message
+         MessageToast.show(sMsg);
+    },
+
+    onMenuPress: function() {
+
     }
 });
 });

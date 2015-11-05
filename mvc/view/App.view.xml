@@ -1,6 +1,11 @@
 <mvc:View
+	controllerName="com.scout138.inventoryManager.mvc.controller.App"
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m">
-    <SplitApp id="idAppControl" />
+    <App id="idAppControl">
+    	<pages>
+			<mvc:XMLView viewName="com.scout138.inventoryManager.mvc.view.Master"/>
+    	</pages>
+    </App>
 </mvc:View>
