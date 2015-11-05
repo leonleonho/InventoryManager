@@ -11,18 +11,18 @@ Post-Deployment Script Template
 */
 MERGE INTO Users AS Target 
 USING (VALUES 
-        (1, 'askho', 'password', 'ho.leon@yahoo.com', 6043278390, 1), 
-        (2, 'lambmaster', 'password2', 'lambMaser@yahoo.com', 6043218230, 1), 
-		(3, 'joJane', 'password3', 'jo.Jane@yahoo.com', 6043213254, 1),
-		(4, 'ramoneT', 'password4', 'Ramone.Talone@yahoo.com', 6045678230, 1),
-		(5, 'jerryV', 'password6', 'V.Jerry@yahoo.com', 6041298500, 1),
-        (6, 'duyLea', 'password8', 'le.Duy@yahoo.com', 6043238120, 1)
+        (1, 'askho', 'password', 'ho.leon@yahoo.com', 6043278390, 1, 'Leon', 'Ho'), 
+        (2, 'lambmaster', 'password2', 'lambMaser@yahoo.com', 6043218230, 1, 'Jens', 'Christinansen'), 
+		(3, 'joJane', 'password3', 'jo.Jane@yahoo.com', 6043213254, 1, 'Jo', 'Jane'),
+		(4, 'ramoneT', 'password4', 'Ramone.Talone@yahoo.com', 6045678230, 1, 'Ramone', 'Talone'),
+		(5, 'jerryV', 'password6', 'V.Jerry@yahoo.com', 6041298500, 1, 'Jerry', 'Vincent'),
+        (6, 'duyLea', 'password8', 'le.Duy@yahoo.com', 6043238120, 1, 'Duy', 'Le')
 ) 
-AS Source (userID, userName, password, email, phone, userType) 
+AS Source (userID, userName, password, email, phone, userType, fName, lName) 
 ON Target.userID = Source.userID 
 WHEN NOT MATCHED BY TARGET THEN 
-INSERT (userName, password, email, phone, userType) 
-VALUES (userName, password, email, phone, userType);
+INSERT (userName, password, email, phone, userType, fName, lName) 
+VALUES (userName, password, email, phone, userType, fName, lName);
 
 MERGE INTO Members AS Target 
 USING (VALUES 

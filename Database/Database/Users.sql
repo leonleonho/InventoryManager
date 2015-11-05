@@ -5,5 +5,7 @@
     [password] NVARCHAR(MAX) NOT NULL, 
     [email] NVARCHAR(50) NULL, 
     [phone] NUMERIC(15) NULL, 
-    [userType] NUMERIC(5) NOT NULL
+    [userType] NUMERIC(5) NOT NULL, 
+    [fName] NVARCHAR(50) NULL, 
+    [lName] NCHAR(10) NULL
 )
