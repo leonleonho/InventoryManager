@@ -1,0 +1,650 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EventInventory">
+          <Key>
+            <PropertyRef Name="eventInventoryID" />
+          </Key>
+          <Property Name="eventInventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventID" Type="int" Nullable="false" />
+          <Property Name="inventoryID" Type="int" Nullable="false" />
+          <Property Name="memberID" Type="int" />
+        </EntityType>
+        <EntityType Name="EventMember">
+          <Key>
+            <PropertyRef Name="eventMemberID" />
+          </Key>
+          <Property Name="eventMemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberID" Type="int" Nullable="false" />
+          <Property Name="eventID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hostID" Type="int" Nullable="false" />
+          <Property Name="location" Type="nvarchar(max)" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="eventDate" Type="datetime" />
+          <Property Name="eventName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+          </Key>
+          <Property Name="inventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="dateAdded" Type="datetime" Nullable="false" />
+          <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="price" Type="money" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="itemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="itemDescription" Type="nvarchar(max)" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="memberID" />
+          </Key>
+          <Property Name="memberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="lName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="numeric" Precision="15" Scale="0" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="userType" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lName" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EventsView">
+          <Key>
+            <PropertyRef Name="eventID" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="eventName" />
+            <PropertyRef Name="inventoryID" />
+            <PropertyRef Name="itemID" />
+            <PropertyRef Name="dateAdded" />
+            <PropertyRef Name="condition" />
+            <PropertyRef Name="itemName" />
+            <PropertyRef Name="memberFName" />
+            <PropertyRef Name="memberLName" />
+          </Key>
+          <Property Name="eventID" Type="int" Nullable="false" />
+          <Property Name="location" Type="nvarchar(max)" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="eventName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="inventoryID" Type="int" Nullable="false" />
+          <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="dateAdded" Type="datetime" Nullable="false" />
+          <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="price" Type="money" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="itemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="itemDescription" Type="nvarchar(max)" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="memberFName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="memberLName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="memberAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="memberEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="memberPhone" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="hostFName" Type="nvarchar" MaxLength="50" />
+          <Property Name="hostLName" Type="nchar" MaxLength="10" />
+          <Property Name="hostEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="hostPhone" Type="numeric" Precision="15" Scale="0" />
+        </EntityType>
+        <Association Name="FK_eventInventory_Event">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_eventInventory_Inventory">
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventory">
+              <PropertyRef Name="inventoryID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="inventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_eventInventory_Members">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMember_Event">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="EventMember">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMember_Members">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="EventMember">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="hostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Item">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="itemID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="itemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InventoryManagerDatabaseModelStoreContainer">
+          <EntitySet Name="EventInventory" EntityType="Self.EventInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventMember" EntityType="Self.EventMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventsView" EntityType="Self.EventsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EventsView].[eventID] AS [eventID], 
+    [EventsView].[location] AS [location], 
+    [EventsView].[dateCreated] AS [dateCreated], 
+    [EventsView].[eventName] AS [eventName], 
+    [EventsView].[inventoryID] AS [inventoryID], 
+    [EventsView].[itemID] AS [itemID], 
+    [EventsView].[dateAdded] AS [dateAdded], 
+    [EventsView].[condition] AS [condition], 
+    [EventsView].[price] AS [price], 
+    [EventsView].[purchasedAt] AS [purchasedAt], 
+    [EventsView].[itemName] AS [itemName], 
+    [EventsView].[itemDescription] AS [itemDescription], 
+    [EventsView].[type] AS [type], 
+    [EventsView].[memberFName] AS [memberFName], 
+    [EventsView].[memberLName] AS [memberLName], 
+    [EventsView].[memberAddress] AS [memberAddress], 
+    [EventsView].[memberEmail] AS [memberEmail], 
+    [EventsView].[memberPhone] AS [memberPhone], 
+    [EventsView].[hostFName] AS [hostFName], 
+    [EventsView].[hostLName] AS [hostLName], 
+    [EventsView].[hostEmail] AS [hostEmail], 
+    [EventsView].[hostPhone] AS [hostPhone]
+    FROM [dbo].[EventsView] AS [EventsView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventInventory" EntitySet="EventInventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_eventInventory_Inventory" Association="Self.FK_eventInventory_Inventory">
+            <End Role="Inventory" EntitySet="Inventory" />
+            <End Role="EventInventory" EntitySet="EventInventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_eventInventory_Members" Association="Self.FK_eventInventory_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EventInventory" EntitySet="EventInventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMember_Event" Association="Self.FK_EventMember_Event">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventMember" EntitySet="EventMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMember_Members" Association="Self.FK_EventMember_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EventMember" EntitySet="EventMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="Self.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Item" Association="Self.FK_Inventory_Item">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryManagerDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EventInventory">
+          <Key>
+            <PropertyRef Name="eventInventoryID" />
+          </Key>
+          <Property Name="eventInventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <Property Name="inventoryID" Type="Int32" Nullable="false" />
+          <Property Name="memberID" Type="Int32" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_eventInventory_Event" FromRole="EventInventory" ToRole="Events" />
+          <NavigationProperty Name="Inventory" Relationship="Self.FK_eventInventory_Inventory" FromRole="EventInventory" ToRole="Inventory" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_eventInventory_Members" FromRole="EventInventory" ToRole="Members" />
+        </EntityType>
+        <EntityType Name="EventMember">
+          <Key>
+            <PropertyRef Name="eventMemberID" />
+          </Key>
+          <Property Name="eventMemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberID" Type="Int32" Nullable="false" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_EventMember_Event" FromRole="EventMember" ToRole="Events" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_EventMember_Members" FromRole="EventMember" ToRole="Members" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hostID" Type="Int32" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="eventDate" Type="DateTime" Precision="3" />
+          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EventInventories" Relationship="Self.FK_eventInventory_Event" FromRole="Events" ToRole="EventInventory" />
+          <NavigationProperty Name="EventMembers" Relationship="Self.FK_EventMember_Event" FromRole="Events" ToRole="EventMember" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Events_Users" FromRole="Events" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+          </Key>
+          <Property Name="inventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EventInventories" Relationship="Self.FK_eventInventory_Inventory" FromRole="Inventory" ToRole="EventInventory" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Inventory_Item" FromRole="Inventory" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="itemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventory_Item" FromRole="Items" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="memberID" />
+          </Key>
+          <Property Name="memberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Decimal" Precision="15" Scale="0" />
+          <NavigationProperty Name="EventInventories" Relationship="Self.FK_eventInventory_Members" FromRole="Members" ToRole="EventInventory" />
+          <NavigationProperty Name="EventMembers" Relationship="Self.FK_EventMember_Members" FromRole="Members" ToRole="EventMember" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="userType" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Users" FromRole="Users" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="EventsView">
+          <Key>
+            <PropertyRef Name="eventID" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="eventName" />
+            <PropertyRef Name="inventoryID" />
+            <PropertyRef Name="itemID" />
+            <PropertyRef Name="dateAdded" />
+            <PropertyRef Name="condition" />
+            <PropertyRef Name="itemName" />
+            <PropertyRef Name="memberFName" />
+            <PropertyRef Name="memberLName" />
+          </Key>
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="inventoryID" Type="Int32" Nullable="false" />
+          <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="memberFName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="memberLName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="memberAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="memberEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="memberPhone" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="hostFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hostLName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="hostEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hostPhone" Type="Decimal" Precision="15" Scale="0" />
+        </EntityType>
+        <Association Name="FK_eventInventory_Event">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_eventInventory_Inventory">
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventory">
+              <PropertyRef Name="inventoryID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="inventoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_eventInventory_Members">
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="EventInventory">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMember_Event">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="EventMember">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMember_Members">
+          <End Role="Members" Type="Self.Member" Multiplicity="1" />
+          <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="memberID" />
+            </Principal>
+            <Dependent Role="EventMember">
+              <PropertyRef Name="memberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="hostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Item">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="itemID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="itemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InventoryManagerDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EventInventories" EntityType="Self.EventInventory" />
+          <EntitySet Name="EventMembers" EntityType="Self.EventMember" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="EventsViews" EntityType="Self.EventsView" />
+          <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventInventory" EntitySet="EventInventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_eventInventory_Inventory" Association="Self.FK_eventInventory_Inventory">
+            <End Role="Inventory" EntitySet="Inventories" />
+            <End Role="EventInventory" EntitySet="EventInventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_eventInventory_Members" Association="Self.FK_eventInventory_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EventInventory" EntitySet="EventInventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMember_Event" Association="Self.FK_EventMember_Event">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventMember" EntitySet="EventMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMember_Members" Association="Self.FK_EventMember_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EventMember" EntitySet="EventMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="Self.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Item" Association="Self.FK_Inventory_Item">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InventoryManagerDatabaseModelStoreContainer" CdmEntityContainer="InventoryManagerDatabaseEntities">
+          <EntitySetMapping Name="EventInventories">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventInventory">
+              <MappingFragment StoreEntitySet="EventInventory">
+                <ScalarProperty Name="eventInventoryID" ColumnName="eventInventoryID" />
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventMembers">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventMember">
+              <MappingFragment StoreEntitySet="EventMember">
+                <ScalarProperty Name="eventMemberID" ColumnName="eventMemberID" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="hostID" ColumnName="hostID" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.Member">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="userType" ColumnName="userType" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventsViews">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventsView">
+              <MappingFragment StoreEntitySet="EventsView">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="memberFName" ColumnName="memberFName" />
+                <ScalarProperty Name="memberLName" ColumnName="memberLName" />
+                <ScalarProperty Name="memberAddress" ColumnName="memberAddress" />
+                <ScalarProperty Name="memberEmail" ColumnName="memberEmail" />
+                <ScalarProperty Name="memberPhone" ColumnName="memberPhone" />
+                <ScalarProperty Name="hostFName" ColumnName="hostFName" />
+                <ScalarProperty Name="hostLName" ColumnName="hostLName" />
+                <ScalarProperty Name="hostEmail" ColumnName="hostEmail" />
+                <ScalarProperty Name="hostPhone" ColumnName="hostPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

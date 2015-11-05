@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Builder;
+using System.Web.Http.OData.Extensions;
+using oDataService.Models;
 
-namespace ODataService
+namespace oDataService
 {
     public static class WebApiConfig
     {
@@ -12,6 +15,16 @@ namespace ODataService
             // Web API configuration and services
 
             // Web API routes
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<EventInventory>("EventInventories");
+            builder.EntitySet<EventMember>("EventMembers");
+            builder.EntitySet<User>("Users");
+            builder.EntitySet<Event>("Events");
+            builder.EntitySet<Inventory>("Inventories");
+            builder.EntitySet<Member>("Members");
+            builder.EntitySet<EventsView>("EventsViews");
+            builder.EntitySet<Item>("Items");
+            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
