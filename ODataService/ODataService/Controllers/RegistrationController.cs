@@ -1,12 +1,8 @@
-﻿using Microsoft.CSharp.RuntimeBinder;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Data.Entity;
 using oDataService.Models;
 using oDataService.Classes;
 using System.Threading.Tasks;
@@ -14,7 +10,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
-using System.Data.Entity.Validation;
+using System.Linq;
 
 namespace oDataService.Controllers
 {
@@ -38,8 +34,9 @@ namespace oDataService.Controllers
             return users.userName;
             
         }
-
-        public async Task<HttpResponseMessage> PostRegister(Registration reg)
+        [HttpPost]
+        [ActionName("Register")]
+        public async Task<HttpResponseMessage> Register(Registration reg)
         {
             string username = null ;
             string pass;
@@ -80,6 +77,21 @@ namespace oDataService.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
+        [HttpPost]
+        [ActionName("Login")]
+        public async Task<HttpResponseMessage> Login()
+        {
+            string authParams = Request.Headers.Authorization.Parameter;
+            KeyValuePair<string, string> login = Auth.DecodeHash(authParams);
+            string username = login.Key;
+            string pass = login.Value;
+            Models.User user = db.Users.Where(u => u.userName == username).First();
+            if(Auth.verifyPassword(pass, user.password))
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.Forbidden);
+        }
         public class Registration
         {
             public string registrationHash { get; set; }
