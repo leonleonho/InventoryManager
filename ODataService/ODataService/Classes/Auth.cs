@@ -6,13 +6,14 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Security.Cryptography;
 using oDataService.Models;
+using System.Diagnostics;
 
 namespace oDataService.Classes
 {
     public class Auth
     {
         private static Regex passwordTest = new Regex(@"^.*(?=.{4,15})(?=.*\d)(?=.*[a-zA-Z]).*$");
-        private static InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
+        
         /// <summary>
         /// Decodes a encoded key value pair in base64 and returns it as a 
         /// username and password.
@@ -25,6 +26,7 @@ namespace oDataService.Classes
         /// <returns>Key value pair the key is the user, the value is the pass</returns>
         public static KeyValuePair<string, string> DecodeHash(string hash)
         {
+            InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
             byte[] data = Convert.FromBase64String(hash);
             string decoded = Encoding.UTF8.GetString(data);
             
@@ -38,8 +40,10 @@ namespace oDataService.Classes
         /// <returns>True or false based on if auth was a success</returns>
         public static bool Authenticate(KeyValuePair<string, string> login)
         {
+            InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
             string username = login.Key;
             string pass = login.Value;
+            Debug.WriteLine(username + " : " + pass);
             Models.User user = db.Users.Where(u => u.userName == username).First();
             if (Auth.verifyPassword(pass, user.password))
             {

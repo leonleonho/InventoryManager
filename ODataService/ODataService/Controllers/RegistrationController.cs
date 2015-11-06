@@ -89,6 +89,43 @@ namespace oDataService.Controllers
             }
             return new HttpResponseMessage(HttpStatusCode.Forbidden);
         }
+        [HttpPost]
+        [ActionName("ChangePassword")]
+        public async Task<HttpResponseMessage> ChangePassword(Registration reg)
+        {
+            string authParams = Request.Headers.Authorization.Parameter;
+            KeyValuePair<string, string> login = Auth.DecodeHash(authParams);
+            if (Auth.Authenticate(login))
+            {
+                Models.User user = db.Users.Where(u => u.userName == login.Key).First();
+                user.password = Auth.hashPassword(reg.newPassword);
+                
+                await db.SaveChangesAsync();
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.Forbidden);
+        }
+        [HttpPost]
+        [ActionName("UpdateUser")]
+        public async Task<HttpResponseMessage> UpdateUser(Registration reg)
+        {
+            string authParams = Request.Headers.Authorization.Parameter;
+            KeyValuePair<string, string> login = Auth.DecodeHash(authParams);
+            if (Auth.Authenticate(login))
+            {
+                Models.User newUser = db.Users.Where(u => u.userName == login.Key).First();
+                newUser.email = reg.email == null ? newUser.email : reg.email;
+                newUser.fName = reg.fName == null ? newUser.fName : reg.fName;
+                newUser.lName = reg.lName == null ? newUser.lName : reg.lName;
+                newUser.phone = reg.phone == 0 ? newUser.phone : reg.phone;
+                Debug.WriteLine(reg.phone);
+                await db.SaveChangesAsync();
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.Forbidden);
+        }
         public class Registration
         {
             public string registrationHash { get; set; }
@@ -96,6 +133,7 @@ namespace oDataService.Controllers
             public decimal phone { get; set; }
             public string fName { get; set; }
             public string lName { get; set; }
+            public string newPassword { get; set; }
         }
     }
     
