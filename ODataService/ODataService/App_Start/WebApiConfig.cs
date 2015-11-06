@@ -13,7 +13,11 @@ namespace oDataService
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
             // Web API routes
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<EventInventory>("EventInventories");
@@ -24,14 +28,9 @@ namespace oDataService
             builder.EntitySet<Member>("Members");
             builder.EntitySet<EventsView>("EventsViews");
             builder.EntitySet<Item>("Items");
-            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+            config.Routes.MapODataServiceRoute("odata", "/", builder.GetEdmModel());
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
         }
     }
 }

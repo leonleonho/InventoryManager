@@ -15,7 +15,6 @@ using oDataService.Models;
 
 namespace oDataService.Controllers
 {
-
     public class EventInventoriesController : ODataController
     {
         private InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();

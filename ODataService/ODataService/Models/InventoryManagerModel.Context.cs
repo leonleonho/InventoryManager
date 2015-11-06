@@ -10,21 +10,51 @@
 namespace oDataService.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
+    using System.Linq;
+
     public partial class InventoryManagerDatabaseEntities : DbContext
     {
         public InventoryManagerDatabaseEntities()
             : base("name=InventoryManagerDatabaseEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+        protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
+        {
+            //var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
+            //if (entityEntry.Entity is User && entityEntry.State == EntityState.Added)
+            //{
+            //    User user = entityEntry.Entity as User;
+            //    Debug.WriteLine("Validating");
+            //    //check for uniqueness of post title 
+            //    if (Users.Where(p => p.userName == user.userName).Count() > 0)
+            //    {
+            //        result.ValidationErrors.Add(
+            //                new System.Data.Entity.Validation.DbValidationError("User",
+            //                "Username must be unique"));
+            //    }
+            //}
+
+            //if (result.ValidationErrors.Count > 0)
+            //{
+            //    return result;
+            //}
+            //else
+            //{
+            //    return base.ValidateEntity(entityEntry, items);
+            //}
+            return base.ValidateEntity(entityEntry, items);
+        }
+
         public virtual DbSet<EventInventory> EventInventories { get; set; }
         public virtual DbSet<EventMember> EventMembers { get; set; }
         public virtual DbSet<Event> Events { get; set; }

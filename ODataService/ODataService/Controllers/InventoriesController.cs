@@ -15,7 +15,6 @@ using oDataService.Models;
 
 namespace oDataService.Controllers
 {
-
     public class InventoriesController : ODataController
     {
         private InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();

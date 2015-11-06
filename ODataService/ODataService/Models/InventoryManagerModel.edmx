@@ -75,7 +75,7 @@
           <Property Name="phone" Type="numeric" Precision="15" Scale="0" />
           <Property Name="userType" Type="numeric" Precision="5" Scale="0" Nullable="false" />
           <Property Name="fName" Type="nvarchar" MaxLength="50" />
-          <Property Name="lName" Type="nchar" MaxLength="10" />
+          <Property Name="lName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -111,7 +111,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="memberEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="memberPhone" Type="numeric" Precision="15" Scale="0" />
           <Property Name="hostFName" Type="nvarchar" MaxLength="50" />
-          <Property Name="hostLName" Type="nchar" MaxLength="10" />
+          <Property Name="hostLName" Type="nvarchar" MaxLength="50" />
           <Property Name="hostEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="hostPhone" Type="numeric" Precision="15" Scale="0" />
         </EntityType>
@@ -350,7 +350,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="phone" Type="Decimal" Precision="15" Scale="0" />
           <Property Name="userType" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="lName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Users" FromRole="Users" ToRole="Events" />
         </EntityType>
         <EntityType Name="EventsView">
@@ -385,7 +385,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="memberEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="memberPhone" Type="Decimal" Precision="15" Scale="0" />
           <Property Name="hostFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hostLName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="hostLName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hostEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hostPhone" Type="Decimal" Precision="15" Scale="0" />
         </EntityType>
