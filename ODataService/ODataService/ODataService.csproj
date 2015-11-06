@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\AuthActionFilter.cs" />
     <Compile Include="Classes\Auth.cs" />
     <Compile Include="Classes\PasswordHash.cs" />
     <Compile Include="Controllers\EventInventoriesController.cs" />

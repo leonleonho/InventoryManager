@@ -12,9 +12,11 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using oDataService.Models;
+using oDataService.Classes;
 
 namespace oDataService.Controllers
 {
+    [AuthAction]
     public class EventsController : ODataController
     {
         private InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();

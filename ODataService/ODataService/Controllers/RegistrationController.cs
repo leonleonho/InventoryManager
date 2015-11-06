@@ -79,14 +79,11 @@ namespace oDataService.Controllers
 
         [HttpPost]
         [ActionName("Login")]
-        public async Task<HttpResponseMessage> Login()
+        public HttpResponseMessage Login()
         {
             string authParams = Request.Headers.Authorization.Parameter;
             KeyValuePair<string, string> login = Auth.DecodeHash(authParams);
-            string username = login.Key;
-            string pass = login.Value;
-            Models.User user = db.Users.Where(u => u.userName == username).First();
-            if(Auth.verifyPassword(pass, user.password))
+            if(Auth.Authenticate(login))
             {
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
