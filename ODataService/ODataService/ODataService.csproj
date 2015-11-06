@@ -189,6 +189,7 @@
     <Content Include="Models\InventoryManagerModel.edmx.diagram">
       <DependentUpon>InventoryManagerModel.edmx</DependentUpon>
     </Content>
+    <Content Include="ConnectionString.config" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Web.Debug.config">

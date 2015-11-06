@@ -23,7 +23,7 @@ namespace oDataService.Models
     
         public int userID { get; set; }
         public string userName { get; set; }
-        //[NotMapped]
+        [NotMapped]
         public string password { get; set; }
         public string email { get; set; }
         public Nullable<decimal> phone { get; set; }
