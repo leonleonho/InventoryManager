@@ -1,8 +1,9 @@
 sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
-   "sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, JSONModel) {
+   "sap/ui/model/json/JSONModel",
+   "../model/Events"
+], function (Controller, MessageToast, JSONModel, Events) {
 "use strict";
 return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
     /**
@@ -10,33 +11,20 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
      * setup here.
      */
     onInit: function () {
-        //var eventsModel = new JSONModel("http://localhost/InventoryManager/mock/events.json");
-        //var eventsModel = new JSONModel(window.appConfig.oDataService + 'events.json');
-        /*
-        $.ajax({
-            dataType: "json",
-            url: window.appConfig.oDataService + 'events.json',
-            data: null
-        }).done(function(data){
-            eventsModel.setData(data);
-            eventsModel.refresh();
-            console.log(data);
-        });
-        */
-        //this.getView().setModel(eventsModel);
-        
+        this.eventsModel = new sap.ui.model.json.JSONModel();
+        this.getView().setModel(this.eventsModel);
+        Events.Init("lambmaster", "asdf1234");
+        Events.RetrieveAll().done((function(data){
+            this.eventsModel.setData(data);
+            this.eventsModel.refresh();    
+        }).bind(this));
     },
-    handlePress: function() {
-        // read msg from i18n model
-         var oBundle = this.getView().getModel("i18n").getResourceBundle();
-         var sRecipient = this.getView().getModel().getProperty("/recipient/name");
-         var sMsg = oBundle.getText("helloMsg", [sRecipient]);
-         // show message
-         MessageToast.show(sMsg);
+    handlePress: function(evt) {
+        MessageToast.show(evt.getSource().getId() + "Pressed");
     },
 
     onMenuPress: function() {
-
+        
     }
 });
 });

@@ -34,7 +34,8 @@
 			}
 		},
 		"config": {
-		  	"oDataService": "/mock/"
+		  	"oDataServiceMock": "http://localhost/InventoryManager/mock/events.json",
+		  	"oDataService": "/remote/"
 		},
 		"models": {
 			"i18n": {

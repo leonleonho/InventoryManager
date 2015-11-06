@@ -7,29 +7,34 @@ sap.ui.define([
         metadata : {
             manifest: "json"
         },
-        appConfig: {
-            "oDataService": "http://localhost/InventoryManager/mock/"
-        },
+
         init : function () {
             
             UIComponent.prototype.init.apply(this, arguments);
+
+            window.APP_CONFIG = this.getMetadata().getConfig();
+
             // set data model
-            var oData = {
-                recipient : {
-                   name : "World"
-                }
-            };
+            var eventsModel = new sap.ui.model.json.JSONModel();
+            // $.ajax({
+            //     dataType: "json",
+            //     url: oConfig.oDataService,
+            //     beforeSend: function (xhr) {
+            //         xhr.setRequestHeader("Authorization", "Basic " + btoa("lambmaster:asdf1234"));
+            //         xhr.setRequestHeader("Accept", "application/json");
+            //     },
+            //     data: null
+            // }).done(function(data){
+            //     console.error(data);
+            //     eventsModel.setData(data);
+            //     eventsModel.refresh();
+            // });
 
-            var oModel = new JSONModel(oData);
-            this.setModel(oModel, "oData");
+            this.setModel(eventsModel);
+            sap.ui.getCore().setModel(eventsModel, "events");
 
-            window.appConfig = this.appConfig;
+            console.log(eventsModel);           
 
-
-            var oConfig = this.getMetadata().getConfig();
-            var sNamespace = this.getMetadata().getManifestEntry("sap.app").id;
-            var oDataModel = new JSONModel(jQuery.sap.getModulePath(sNamespace, oConfig.oDataService + 'events.json'));
-            this.setModel(oDataModel, "oDataService");
             this.getRouter().initialize();
         }
     });
