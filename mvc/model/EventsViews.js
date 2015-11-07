@@ -21,7 +21,7 @@ sap.ui.define(["../../util/Service"],
                data = data.value;
                for(var i=0; i < data.length; i++) {
                   models.push(new EventsViewsModel(data[i]));
-                  console.log(data[i]);
+                  //console.log(data[i]);
                }
                deferred.resolve(models);
             }).bind(this)).fail((function(data) {
