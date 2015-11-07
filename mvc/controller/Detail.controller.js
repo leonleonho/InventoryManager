@@ -6,7 +6,7 @@ sap.ui.define([
    "../../util/Service"
 ], function (Controller, MessageToast, JSONModel, Events, Service) {
 "use strict";
-return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
+return Controller.extend("com.scout138.inventoryManager.mvc.controller.Detail", {
     /**
      * Standard UI5 Controller callback. Do most of the one-time controller
      * setup here.
@@ -21,7 +21,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         }).bind(this));
     },
     handlePress: function(evt) {
-        console.log("pressed");
+        MessageToast.show(evt.getSource().getId() + "Pressed");
     },
 
     onMenuPress: function() {

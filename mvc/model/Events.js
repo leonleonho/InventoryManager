@@ -1,7 +1,7 @@
 sap.ui.define(["../../util/Service"],
    function (Service) {
       "use strict";
-      var service;
+
       function EventsModel(data) {
          this.dateCreated = data.dateCreated;
          this.eventDate = data.eventDate;
@@ -10,22 +10,24 @@ sap.ui.define(["../../util/Service"],
          this.hostID = data.hostID;
          this.location = data.location;
       }
-      EventsModel.Init = function(username, password){
-         service = new Service(APP_CONFIG.oDataService, username, password);
-      }
+
       EventsModel.RetrieveAll = function(){
          var deferred = $.Deferred();
-         service.ajax({
+
+         Service.ajax({
                path: "Events"
-           }).done((function(data){
+            }).success((function(data){
                var models = [];
                data = data.value;
                for(var i=0; i < data.length; i++) {
                   models.push(new EventsModel(data[i]));
                }
-               deferred.resolve(models);    
-           }).bind(this));
+               deferred.resolve(models);
+            }).bind(this)).fail((function(data) {
+                  deferred.reject(data);
+                  console.error("fail");
+            }));
          return deferred;
-      }   
+      };
       return EventsModel;
 });
