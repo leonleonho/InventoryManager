@@ -14,25 +14,32 @@ sap.ui.define([
         onInit: function () {
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.attachRoutePatternMatched(this.handleRouteMatched, this);
-            console.log("eventID:" + this.eventID);
-            this.eventsViewsModel = new sap.ui.model.json.JSONModel();
-            this.getView().setModel(this.eventsViewsModel);
-            EventsViews.Retrieve(1).done((function(data){
-                this.eventsViewsModel.setData(data);
-                this.eventsViewsModel.refresh();
-            }).bind(this));
+
+            this.eventBus = sap.ui.getCore().getEventBus();
+            this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
         },
 
         handleRouteMatched : function(evt) {
-            var a = evt.getParameters();
-            console.log("a: " + a);
-
             if (evt.getParameter("name") !== "detail") {
                 return;
             }
+            var params = evt.getParameters();
+            this.eventID = params.arguments.detailID;
+            this.bindModel();
+        },
 
-            this.eventID = evt.getParameter("arguments").detailID;
-            
+        bindModel: function() {
+            this.eventsViewsModel = new sap.ui.model.json.JSONModel();
+            this.getView().setModel(this.eventsViewsModel);
+            EventsViews.Retrieve(this.eventID).done((function(data){
+                this.eventsViewsModel.setData(data);
+                this.eventsViewsModel.refresh();
+                //console.log(this.eventsViewsModel);
+            }).bind(this));
+        },
+
+        loggedin: function() {
+            this.bindModel();
         }
 
         
