@@ -8,7 +8,7 @@ sap.ui.define(function () {
       
    }
 
-   Service.prototype.Init = function(_serviceUrl, username, password) {
+   Service.prototype.init = function(_serviceUrl, username, password) {
       serviceUrl = _serviceUrl;
       auth = btoa(username + ":" + password);
    };

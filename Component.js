@@ -1,7 +1,8 @@
 sap.ui.define([
    "sap/ui/core/UIComponent",
-   "sap/ui/model/json/JSONModel"
-], function (UIComponent, JSONModel) {
+   "sap/ui/model/json/JSONModel",
+   "./util/LoginDialog"
+], function (UIComponent, JSONModel, LoginDialog) {
     "use strict";
     return UIComponent.extend("com.scout138.inventoryManager.Component", {
         metadata : {
@@ -13,7 +14,8 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
 
             window.APP_CONFIG = this.getMetadata().getConfig();
-
+            var login = new LoginDialog(sap.ui.getCore());
+            login.show();
             // set data model
             var eventsModel = new sap.ui.model.json.JSONModel();
             // $.ajax({
