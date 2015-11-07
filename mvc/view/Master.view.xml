@@ -24,7 +24,7 @@
                     </layoutData>
                 </Text>
                 <ToolbarSpacer />
-                <Button icon="sap-icon://slim-arrow-down" press="showSettings" />
+                <Button icon="sap-icon://slim-arrow-down" press="showSettings" class="appIconBtn"/>
             </Toolbar>
         </subHeader>
         <content>
@@ -42,7 +42,7 @@
         </content>
         <footer>
             <Toolbar>
-                <Button text="Add" icon="sap-icon://add" press="onAddPress" />
+                <Button text="Add" icon="sap-icon://add" press="onAddPress" class="appIconBtn"/>
             </Toolbar>
         </footer>
     </Page>

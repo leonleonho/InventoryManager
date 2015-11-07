@@ -3,16 +3,22 @@
 .app {
 	header.sapMBar {
 		background: white;
-		.sapMBtnIcon.sapUiIcon {
-			color: @PRIMARY_COLOR;
-			.sapMBtnActive {
-				background-color: transparent;
-			}
+		:not(.sapMBtnActive)>.sapMBtnIcon {
+			color: @PRIMARY_COLOR !important;
+			
 		}			
+    :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+        background-color: @SECONDARY_COLOR !important;
+        border-color: transparent !important;
+        color: white;
+    }
 	} 
 	.sapMPageHeader::before {
 		border-top: 0.25rem solid @PRIMARY_COLOR;
 	}
+  >.sapMSplitContainerDetail {
+    background: white;
+  }
 }
 .appEventListItem {
 	padding: 2em;
@@ -25,6 +31,13 @@
 		//color: @LIGHT_COLOR !important;
 		font-size: 1.4em;
 	}
+}
+.appIconBtn {
+  :not(.sapMBtnDisabled).sapMBtnInner.sapMBtnActive {
+    background-color: @SECONDARY_COLOR !important;
+    border-color: transparent !important;
+    color: white;
+  }
 }
 .appBtn {
   .border-radius(4px);
@@ -113,16 +126,6 @@
       >.sapMBtnIcon {
         color: inherit !important;
       }
-    }
-  }
-
-  &Danger {
-    color: white;
-    @danger1: #c24245;
-    @danger2: #a53e45;
-    .background-image(linear-gradient(top, @danger1 0%, @danger2, 100%));
-    &:active {
-      .background-image(linear-gradient(top, @danger2 0%, @danger1, 100%));
     }
   }
 }
