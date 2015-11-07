@@ -1,0 +1,76 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<l:Grid defaultSpan="L12 M12 S12" hSpacing="1" width="auto">
+		<l:content>
+			<VBox class="marginBoxContent">
+				<items>
+					<Label text="Charge Code" />
+					<Input id="chargeCode" type="Text" placeholder="{temp>/ChargeCode}" value="{temp>/ChargeCode}"
+						showSuggestion="true" suggestionItems="{suggestionModel>/ChargeCodes}">
+						<suggestionItems>
+							<core:ListItem text="{suggestionModel>CC}" additionalText="{suggestionModel>CCName}" />
+						</suggestionItems>
+					</Input>
+					<Label text="Change Request" />
+					<Input id="changeRequest" type="Text" placeholder="{temp>/ChangeRequest}" value="{temp>/ChangeRequest}"
+						showSuggestion="true" suggestionItems="{suggestionModel>/ChangeRequests}">
+						<suggestionItems>
+							<core:ListItem text="{suggestionModel>CR}" additionalText="{suggestionModel>CRName}" />
+						</suggestionItems>
+					</Input>
+					<Label text="Activity Code" />
+					<Input id="activityCode" type="Text" placeholder="{temp>/ActivityCode}" value="{temp>/ActivityCode}"
+						showSuggestion="true" suggestionItems="{suggestionModel>/ActivityCodes}">
+						<suggestionItems>
+							<core:ListItem text="{suggestionModel>AC}" additionalText="{suggestionModel>ACName}" />
+						</suggestionItems>
+					</Input>
+
+					<Label text="Date" />
+					<DatePicker
+						id="date"
+						placeholder="{temp>/Date}"
+						change="handleChange"/>
+						<Label text="Time" />
+						<CustomListItem>
+							<Select id="hours" width="25%" change="itemSelected">
+								<items>
+									<core:Item text="0 hrs" key="0" />
+									<core:Item text="1 hrs" key="1" />
+									<core:Item text="2 hrs" key="2" />
+									<core:Item text="3 hrs" key="3" />
+									<core:Item text="4 hrs" key="4" />
+									<core:Item text="5 hrs" key="5" />
+									<core:Item text="6 hrs" key="6" />
+									<core:Item text="7 hrs" key="7" />
+									<core:Item text="8 hrs" key="8" />
+									<core:Item text="9 hrs" key="9" />
+									<core:Item text="10 hrs" key="10" />
+									<core:Item text="11 hrs" key="11" />
+									<core:Item text="12 hrs" key="12" />
+									<core:Item text="13 hrs" key="13" />
+									<core:Item text="14 hrs" key="14" />
+									<core:Item text="15 hrs" key="15" />
+									<core:Item text="16 hrs" key="16" />
+									<core:Item text="17 hrs" key="17" />
+									<core:Item text="18 hrs" key="18" />
+									<core:Item text="19 hrs" key="19" />
+									<core:Item text="20 hrs" key="20" />
+									<core:Item text="21 hrs" key="21" />
+									<core:Item text="22 hrs" key="22" />
+									<core:Item text="23 hrs" key="23" />
+									<core:Item text="24 hrs" key="24" />
+								</items>
+							</Select>
+							<SegmentedButton id="mins" selectedButton="0min">
+								<Button text="0 min" id="0min" />
+								<Button text="30 min" id="30min" />
+							</SegmentedButton>
+						</CustomListItem>
+					</items>
+				</VBox>
+				<Label text="Notes" height="100px" />
+				<TextArea placeholder="{temp>/Notes}" value="{temp>/Notes}" rows="10" width="100%" />
+			</l:content>
+		</l:Grid>
+	</core:FragmentDefinition>

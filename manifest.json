@@ -53,15 +53,28 @@
 				"controlId": "idAppControl",
 				"controlAggregation": "masterPages"
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "Master",
-				"target": "Master"
-			}, {
-				"pattern": "Detail",
-				"name": "Detail",
-				"target": "Detail"
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "Master",
+					"target": "Master",
+					"targetAggregation" : "masterPages",
+					"targetControl" : "idAppControl",
+					"subroutes" : [
+						{
+							"pattern": "detail/{detailID}",
+							"name":"detail",
+							"view":"Detail",
+							"targetAggregation": "detailPages"
+						}
+					]
+				},
+				{
+					"pattern": "Detail/{detailID}",
+					"name": "Detail",
+					"target": "Detail"
+				}
+			],
 			"targets": {
 				"Master": {
 					"viewName": "Master"
