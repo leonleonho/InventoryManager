@@ -11,6 +11,7 @@ sap.ui.define([
     function LoginDialog(core) {
         var validate;
         var saved = localStorage.getItem("userName");
+        var savedPassword = localStorage.getItem("password");
         var userNameInput = new Input({
             placeholder: "Username",
             value: saved
@@ -18,7 +19,8 @@ sap.ui.define([
 
         var passwordInput = new Input({
             placeholder: "Password",
-            type: "Password"
+            type: "Password",
+            value: savedPassword
         });
         var loginButton = new Button({
             text: "Login",
@@ -57,6 +59,9 @@ sap.ui.define([
         var fireLoggedIn = function() {
             if(rememberMe.getSelected()) {
                 localStorage.setItem("userName", userNameInput.getValue());
+                if(localStorage.getItem("debug")){
+                    localStorage.setItem("password", passwordInput.getValue());
+                }
             } else {
                 localStorage.setItem("userName", "");
             }
