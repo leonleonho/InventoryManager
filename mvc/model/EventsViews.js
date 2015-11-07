@@ -2,6 +2,8 @@ sap.ui.define(["../../util/Service"],
    function (Service) {
       "use strict";
 
+      var members = [];
+
       function EventsViewsModel(data) {
          // this.eventID = data.eventID;
          // this.dateCreated = data.dateCreated;

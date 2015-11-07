@@ -2,8 +2,8 @@ sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
-   "../model/Events"
-], function (Controller, MessageToast, JSONModel, Events, Service) {
+   "../model/Members"
+], function (Controller, MessageToast, JSONModel, Members) {
 "use strict";
 return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
     /**
@@ -16,7 +16,6 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         this.eventBus = sap.ui.getCore().getEventBus();
         this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
     },
-    
     handlePress: function(evt) {
         var sPath = evt.getSource().getBindingContext().getPath();
         var oObject = this.getView().getModel().getProperty(sPath);
@@ -28,16 +27,26 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
             detailID: oObject.eventID
         }, bReplace);
     },
-
     onMenuPress: function() {
       sap.ui.getCore().getEventBus().publish("app", "authFailure", null);
     },
     loggedin: function() {
-      Events.RetrieveAll().done((function(data){
+        Members.RetrieveAll().done((function(data){
             this.eventsModel.setData(data);
             this.eventsModel.refresh();
         }).bind(this));
+    }, 
+    changeJens: function() {
+        var jens;
+        if (this.toggle === true) {
+            this.toggle = false;
+            jens = Members.updateMember(1, {"fName": "ima", "lName": " loser"});
+        } else {
+            this.toggle = true;
+            jens = Members.updateMember(1, {"fName": "I really", "lName": " suck"});
+        }
+        this.getView().getModel().oData[1] = jens;
+        this.eventsModel.refresh();
     }
-
 });
 });

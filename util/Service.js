@@ -19,6 +19,9 @@ sap.ui.define(function () {
       request.beforeSend = function(xhr) {
          xhr.setRequestHeader("Authorization", "Basic " + auth);
          xhr.setRequestHeader("Accept", "application/json");
+         // if (request.method == "POST") {
+         //    xhr.setRequestHeader("X-HTTP-Method", "MERGE");
+         // }
       };
       return $.ajax(request);
    };
