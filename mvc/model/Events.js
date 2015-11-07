@@ -13,7 +13,6 @@ sap.ui.define(["../../util/Service"],
 
       EventsModel.RetrieveAll = function(){
          var deferred = $.Deferred();
-
          Service.ajax({
                path: "Events"
             }).success((function(data){

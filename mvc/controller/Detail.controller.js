@@ -21,7 +21,6 @@ sap.ui.define([
                 this.eventsViewsModel.setData(data);
                 this.eventsViewsModel.refresh();
             }).bind(this));
-
         },
 
         handleRouteMatched : function(evt) {
