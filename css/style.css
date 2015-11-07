@@ -1,3 +1,118 @@
 .appEventListItem {
-	padding: 2em;
+  padding: 2em;
+}
+.appLoginDialog > .sapMDialogSection {
+  padding: 2rem 2rem 2rem 2rem;
+}
+.appLoginDialog h1 {
+  font-size: 1.4em;
+}
+.appBtn {
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  min-width: 5rem;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+}
+.appBtn > .sapMBtnInner {
+  color: white !important;
+  text-shadow: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  background: #dd3a41 !important;
+  border: none !important;
+}
+.appBtn > .sapMBtnInner.sapMBtnPaddingRight {
+  padding-right: 10px;
+}
+.appBtn > .sapMBtnInner.sapMBtnPaddingLeft {
+  padding-left: 10px;
+}
+.appBtn > .sapMBtnInner > .sapMBtnIcon {
+  color: inherit;
+  font-size: 19px;
+}
+.appBtn > .sapMBtnInner > .sapMBtnContent {
+  -webkit-font-smoothing: antialiased;
+}
+.appBtnPrimary {
+  color: green;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 1px 0;
+  background-color: red;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM3MmM1NmQiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzUwYjg0OSIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(top, #72c56d 0%, #50b849, 100%);
+  background-image: -moz-linear-gradient(top, #72c56d 0%, #50b849, 100%);
+  background-image: -o-linear-gradient(top, #72c56d 0%, #50b849, 100%);
+  background-image: linear-gradient(to bottom, #72c56d 0%, #50b849, 100%);
+}
+.appBtnPrimary:active {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM1MGI4NDkiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzcyYzU2ZCIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(top, #50b849 0%, #72c56d, 100%);
+  background-image: -moz-linear-gradient(top, #50b849 0%, #72c56d, 100%);
+  background-image: -o-linear-gradient(top, #50b849 0%, #72c56d, 100%);
+  background-image: linear-gradient(to bottom, #50b849 0%, #72c56d, 100%);
+}
+.appBtnSecondary {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiZmJmYiIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb, 100%);
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb, 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0%, #fbfbfb, 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #fbfbfb, 100%);
+  border: 1px solid #c6d7e0 !important;
+  height: 42px;
+}
+.appBtnSecondary > .sapMBtnInner,
+.appBtnSecondary > .sapMBtnInner .sapMBtnIcon {
+  color: #0d6893 !important;
+  text-shadow: none;
+}
+.appBtnSecondary:active {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYmZiZmIiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=) !important;
+  background-image: -webkit-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: -moz-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: -o-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: linear-gradient(to bottom, #fbfbfb 0%, #ffffff, 100%) !important;
+}
+.appBtnSecondary.sapMBtnActive {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYmZiZmIiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=) !important;
+  background-image: -webkit-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: -moz-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: -o-linear-gradient(top, #fbfbfb 0%, #ffffff, 100%) !important;
+  background-image: linear-gradient(to bottom, #fbfbfb 0%, #ffffff, 100%) !important;
+}
+.appBtnLink {
+  background-color: transparent;
+  border: none;
+}
+.appBtnLink > .sapMBtnInner {
+  color: green !important;
+}
+.appBtnLink > .sapMBtnInner > .sapMBtnIcon {
+  color: inherit !important;
+}
+.appBtnDanger {
+  color: white;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNjMjQyNDUiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2E1M2U0NSIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(top, #c24245 0%, #a53e45, 100%);
+  background-image: -moz-linear-gradient(top, #c24245 0%, #a53e45, 100%);
+  background-image: -o-linear-gradient(top, #c24245 0%, #a53e45, 100%);
+  background-image: linear-gradient(to bottom, #c24245 0%, #a53e45, 100%);
+}
+.appBtnDanger:active {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNhNTNlNDUiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2MyNDI0NSIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(top, #a53e45 0%, #c24245, 100%);
+  background-image: -moz-linear-gradient(top, #a53e45 0%, #c24245, 100%);
+  background-image: -o-linear-gradient(top, #a53e45 0%, #c24245, 100%);
+  background-image: linear-gradient(to bottom, #a53e45 0%, #c24245, 100%);
+}
+.appCheckbox > .sapMCbBg.sapMCbMarkChecked:before {
+  color: #db0000;
+}
+.appInput > .sapMInputBaseInner:hover {
+  border-color: #dd3a41 !important;
 }

@@ -8,7 +8,7 @@
         <title>Inventory Manager</title>
         <link rel="stylesheet" href="css/style.css">
         <script id="sap-ui-bootstrap"
-        src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        src="../openui5-1.30.8/resources/sap-ui-core.js"
         data-sap-ui-theme="sap_bluecrystal"
         data-sap-ui-libs="sap.m"
         data-sap-ui-bindingSyntax="complex"
@@ -41,5 +41,8 @@
     </head>
 
     <body class="sapUiBody" id="content" />
-
+    <script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
 </html>

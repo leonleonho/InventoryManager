@@ -15,13 +15,13 @@ sap.ui.define([
         var userNameInput = new Input({
             placeholder: "Username",
             value: saved
-        });
+        }).addStyleClass("appInput");
 
         var passwordInput = new Input({
             placeholder: "Password",
             type: "Password",
             value: savedPassword
-        });
+        }).addStyleClass("appInput");
         var loginButton = new Button({
             text: "Login",
             width: "100%",
@@ -29,17 +29,17 @@ sap.ui.define([
                 console.log("Pressed");
                 validate();
             }
-        });
+        }).addStyleClass("appBtn");
         var rememberMe = new Checkbox({
             name: "Remember Me",
             text: "Remember Me",
             selected: saved ? true : false
-        });
+        }).addStyleClass("appCheckbox");
 
         var loginDialog = new Dialog({
             title: "Login",
             content: [userNameInput, passwordInput, rememberMe, loginButton]
-        });
+        }).addStyleClass("appLoginDialog");
         
         function setErrorState() {
             userNameInput.setValueState("Error");
