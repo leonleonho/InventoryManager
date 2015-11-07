@@ -1,5 +1,19 @@
 @import "lesshat";
 @import "colors";
+.app {
+	header.sapMBar {
+		background: white;
+		.sapMBtnIcon.sapUiIcon {
+			color: @PRIMARY_COLOR;
+			.sapMBtnActive {
+				background-color: transparent;
+			}
+		}			
+	} 
+	.sapMPageHeader::before {
+		border-top: 0.25rem solid @PRIMARY_COLOR;
+	}
+}
 .appEventListItem {
 	padding: 2em;
 }
@@ -120,6 +134,9 @@
 }
 .appInput {
 	>.sapMInputBaseInner:hover {
+		border-color: @SECONDARY_COLOR !important;
+	}
+	>.sapMInputBaseInner:focus {
 		border-color: @SECONDARY_COLOR !important;
 	}
 }

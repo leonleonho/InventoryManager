@@ -1,3 +1,15 @@
+.app header.sapMBar {
+  background: white;
+}
+.app header.sapMBar .sapMBtnIcon.sapUiIcon {
+  color: #db0000;
+}
+.app header.sapMBar .sapMBtnIcon.sapUiIcon .sapMBtnActive {
+  background-color: transparent;
+}
+.app .sapMPageHeader::before {
+  border-top: 0.25rem solid #db0000;
+}
 .appEventListItem {
   padding: 2em;
 }
@@ -114,5 +126,8 @@
   color: #db0000;
 }
 .appInput > .sapMInputBaseInner:hover {
+  border-color: #dd3a41 !important;
+}
+.appInput > .sapMInputBaseInner:focus {
   border-color: #dd3a41 !important;
 }
