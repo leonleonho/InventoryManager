@@ -30,6 +30,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
     },
 
     onMenuPress: function() {
+      sap.ui.getCore().getEventBus().publish("app", "authFailure", null);
     },
     loggedin: function() {
       Events.RetrieveAll().done((function(data){

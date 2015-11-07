@@ -19,7 +19,6 @@ sap.ui.define([
                 this.eventsViewsModel.setData(data);
                 this.eventsViewsModel.refresh();
             }).bind(this));
-
         },
 
         handlePress: function(evt) {

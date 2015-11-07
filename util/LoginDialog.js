@@ -10,8 +10,10 @@ sap.ui.define([
     
     function LoginDialog(core) {
         var validate;
+        var saved = localStorage.getItem("userName");
         var userNameInput = new Input({
-            placeholder: "Username"
+            placeholder: "Username",
+            value: saved
         });
 
         var passwordInput = new Input({
@@ -28,7 +30,8 @@ sap.ui.define([
         });
         var rememberMe = new Checkbox({
             name: "Remember Me",
-            text: "Remember Me"
+            text: "Remember Me",
+            selected: saved ? true : false
         });
 
         var loginDialog = new Dialog({
@@ -52,6 +55,11 @@ sap.ui.define([
         }.bind(this));
 
         var fireLoggedIn = function() {
+            if(rememberMe.getSelected()) {
+                localStorage.setItem("userName", userNameInput.getValue());
+            } else {
+                localStorage.setItem("userName", "");
+            }
             setTimeout(function() {
                 core.getEventBus().publish("app", "loggedin");
             });
@@ -82,6 +90,8 @@ sap.ui.define([
         this.show = function(){
             loginDialog.open();
         };
+
+        sap.ui.getCore().getEventBus().subscribe("app", "authFailure", this.show, this);
     }
 
     return LoginDialog;
