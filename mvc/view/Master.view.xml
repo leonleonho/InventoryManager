@@ -28,8 +28,8 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: '/'}" itemPress="handlePress">
-                <CustomListItem class="appEventListItem" press="handlePress">
+            <List items="{path: '/'}">
+                <CustomListItem class="appEventListItem" press="handlePress" type="Active">
                     <FlexBox justifyContent="SpaceBetween">
                             <items>
                                 <Link text="{eventName}" target="{ProductPicUrl}" />

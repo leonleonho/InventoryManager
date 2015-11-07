@@ -20,12 +20,23 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
             this.eventsModel.refresh();
         }).bind(this));
     },
+    
     handlePress: function(evt) {
-        console.log("pressed");
+        var sPath = evt.getSource().getBindingContext().getPath();
+        var oObject = this.getView().getModel().getProperty(sPath);
+        console.log(oObject.eventID + " pressed");
+        this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        var bReplace = $.device.is.phone ? false : true;
+        this.oRouter.navTo("Detail", {
+            from:"Master",
+            detailID: oObject.eventID
+        }, bReplace);
     },
 
     onMenuPress: function() {
         
-    }
+    },
+
+    
 });
 });
