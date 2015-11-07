@@ -28,11 +28,11 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: '/'}">
-                <CustomListItem class="appEventListItem" press="handlePress" type="Active">
+            <List items="{path: '/'}" class="appList" id="masterList">
+                <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
                     <FlexBox justifyContent="SpaceBetween">
                             <items>
-                                <Link text="{eventName}" target="{ProductPicUrl}" />
+                                <Text text="{eventName}" target="{ProductPicUrl}" />
                                 <Label text="{itemsCheckedOut}"/>
                             </items>
                     </FlexBox>

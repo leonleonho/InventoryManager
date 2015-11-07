@@ -81,17 +81,22 @@
   }
 
   &Primary {
-    @primary1: #72c56d;
-    @primary2: #50b849;
-
-    color: green;
-    //font-weight: bold;
-    text-shadow: rgba(0, 0, 0, 0.5) 0 1px 0;
-    background-color: red;
-    .background-image(linear-gradient(top, @primary1 0%, @primary2, 100%));
-    //border: 1px solid @primary1;
-    &:active {
-      .background-image(linear-gradient(top, @primary2 0%, @primary1, 100%));
+    @primary1: @LIGHT_RED;
+    @primary2: @PRIMARY_COLOR;
+    >.sapMBtnInner {
+      color: white;
+      //font-weight: bold;
+      text-shadow: rgba(0, 0, 0, 0.5) 0 1px 0;
+      background-color: red;
+      .background-image(linear-gradient(top, @primary1 0%, @primary2, 100%));
+      //border: 1px solid @primary1;
+      &:not(.sapMBtnDisabled).sapMBtnActive{
+        border: none;
+        .background-image(linear-gradient(top, @primary2 0%, @primary1, 100%)) !important;
+      }
+    }
+    &.sapMBtn:hover>.sapMBtnHoverable {
+     .background-image(linear-gradient(top, @primary1 0%, @primary2, 100%));
     }
   }
 
@@ -142,4 +147,12 @@
 	>.sapMInputBaseInner:focus {
 		border-color: @SECONDARY_COLOR !important;
 	}
+}
+.appList {
+  .sapMLIB.sapMLIBActive {
+    background: @ACCENT;
+    .sapMText, .sapMListTblell .sapMText , .sapMListTblSubCntRow .sapMText{
+      color: @TEXT;
+    }
+  }
 }

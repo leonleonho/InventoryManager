@@ -29,7 +29,7 @@ sap.ui.define([
                 console.log("Pressed");
                 validate();
             }
-        }).addStyleClass("appBtn");
+        }).addStyleClass("appBtnPrimary");
         var rememberMe = new Checkbox({
             name: "Remember Me",
             text: "Remember Me",
