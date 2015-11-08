@@ -62,17 +62,12 @@
 					"targetControl" : "idAppControl",
 					"subroutes" : [
 						{
-							"pattern": "detail/{detailID}",
-							"name":"detail",
+							"pattern": "Detail/{detailID}",
+							"name":"Detail",
 							"view":"Detail",
 							"targetAggregation": "detailPages"
 						}
 					]
-				},
-				{
-					"pattern": "Detail/{detailID}",
-					"name": "Detail",
-					"target": "Detail"
 				}
 			],
 			"targets": {

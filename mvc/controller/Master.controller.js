@@ -31,7 +31,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
 
     onMenuPress: function(evt) {
         if(!this._menuPopover) {
-            this._menuPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.Menu");
+            this._menuPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.Menu", this);
             this.getView().addDependent(this._menuPopover);
         }
         var button = evt.getSource();
@@ -44,6 +44,9 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
             this.eventsModel.setData(data);
             this.eventsModel.refresh();
         }).bind(this));
+    },
+    onNavToProduct: function(evt) {
+        var src = evt.getSource();
     }
 
 });
