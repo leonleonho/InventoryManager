@@ -5,19 +5,25 @@ sap.ui.define(function () {
    var auth;
 
    function Service() {
-      
+      auth = "Token " + btoa(localStorage.getItem("userName") + ":" + localStorage.getItem("authToken"));
    }
 
-   Service.prototype.init = function(_serviceUrl, username, password) {
+   Service.prototype.init = function(_serviceUrl, data) {
       serviceUrl = _serviceUrl;
-      auth = btoa(username + ":" + password);
+      if(data.useToken) {
+         auth = "Token " + btoa(localStorage.getItem("userName") + ":" + localStorage.getItem("authToken"));
+      } else {
+         auth = "Basic " + btoa(data.username + ":" + data.password);
+      }
+      
    };
 
    Service.prototype.ajax = function(request) {
-      request.url = serviceUrl + request.path;
+      request.url = request.serviceUrl ?  request.serviceUrl : serviceUrl + request.path;
       request.dataType = request.dataType ? request.dataType : "json";
+      var _auth = request.auth ? request.auth : auth;
       request.beforeSend = function(xhr) {
-         xhr.setRequestHeader("Authorization", "Basic " + auth);
+         xhr.setRequestHeader("Authorization", _auth);
          xhr.setRequestHeader("Accept", "application/json");
          // if (request.method == "POST") {
          //    xhr.setRequestHeader("X-HTTP-Method", "MERGE");

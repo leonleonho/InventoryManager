@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EventInventory">
           <Key>
             <PropertyRef Name="eventInventoryID" />
@@ -76,6 +76,8 @@
           <Property Name="userType" Type="numeric" Precision="5" Scale="0" Nullable="false" />
           <Property Name="fName" Type="nvarchar" MaxLength="50" />
           <Property Name="lName" Type="nvarchar" MaxLength="50" />
+          <Property Name="authToken" Type="nvarchar(max)" />
+          <Property Name="authDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -262,7 +264,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
             <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryManagerDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -350,6 +353,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="userType" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="lName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="authToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="authDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Users" FromRole="Users" ToRole="Events" />
         </EntityType>
         <EntityType Name="EventsView">
@@ -592,6 +597,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
                 <ScalarProperty Name="userType" ColumnName="userType" />
                 <ScalarProperty Name="fName" ColumnName="fName" />
                 <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="authToken" ColumnName="authToken" />
+                <ScalarProperty Name="authDate" ColumnName="authDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

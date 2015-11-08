@@ -12,7 +12,8 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
             window.APP_CONFIG = this.getMetadata().getConfig();
             var login = new LoginDialog(sap.ui.getCore());
-            login.show();
+            login.show();            
+            login.attemptAuth();
             this.getRouter().initialize();
         }
     });

@@ -19,6 +19,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
     handlePress: function(evt) {
         var sPath = evt.getSource().getBindingContext().getPath();
         var oObject = this.getView().getModel().getProperty(sPath);
+        
         console.log(oObject.eventID + " pressed");
         this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         var bReplace = $.device.is.phone ? false : true;
@@ -28,7 +29,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         }, bReplace);
     },
     onMenuPress: function() {
-      sap.ui.getCore().getEventBus().publish("app", "authFailure", null);
+      this.byId("masterList").setSelectedItemById("__item0-__xmlview1--masterList-1");
     },
     loggedin: function() {
         Members.RetrieveAll().done((function(data){

@@ -24,18 +24,18 @@
                     </layoutData>
                 </Text>
                 <ToolbarSpacer />
-                <Button icon="sap-icon://slim-arrow-down" press="showSettings" />
+                <Button icon="sap-icon://slim-arrow-down" press="showSettings" class="appIconBtn"/>
             </Toolbar>
         </subHeader>
         <content>
             <Button text="change Jens" press="changeJens"/>
-            <List items="{path: '/'}">
-                <CustomListItem class="appEventListItem" press="handlePress" type="Active">
+            <List items="{path: '/'}" class="appList" id="masterList">
+                <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
                     <FlexBox justifyContent="SpaceBetween">
-                            <items>
-                                <Label text="{eventName}" target="{ProductPicUrl}" />
-                                <Label text="{fName}"/>
-                            </items>
+                        <items>
+                            <Text text="{fName} {lName}" target="{ProductPicUrl}" />
+                            <Label text="{itemsCheckedOut}"/>
+                        </items>
                     </FlexBox>
                     <Label text="{hostName}"/>
                 </CustomListItem>
@@ -43,7 +43,7 @@
         </content>
         <footer>
             <Toolbar>
-                <Button text="Add" icon="sap-icon://add" press="onAddPress" />
+                <Button text="Add" icon="sap-icon://add" press="onAddPress" class="appIconBtn"/>
             </Toolbar>
         </footer>
     </Page>

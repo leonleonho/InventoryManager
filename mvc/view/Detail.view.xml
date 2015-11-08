@@ -28,8 +28,8 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer />
-				<Button text="Save" press="save"/>
-				<Button text="Delete" icon="sap-icon://delete" press="deleteFile"/>
+				<Button text="Save" press="save" class="appIconBtn"/>
+				<Button text="Delete" icon="sap-icon://delete" press="deleteFile" class="appIconBtn"/>
 			</Toolbar>
 		</footer>
 	</Page>

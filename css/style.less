@@ -1,0 +1,158 @@
+@import "lesshat";
+@import "colors";
+.app {
+	header.sapMBar {
+		background: white;
+		:not(.sapMBtnActive)>.sapMBtnIcon {
+			color: @PRIMARY_COLOR !important;
+			
+		}			
+    :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+        background-color: @SECONDARY_COLOR !important;
+        border-color: transparent !important;
+        color: white;
+    }
+	} 
+	.sapMPageHeader::before {
+		border-top: 0.25rem solid @PRIMARY_COLOR;
+	}
+  >.sapMSplitContainerDetail {
+    background: white;
+  }
+}
+.appEventListItem {
+	padding: 2em;
+}
+.appLoginDialog {
+	> .sapMDialogSection {
+		padding: 2rem 2rem 2rem 2rem;
+	}
+	h1 {
+		//color: @LIGHT_COLOR !important;
+		font-size: 1.4em;
+	}
+}
+.appIconBtn {
+  :not(.sapMBtnDisabled).sapMBtnInner.sapMBtnActive {
+    background-color: @SECONDARY_COLOR !important;
+    border-color: transparent !important;
+    color: white;
+  }
+}
+.appBtn {
+  .border-radius(4px);
+  min-width: 5rem;
+  height: 40px; //2.5rem - default 3
+  line-height: 40px;
+  padding: 0;
+
+  >.sapMBtnInner {
+    color: white !important;
+    text-shadow: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+    background: @SECONDARY_COLOR !important;
+    border:none !important;
+    //height: inherit;
+    //line-height: inherit;
+
+    &.sapMBtnPaddingRight {
+      //because we shrink the icon a bit, adjust the padding right class
+      padding-right: 10px; //default 12px
+    }
+    &.sapMBtnPaddingLeft {
+      //adjust padding left to match padding right
+      padding-left: 10px; //default 12px
+    }
+
+    >.sapMBtnIcon {
+      color: inherit;
+      //line-height: 2.3rem; //don't inherit
+      //height: inherit;
+      font-size: 19px;
+    }
+    >.sapMBtnContent {
+      //line-height: inherit;
+      -webkit-font-smoothing: antialiased;
+    }
+    >.sapMBtnCustomIcon+.sapMBtnContent {
+      //line-height: inherit;
+    }
+  }
+
+  &Primary {
+    @primary1: @LIGHT_RED;
+    @primary2: @PRIMARY_COLOR;
+    >.sapMBtnInner {
+      color: white;
+      //font-weight: bold;
+      text-shadow: rgba(0, 0, 0, 0.5) 0 1px 0;
+      background-color: red;
+      .background-image(linear-gradient(top, @primary1 0%, @primary2, 100%));
+      //border: 1px solid @primary1;
+      &:not(.sapMBtnDisabled).sapMBtnActive{
+        border: none;
+        .background-image(linear-gradient(top, @primary2 0%, @primary1, 100%)) !important;
+      }
+    }
+    &.sapMBtn:hover>.sapMBtnHoverable {
+     .background-image(linear-gradient(top, @primary1 0%, @primary2, 100%));
+    }
+  }
+
+  &Secondary {
+    @color: #0d6893;
+    @border: #c6d7e0;
+    @bg1: #ffffff;
+    @bg2: #fbfbfb;
+    .background-image(linear-gradient(top, @bg1 0%, @bg2, 100%));
+    border:1px solid @border !important;
+    height: 42px; //needs to be 2px bigger to account for the border
+
+    >.sapMBtnInner {
+      &, .sapMBtnIcon {
+        color: @color !important;
+        text-shadow: none;
+      }
+    }
+    &:active {
+      .background-image(linear-gradient(top, @bg2 0%, @bg1, 100%)) !important;
+    }
+    &.sapMBtnActive {
+      .background-image(linear-gradient(top, @bg2 0%, @bg1, 100%)) !important;
+    }
+  }
+
+  &Link {
+    background-color: transparent;
+    border:none;
+    >.sapMBtnInner {
+      color: green !important;
+      >.sapMBtnIcon {
+        color: inherit !important;
+      }
+    }
+  }
+}
+
+.appCheckbox {
+	>.sapMCbBg.sapMCbMarkChecked:before {
+		color: @PRIMARY_COLOR;
+	}
+}
+.appInput {
+	>.sapMInputBaseInner:hover {
+		border-color: @SECONDARY_COLOR !important;
+	}
+	>.sapMInputBaseInner:focus {
+		border-color: @SECONDARY_COLOR !important;
+	}
+}
+.appList {
+  .sapMLIB.sapMLIBActive {
+    background: @ACCENT;
+    .sapMText, .sapMListTblell .sapMText , .sapMListTblSubCntRow .sapMText{
+      color: @TEXT;
+    }
+  }
+}
