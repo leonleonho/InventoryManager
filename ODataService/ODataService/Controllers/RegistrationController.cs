@@ -82,12 +82,22 @@ namespace oDataService.Controllers
         public HttpResponseMessage Login()
         {
             string authParams = Request.Headers.Authorization.Parameter;
-            KeyValuePair<string, string> login = Auth.DecodeHash(authParams); //Key is user value is pass
-            if(Auth.Authenticate(login))
+            string scheme = Request.Headers.Authorization.Scheme;
+            if(scheme == "Token")
             {
-                HttpResponseMessage resp = new HttpResponseMessage(HttpStatusCode.OK);
-                resp.Content = new StringContent(Auth.generateToken(login.Key));
-                return resp;
+                if (Auth.Authenticate(authParams))
+                {
+                    return new HttpResponseMessage(HttpStatusCode.OK); ;
+                }
+            } else
+            {
+                KeyValuePair<string, string> login = Auth.DecodeHash(authParams); //Key is user value is pass
+                if (Auth.Authenticate(login))
+                {
+                    HttpResponseMessage resp = new HttpResponseMessage(HttpStatusCode.OK);
+                    resp.Content = new StringContent(Auth.generateToken(login.Key));
+                    return resp;
+                }
             }
             return new HttpResponseMessage(HttpStatusCode.Forbidden);
         }
@@ -121,7 +131,6 @@ namespace oDataService.Controllers
                 newUser.fName = reg.fName == null ? newUser.fName : reg.fName;
                 newUser.lName = reg.lName == null ? newUser.lName : reg.lName;
                 newUser.phone = reg.phone == 0 ? newUser.phone : reg.phone;
-                Debug.WriteLine(reg.phone);
                 await db.SaveChangesAsync();
 
                 return new HttpResponseMessage(HttpStatusCode.OK);

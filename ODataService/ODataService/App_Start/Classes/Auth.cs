@@ -64,10 +64,15 @@ namespace oDataService.Classes
             string[] userPass = decoded.Split(':');
             string username = userPass[0];
             Models.User user = db.Users.Where(u => u.userName == username).First();
-
+            Debug.WriteLine(username + " : " + userPass[1]);
             if(user.authDate.HasValue && (DateTime.Now - user.authDate.Value).TotalMinutes < 30)
             {
-                return userPass[1] == user.authToken;
+                if (userPass[1] == user.authToken)
+                {
+                    user.authDate = DateTime.Now;
+                    db.SaveChanges();
+                    return true;
+                }
             }
             return false;
             
