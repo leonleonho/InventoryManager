@@ -28,7 +28,6 @@
             </Toolbar>
         </subHeader>
         <content>
-            <Button text="change Jens" press="changeJens"/>
             <List items="{path: '/'}" class="appList" id="masterList">
                 <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
                     <FlexBox justifyContent="SpaceBetween">

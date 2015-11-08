@@ -2,9 +2,8 @@ sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
-   "../model/Members",
    "../model/Events"
-], function (Controller, MessageToast, JSONModel, Members, Events) {
+], function (Controller, MessageToast, JSONModel, Events) {
 "use strict";
 return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
     /**
@@ -32,22 +31,10 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
       sap.ui.getCore().getEventBus().publish("app", "authFailure", null);
     },
     loggedin: function() {
-        Members.RetrieveAll().done((function(data){
+        Events.RetrieveAll().done((function(data){
             this.eventsModel.setData(data);
             this.eventsModel.refresh();
         }).bind(this));
-    }, 
-    changeJens: function() {
-        var jens;
-        if (this.toggle === true) {
-            this.toggle = false;
-            jens = Members.updateMember(2, {"fName": "Jens", "lName": "Christiansen"});
-        } else {
-            this.toggle = true;
-            jens = Members.updateMember(2, {"fName": "Sonny", "lName": "Smith"});
-        }
-        this.getView().getModel().oData[1] = jens;
-        this.eventsModel.refresh();
     }
 });
 });

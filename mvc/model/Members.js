@@ -2,7 +2,7 @@ sap.ui.define(["../../util/Service"],
 	function (Service) {
 		"use strict";
 
-		var _members = [];
+		this.members = [];
 
 		function MembersModel(data) {
 			this.memberID = data.memberID;
@@ -13,17 +13,16 @@ sap.ui.define(["../../util/Service"],
 			this.phone = data.phone;
 		}
 
-		MembersModel.getAllMembers = function() {
-			return _members;
-		};
+		MembersModel.prototype.updateMember = function(_data) {
 
-		MembersModel.getMember = function(index) {
-			return _members[index];
-		};
+			// update the model
+			$.each(_data, (function(key, val) {
+				this[key] = val;
+			}).bind(this));
 
-		MembersModel.updateMember = function(index, _data) {
+			// update the entry in the database
 			Service.ajax({
-				path: "Members(" + index + ")",
+				path: "Members(" + this.memberID + ")",
 				method: "PATCH",
 				data: JSON.stringify(_data)
 			}).success((function(_data) {
@@ -31,17 +30,15 @@ sap.ui.define(["../../util/Service"],
 				console.log(_data);
 			}));
 
-			// var member = _members[index - 1];
-			// $.each(_data, function(key, val) {
-			// 	member[key] = val;
-			// });
-			
-			// return member;
+		};
+
+		MembersModel.getAllMembers = function() {
+			return this.members;
 		};
 
 		MembersModel.RetrieveAll = function() {
 			var deferred = $.Deferred();
-
+			var _members = [];
 			Service.ajax(
 				{
 					path: "Members"
@@ -50,10 +47,12 @@ sap.ui.define(["../../util/Service"],
 					for (var i = 0; i < data.length; i++) {
 						_members.push(new MembersModel(data[i]));
 					}
-					deferred.resolve(_members);
+					deferred.resolve(this.members);
 				}).bind(this)).fail(function(data) {
 					deferred.reject(data);
 				});
+
+				this.members = _members;
 
 			return deferred;
 		};
