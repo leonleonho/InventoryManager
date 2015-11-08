@@ -68,9 +68,14 @@ sap.ui.define([
             } else {
                 localStorage.setItem("userName", "");
             }
-            setTimeout(function() {
+            setTimeout((function() {
+                APP_CONFIG.state = APP_CONFIG.state ? APP_CONFIG.state : {};
+                APP_CONFIG.state.auth = {
+                    loggedIn: true,
+                    headers: "Token " + btoa(localStorage.getItem("userName") + ":" + localStorage.getItem("authToken"))
+                };
                 core.getEventBus().publish("app", "loggedin");
-            });
+            }).bind(this));
         };
 
         validate = function() {

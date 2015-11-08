@@ -50,14 +50,13 @@
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"viewPath": "com.scout138.inventoryManager.mvc.view",
-				"controlId": "idAppControl",
 				"controlAggregation": "masterPages"
 			},
 			"routes": [
 				{
 					"pattern": "",
 					"name": "Master",
-					"target": "Master",
+					"view": "Master",
 					"targetAggregation" : "masterPages",
 					"targetControl" : "idAppControl",
 					"subroutes" : [
@@ -68,16 +67,14 @@
 							"targetAggregation": "detailPages"
 						}
 					]
+				}, {
+					"pattern": "Inventory",
+					"name": "Inventory",
+					"view": "Inventory",
+					"targetAggregation": "masterPages",
+					"targetControl": "idAppControl"
 				}
-			],
-			"targets": {
-				"Master": {
-					"viewName": "Master"
-				},
-				"Detail": {
-					"viewName": "Detail"
-				}
-			}
+			]
 		}
 	}
 }

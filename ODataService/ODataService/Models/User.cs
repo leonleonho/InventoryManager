@@ -11,8 +11,7 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,16 +22,13 @@ namespace oDataService.Models
     
         public int userID { get; set; }
         public string userName { get; set; }
-        [NotMapped]
         public string password { get; set; }
         public string email { get; set; }
         public Nullable<decimal> phone { get; set; }
         public decimal userType { get; set; }
         public string fName { get; set; }
         public string lName { get; set; }
-        [NotMapped]
         public string authToken { get; set; }
-        [NotMapped]
         public Nullable<System.DateTime> authDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
