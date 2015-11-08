@@ -82,10 +82,12 @@ namespace oDataService.Controllers
         public HttpResponseMessage Login()
         {
             string authParams = Request.Headers.Authorization.Parameter;
-            KeyValuePair<string, string> login = Auth.DecodeHash(authParams);
+            KeyValuePair<string, string> login = Auth.DecodeHash(authParams); //Key is user value is pass
             if(Auth.Authenticate(login))
             {
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                HttpResponseMessage resp = new HttpResponseMessage(HttpStatusCode.OK);
+                resp.Content = new StringContent(Auth.generateToken(login.Key));
+                return resp;
             }
             return new HttpResponseMessage(HttpStatusCode.Forbidden);
         }

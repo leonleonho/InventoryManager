@@ -43,13 +43,34 @@ namespace oDataService.Classes
             InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
             string username = login.Key;
             string pass = login.Value;
-            Debug.WriteLine(username + " : " + pass);
             Models.User user = db.Users.Where(u => u.userName == username).First();
             if (Auth.verifyPassword(pass, user.password))
             {
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// Authenticate via a token.
+        /// </summary>
+        /// <param name="token">The token to authenticate.</param>
+        /// <returns>authentication status success/failure</returns>
+        public static bool Authenticate(string token)
+        {
+            InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
+            byte[] data = Convert.FromBase64String(token);
+            string decoded = Encoding.UTF8.GetString(data);
+
+            string[] userPass = decoded.Split(':');
+            string username = userPass[0];
+            Models.User user = db.Users.Where(u => u.userName == username).First();
+
+            if(user.authDate.HasValue && (DateTime.Now - user.authDate.Value).TotalMinutes < 30)
+            {
+                return userPass[1] == user.authToken;
+            }
+            return false;
+            
         }
         /// <summary>
         /// Regex tests the password to see if it is secure enough
@@ -73,6 +94,17 @@ namespace oDataService.Classes
         private static bool verifyPassword(string password, string hash)
         {
             return PasswordHash.ValidatePassword(password, hash);
+        }
+
+        public static string generateToken(string username)
+        {
+            InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
+            Models.User user = db.Users.Where(u => u.userName == username).First();
+            string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            user.authToken = token;
+            user.authDate = DateTime.Now;
+            db.SaveChanges();
+            return token;
         }
     }
 }
