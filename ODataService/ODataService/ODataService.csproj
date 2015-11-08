@@ -108,15 +108,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\InventoryManagerModel.Context.tt">
+    <Content Include="Models\InventoryManager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventoryManagerModel.edmx</DependentUpon>
-      <LastGenOutput>InventoryManagerModel.Context.cs</LastGenOutput>
+      <LastGenOutput>InventoryManager.Context.cs</LastGenOutput>
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\InventoryManagerModel.tt">
+    <Content Include="Models\InventoryManager.edmx.diagram">
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\InventoryManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventoryManagerModel.edmx</DependentUpon>
-      <LastGenOutput>InventoryManagerModel.cs</LastGenOutput>
+      <LastGenOutput>InventoryManager.cs</LastGenOutput>
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -124,9 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Classes\AuthActionFilter.cs" />
-    <Compile Include="Classes\Auth.cs" />
-    <Compile Include="Classes\PasswordHash.cs" />
+    <Compile Include="App_Start\Classes\AuthActionFilter.cs" />
+    <Compile Include="App_Start\Classes\Auth.cs" />
+    <Compile Include="App_Start\Classes\PasswordHash.cs" />
     <Compile Include="Controllers\EventInventoriesController.cs" />
     <Compile Include="Controllers\EventMembersController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
@@ -140,56 +143,54 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventInventory.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventMember.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventsView.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventory.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InventoryManagerModel.Context.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="Models\InventoryManager.Context.cs">
+      <DependentUpon>InventoryManager.Context.tt</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagerModel.Context.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Models\InventoryManagerModel.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="Models\InventoryManager.cs">
+      <DependentUpon>InventoryManager.tt</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Models\InventoryManagerModel.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="Models\InventoryManager.Designer.cs">
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagerModel.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>InventoryManagerModel.tt</DependentUpon>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="Models\InventoryManagerModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InventoryManagerModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\InventoryManagerModel.edmx.diagram">
-      <DependentUpon>InventoryManagerModel.edmx</DependentUpon>
-    </Content>
     <Content Include="ConnectionString.config" />
+    <Content Include="ClassDiagram1.cd" />
+    <EntityDeploy Include="Models\InventoryManager.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventoryManager.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Web.Debug.config">

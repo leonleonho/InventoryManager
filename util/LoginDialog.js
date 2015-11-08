@@ -56,9 +56,12 @@ sap.ui.define([
             }
         }.bind(this));
 
-        var fireLoggedIn = function() {
+        var fireLoggedIn = function(token) {
             if(rememberMe.getSelected()) {
                 localStorage.setItem("userName", userNameInput.getValue());
+                if(token){
+                    localStorage.setItem("authToken", token);    
+                }
                 if(localStorage.getItem("debug")){
                     localStorage.setItem("password", passwordInput.getValue());
                 }
@@ -74,7 +77,10 @@ sap.ui.define([
             clearErrorState();
             var username = userNameInput.getValue();
             var password = passwordInput.getValue();
-            Service.init(APP_CONFIG.oDataService, username, password);
+            Service.init(APP_CONFIG.oDataService, {
+                username:username,
+                password:password
+            });
             loginDialog.setBusyIndicatorDelay(0);
             loginDialog.setBusy(true);
             Service.ajax({
@@ -84,14 +90,33 @@ sap.ui.define([
                 loginDialog.setBusy(false);
                 if(xhr.status === 200) {
                     loginDialog.close();
-                    fireLoggedIn();
+                    fireLoggedIn(xhr.responseText);
                 } else {
                     setErrorState();
                 }
             });
         };
 
-        
+        this.attemptAuth = function() {
+            if(localStorage.getItem("authToken")) {
+                Service.ajax({
+                    type: "Post",
+                    serviceUrl: APP_CONFIG.oDataService + "api/Registration/Login"
+                }).always((function(xhr){
+                    loginDialog.setBusy(false);
+                    if(xhr.status === 200) {
+                        loginDialog.close();
+                        Service.init(APP_CONFIG.oDataService, {"useToken" : true});
+                        fireLoggedIn(xhr.responseText);
+                    } else {
+                        this.show();
+                    }
+                }).bind(this));
+            } else {
+                this.show();
+            }
+        };
+
         this.show = function(){
             loginDialog.open();
         };

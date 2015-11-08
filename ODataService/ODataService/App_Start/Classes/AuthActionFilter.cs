@@ -17,9 +17,18 @@ namespace oDataService.Classes
             AuthenticationHeaderValue authHeaders = actionContext.Request.Headers.Authorization;
             if (authHeaders == null)
                 return false;
-            string authValue = authHeaders.Parameter;
-            KeyValuePair<string, string> login = Auth.DecodeHash(authValue);
-            return Auth.Authenticate(login);
+            if (authHeaders.Scheme == "Token")
+            {
+                string authToken = authHeaders.Parameter;
+                return Auth.Authenticate(authToken);
+
+            } else if (authHeaders.Scheme == "Basic")
+            {
+                string authValue = authHeaders.Parameter;
+                KeyValuePair<string, string> login = Auth.DecodeHash(authValue);
+                return Auth.Authenticate(login);
+            }
+            return false;
             
         }
     }

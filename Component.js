@@ -15,7 +15,9 @@ sap.ui.define([
 
             window.APP_CONFIG = this.getMetadata().getConfig();
             var login = new LoginDialog(sap.ui.getCore());
-            login.show();
+            
+            
+            login.attemptAuth();
             // set data model
             var eventsModel = new sap.ui.model.json.JSONModel();
             // $.ajax({

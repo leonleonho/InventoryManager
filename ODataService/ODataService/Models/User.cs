@@ -30,6 +30,10 @@ namespace oDataService.Models
         public decimal userType { get; set; }
         public string fName { get; set; }
         public string lName { get; set; }
+        [NotMapped]
+        public string authToken { get; set; }
+        [NotMapped]
+        public Nullable<System.DateTime> authDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
