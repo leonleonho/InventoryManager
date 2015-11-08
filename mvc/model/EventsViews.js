@@ -1,10 +1,20 @@
-sap.ui.define(["../../util/Service"],
-   function (Service) {
+sap.ui.define(["../../util/Service",
+   "Members"
+   ], function (Service, MembersModel) {
       "use strict";
 
-      var members = [];
+      this.members = [];
+      this.items = [];
 
       function EventsViewsModel(data) {
+         this.members.push(new MembersModel({
+            memberID: data.memberID,
+            fName: data.fName,
+            lName: data.lName,
+            address: data.address,
+            email: data.email,
+            phone: data.phone,
+         }));
          // this.eventID = data.eventID;
          // this.dateCreated = data.dateCreated;
          // this.hostFName = data.hostFName;

@@ -21,23 +21,22 @@ sap.ui.define(["../../util/Service"],
 			return _members[index];
 		};
 
-		MembersModel.updateMember = function(index, data) {
-			var member = _members[index];
-			$.each(data, function(key, val) {
-				console.log("mine: " + key + ":" + val);
-				member[key] = val;
-			});
+		MembersModel.updateMember = function(index, _data) {
+			Service.ajax({
+				path: "Members(" + index + ")",
+				method: "PATCH",
+				data: JSON.stringify(_data)
+			}).success((function(_data) {
+				console.log("_data:");
+				console.log(_data);
+			}));
 
-			return member;
-
-			// Service.ajax({
-			// 	path: "Members",
-			// 	method: "POST"
-			// }).success((function(data) {
-			// 	console.log(data);
-			// }));
+			// var member = _members[index - 1];
+			// $.each(_data, function(key, val) {
+			// 	member[key] = val;
+			// });
 			
-			// console.log(_members[index]);
+			// return member;
 		};
 
 		MembersModel.RetrieveAll = function() {
@@ -54,13 +53,10 @@ sap.ui.define(["../../util/Service"],
 					deferred.resolve(_members);
 				}).bind(this)).fail(function(data) {
 					deferred.reject(data);
-					console.error(data);
 				});
 
 			return deferred;
 		};
-
-
 
 		return MembersModel;
 	});

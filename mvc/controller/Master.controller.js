@@ -2,8 +2,9 @@ sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
-   "../model/Members"
-], function (Controller, MessageToast, JSONModel, Members) {
+   "../model/Members",
+   "../model/Events"
+], function (Controller, MessageToast, JSONModel, Members, Events) {
 "use strict";
 return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
     /**
@@ -19,7 +20,6 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
     handlePress: function(evt) {
         var sPath = evt.getSource().getBindingContext().getPath();
         var oObject = this.getView().getModel().getProperty(sPath);
-        
         console.log(oObject.eventID + " pressed");
         this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         var bReplace = $.device.is.phone ? false : true;
@@ -29,7 +29,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         }, bReplace);
     },
     onMenuPress: function() {
-      this.byId("masterList").setSelectedItemById("__item0-__xmlview1--masterList-1");
+      sap.ui.getCore().getEventBus().publish("app", "authFailure", null);
     },
     loggedin: function() {
         Members.RetrieveAll().done((function(data){
@@ -41,10 +41,10 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         var jens;
         if (this.toggle === true) {
             this.toggle = false;
-            jens = Members.updateMember(1, {"fName": "ima", "lName": " loser"});
+            jens = Members.updateMember(2, {"fName": "Jens", "lName": "Christiansen"});
         } else {
             this.toggle = true;
-            jens = Members.updateMember(1, {"fName": "I really", "lName": " suck"});
+            jens = Members.updateMember(2, {"fName": "Sonny", "lName": "Smith"});
         }
         this.getView().getModel().oData[1] = jens;
         this.eventsModel.refresh();

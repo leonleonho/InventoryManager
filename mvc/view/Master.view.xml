@@ -34,7 +34,7 @@
                     <FlexBox justifyContent="SpaceBetween">
                         <items>
                             <Text text="{fName} {lName}" target="{ProductPicUrl}" />
-                            <Label text="{itemsCheckedOut}"/>
+                            <Label text="{eventName}"/>
                         </items>
                     </FlexBox>
                     <Label text="{hostName}"/>
