@@ -18,7 +18,7 @@ sap.ui.define([
           if("loggedin" in APP_CONFIG) {
             this.initModel();
           }
-            
+          this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         
         },
 
@@ -26,7 +26,12 @@ sap.ui.define([
             var src = evt.getSource();
             var obj = src.getBindingContext("oDataModel").getObject();
             console.log(obj);
-            MessageToast.show(evt.getSource().getId() + "Pressed");
+            this.oRouter.navTo("InventoryDetail", {
+              from: "Inventory",
+              detailID: obj.itemID,
+              itemName: obj.itemName,
+              itemDescription: obj.itemDescription
+            });
         },
         onMenuPress: function(evt) {
           if(!this._menuPopover) {

@@ -18,17 +18,11 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: 'oDataModel>/Inventories',
-                parameters: {expand:'Item'}}" class="appList" id="masterList">
-                <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
-                    <FlexBox justifyContent="SpaceBetween">
-                            <items>
-                                <Text text="{oDataModel>purchasedAt}"/>
-                                <Label text="{oDataModel>itemName}"/>
-                            </items>
-                    </FlexBox>
-                    <Label text="{leader}"/>
-                </CustomListItem>
+            <List items="{path: 'oDataModel>/Items'}" class="appList" id="masterList">
+                <DisplayListItem
+                    label="{oDataModel>itemName}"
+                    press="handlePress"
+                    type="Active" />
             </List>
         </content>
         <footer>

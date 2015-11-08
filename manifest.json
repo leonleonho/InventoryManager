@@ -72,7 +72,15 @@
 					"name": "Inventory",
 					"view": "Inventory",
 					"targetAggregation": "masterPages",
-					"targetControl": "idAppControl"
+					"targetControl": "idAppControl",
+					"subroutes" : [
+						{
+							"pattern": "InventoryDetail/{detailID}/{itemName}/{itemDescription}",
+							"name": "InventoryDetail",
+							"view": "InventoryDetail",
+							"targetAggregation": "detailPages"
+						}
+					]
 				}
 			]
 		}
