@@ -151,6 +151,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\EventsViewsController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
+    <Compile Include="Controllers\InventoryUsagesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -188,6 +189,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventoryUsage.cs">
+      <DependentUpon>InventoryManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Item.cs">
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
@@ -200,7 +204,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ConnectionString.config" />
     <EntityDeploy Include="Models\InventoryManager.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

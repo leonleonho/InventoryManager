@@ -2,7 +2,13 @@
     <Page title="Inventory Manager" showNavButton="{device&gt;/isPhone}" navButtonPress="handleNavBack">
         <content>
             <!-- this CSS class add a standard spacing to all the page content -->
-            <ObjectHeader id="title" title="{/itemName}" number="Number" numberUnit="Checked Out">
+            <ObjectHeader id="title" title="{/itemName}" number="{/total}" numberUnit="In Inventory">
+                <statuses>
+            <ObjectStatus
+                title="{/checkedOut}"
+                text="Checked Out"
+                state="Warning" />
+            </statuses>
                 <attributes>
                     <ObjectAttribute title="Item Id" text="{/itemID}" />
                     <ObjectAttribute title="Item Description" text="{/itemDescription}" />
@@ -38,7 +44,7 @@
                                 <ColumnListItem>
                                     <cells>
                                         <Text text="{inventoryID}" />
-                                        <Text text="{SupplierName}" />
+                                        <Text text="{fName} {lName}" />
                                         <Text text="{purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
                                         	path: 'condition', formatter: '.conditionFormat'}"/>

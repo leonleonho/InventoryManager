@@ -29,6 +29,7 @@ namespace oDataService
             builder.EntitySet<EventMember>("EventMembers");
             builder.EntitySet<User>("Users");
             builder.EntitySet<Event>("Events");
+            builder.EntitySet<InventoryUsage>("InventoryUsages");
             builder.EntitySet<Inventory>("Inventories");
             builder.EntitySet<Member>("Members");
             builder.EntitySet<EventsView>("EventsViews");

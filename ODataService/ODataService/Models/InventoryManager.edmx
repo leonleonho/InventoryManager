@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EventInventory">
           <Key>
             <PropertyRef Name="eventInventoryID" />
@@ -116,6 +116,28 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="hostLName" Type="nvarchar" MaxLength="50" />
           <Property Name="hostEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="hostPhone" Type="numeric" Precision="15" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="InventoryUsage">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+            <PropertyRef Name="condition" />
+            <PropertyRef Name="dateAdded" />
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="inventoryID" Type="int" Nullable="false" />
+          <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="dateAdded" Type="datetime" Nullable="false" />
+          <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="price" Type="money" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="memberID" Type="int" />
+          <Property Name="fName" Type="nvarchar" MaxLength="30" />
+          <Property Name="lName" Type="nvarchar" MaxLength="30" />
+          <Property Name="itemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="itemDescription" Type="nvarchar(max)" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_eventInventory_Event">
           <End Role="Events" Type="Self.Events" Multiplicity="1" />
@@ -235,6 +257,22 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
     [EventsView].[hostPhone] AS [hostPhone]
     FROM [dbo].[EventsView] AS [EventsView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="InventoryUsage" EntityType="Self.InventoryUsage" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InventoryUsage].[inventoryID] AS [inventoryID], 
+    [InventoryUsage].[condition] AS [condition], 
+    [InventoryUsage].[dateAdded] AS [dateAdded], 
+    [InventoryUsage].[itemID] AS [itemID], 
+    [InventoryUsage].[price] AS [price], 
+    [InventoryUsage].[purchasedAt] AS [purchasedAt], 
+    [InventoryUsage].[memberID] AS [memberID], 
+    [InventoryUsage].[fName] AS [fName], 
+    [InventoryUsage].[lName] AS [lName], 
+    [InventoryUsage].[itemName] AS [itemName], 
+    [InventoryUsage].[itemDescription] AS [itemDescription], 
+    [InventoryUsage].[type] AS [type]
+    FROM [dbo].[InventoryUsage] AS [InventoryUsage]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventInventory" EntitySet="EventInventory" />
@@ -264,8 +302,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
             <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryManagerDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -514,7 +551,28 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
             <End Role="Items" EntitySet="Items" />
             <End Role="Inventory" EntitySet="Inventories" />
           </AssociationSet>
+          <EntitySet Name="InventoryUsages" EntityType="InventoryManagerDatabaseModel.InventoryUsage" />
         </EntityContainer>
+        <EntityType Name="InventoryUsage">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+            <PropertyRef Name="condition" />
+            <PropertyRef Name="dateAdded" />
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="inventoryID" Type="Int32" Nullable="false" />
+          <Property Name="condition" Type="Decimal" Nullable="false" Precision="1" Scale="0" />
+          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="memberID" Type="Int32" />
+          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -627,6 +685,24 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
                 <ScalarProperty Name="hostLName" ColumnName="hostLName" />
                 <ScalarProperty Name="hostEmail" ColumnName="hostEmail" />
                 <ScalarProperty Name="hostPhone" ColumnName="hostPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryUsages">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.InventoryUsage">
+              <MappingFragment StoreEntitySet="InventoryUsage">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

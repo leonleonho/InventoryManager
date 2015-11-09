@@ -15,17 +15,16 @@ sap.ui.define([
         onInit: function (evt) {
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
           this.oRouter.attachRoutePatternMatched(this.onRouteMatched, this);
-          this.core = sap.ui.getCore();
-          this.eventBus = this.core.getEventBus();
-          this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
-          if("loggedin" in APP_CONFIG) {
-              this.initModel();
-          }
+          this.eventBus = sap.ui.getCore().getEventBus();
+          this.eventBus.subscribe("app", "loggedin", this.loggedin, this);        
           this.inventoryModel = new sap.ui.model.json.JSONModel();
           this.getView().setModel(this.inventoryModel);
           this.inventoryList = this.byId("inventoryList");
           this.inventoryList.setBusy(true);
           this.oDataModelReady = $.Deferred();
+          if(APP_CONFIG.state.auth.loggedIn) {
+            this.initModel();
+          }  
         },
         handlePress: function(evt) {
             var src = evt.getSource();
@@ -44,10 +43,10 @@ sap.ui.define([
             this.initTable();
         },
         loggedin: function(evt) {
-            this.initModel();
+          console.log("Logged in");
+          this.initModel();
         },
         initModel: function() {
-            
             this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
               maxDataServiceVersion: '4',
               headers: {
@@ -61,12 +60,17 @@ sap.ui.define([
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
             this.inventoryList.setBusy(true);
-            this.ODataModel.read("Inventories", {
+            this.ODataModel.read("InventoryUsages", {
               filters: [filter],
+              urlParameters: {
+                $select: 'inventoryID,memberID,fName,lName,condition,purchasedAt'
+              },
               success: (function(data){
-                console.log(data);
                 var temp = this.inventoryModel.getData();
+                var checkedOut = this._retrieveSize(data.results, "memberID");
+                temp.checkedOut = checkedOut;
                 temp.Inventory = data.results;
+                temp.total = data.results.length;
                 this.inventoryModel.setData(temp);
                 this.inventoryList.setBusy(false);
               }).bind(this)
@@ -75,6 +79,14 @@ sap.ui.define([
         },
         conditionFormat: function(value) {
           return (parseFloat(value) / 10) * 5;
+        },
+        _retrieveSize: function(obj, property) {
+          var count=0;
+          for(var i=0; i<obj.length; i++) {
+            if(obj[i][property]) 
+              count++;
+          }
+          return count;
         }
     });
 });
