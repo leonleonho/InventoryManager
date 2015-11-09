@@ -2,9 +2,8 @@ sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
-   "../model/EventsViews",
    "sap/ui/model/odata/ODataModel"
-], function (Controller, MessageToast, JSONModel, EventsViews, ODataModel) {
+], function (Controller, MessageToast, JSONModel, ODataModel) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.Inventory", {
