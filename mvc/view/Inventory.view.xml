@@ -13,16 +13,18 @@
         <subHeader>
             <Toolbar>
                 <SearchField
-                    liveChange="onSearch"
+                    search="onSearch"
                     width="100%" />
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: 'oDataModel>/Items'}" class="appList" id="masterList">
-                <DisplayListItem
-                    label="{oDataModel>itemName}"
-                    press="handlePress"
-                    type="Active" />
+            <List items="{path: 'oDataModel>/Items'}" class="appList" id="inventoryList">
+                <StandardListItem
+                title="{oDataModel>itemName}"
+                description="{oDataModel>type}"
+                press="handlePress"
+                type="Active"/>
+                
             </List>
         </content>
         <footer>

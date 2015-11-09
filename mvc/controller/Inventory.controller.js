@@ -2,8 +2,9 @@ sap.ui.define([
    "sap/ui/core/mvc/Controller",
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
-   "sap/ui/model/odata/ODataModel"
-], function (Controller, MessageToast, JSONModel, ODataModel) {
+   "sap/ui/model/odata/ODataModel",
+   "sap/ui/model/Filter"
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.Inventory", {
@@ -50,10 +51,30 @@ sap.ui.define([
               maxDataServiceVersion: '4',
               headers: {
                 "Authorization": APP_CONFIG.state.auth.headers
-              } 
+              },
+              defaultCountMode: "Inline"
             });
           this.getView().setModel(this.ODataModel, "oDataModel");
+        },
+        onSearch: function(evt) {
+          var src = evt.getSource();
+          var nameFilter = new Filter({
+            path: "itemName",
+            operator: "Contains",
+            value1: src.getValue(),
+          });
+          var typeFilter = new Filter({
+            path: "type",
+            operator: "Contains",
+            value1: src.getValue(),
+          });
+          var orFilter = new Filter({
+            filters: [nameFilter, typeFilter],
+            and: false
+          });
+          //var typeFilter = new Filter("type", sap.ui.model.FilterOperator.Contains, src.getValue());
+          var bindings = this.byId("inventoryList").getBinding("items");          
+          bindings.filter([orFilter]);
         }
-        
     });
 });
