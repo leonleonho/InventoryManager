@@ -158,3 +158,10 @@
 .appIconTabBar .sapMITBFilterIcon {
   border: 1px solid #dd3a41;
 }
+.appSearchBar.sapMFocus > .sapMSFF,
+.appSearchBar :not(.sapMSFDisabled).sapMSFF:hover {
+  border-color: #db0000;
+}
+.appSearchBar.sapMFocus .sapMSFB {
+  color: #db0000 !important;
+}
