@@ -12,7 +12,8 @@ sap.ui.define([
          * setup here.
          */
         onInit: function (evt) {
-          this.eventBus = sap.ui.getCore().getEventBus();
+          this.core = sap.ui.getCore();
+          this.eventBus = this.core.getEventBus();
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           if("loggedin" in APP_CONFIG) {
             this.initModel();
@@ -46,13 +47,13 @@ sap.ui.define([
           this.initModel();
         },
         initModel: function() {
-          this.oInvoiceModel = new ODataModel(APP_CONFIG.oDataService, {
+          this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
               maxDataServiceVersion: '4',
               headers: {
-                "Authorization" : APP_CONFIG.state.auth.headers
+                "Authorization": APP_CONFIG.state.auth.headers
               } 
             });
-          this.getView().setModel(this.oInvoiceModel, "oDataModel");
+          this.getView().setModel(this.ODataModel, "oDataModel");
         }
         
     });
