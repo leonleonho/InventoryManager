@@ -9,6 +9,9 @@
   border-color: transparent !important;
   color: white;
 }
+.app .sapMGlobalBackgroundImage.sapMSplitContainerBG {
+  background: white;
+}
 .app .sapMPageHeader::before {
   border-top: 0.25rem solid #db0000;
 }
@@ -141,4 +144,17 @@
 .appList .sapMLIB.sapMLIBActive .sapMListTblell .sapMText,
 .appList .sapMLIB.sapMLIBActive .sapMListTblSubCntRow .sapMText {
   color: #666666;
+}
+.appIconTabBar .sapMITBSelected .sapMITBFilterDefault {
+  background: #dd3a41;
+  border: none;
+}
+.appIconTabBar .sapMITBSelected > .sapMITBContentArrow {
+  border-bottom-color: #dd3a41;
+}
+.appIconTabBar .sapMITBFilterDefault {
+  color: #dd3a41;
+}
+.appIconTabBar .sapMITBFilterIcon {
+  border: 1px solid #dd3a41;
 }

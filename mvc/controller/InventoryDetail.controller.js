@@ -3,8 +3,9 @@ sap.ui.define([
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
    "sap/ui/model/odata/ODataModel",
-   "sap/ui/model/Filter"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter) {
+   "sap/ui/model/Filter",
+   "sap/ui/core/routing/History"
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.InventoryDetail", {
@@ -87,6 +88,18 @@ sap.ui.define([
               count++;
           }
           return count;
+        },
+        handleNavBack: function() {
+          var oHistory, sPreviousHash;
+          oHistory = History.getInstance();
+          sPreviousHash = oHistory.getPreviousHash();
+          if (sPreviousHash !== undefined) {
+            window.history.go(-1);
+          } else {
+            this.oRouter.navTo("Inventory", {
+              from: "InventoryDetail"
+            });
+          }
         }
     });
 });

@@ -13,6 +13,9 @@
         color: white;
     }
 	} 
+  .sapMGlobalBackgroundImage.sapMSplitContainerBG {
+    background: white;
+  }
 	.sapMPageHeader::before {
 		border-top: 0.25rem solid @PRIMARY_COLOR;
 	}
@@ -155,4 +158,22 @@
       color: @TEXT;
     }
   }
+}
+.appIconTabBar {
+  .sapMITBSelected{
+    .sapMITBFilterDefault {
+      background: @SECONDARY_COLOR;
+      border: none;
+    }
+    >.sapMITBContentArrow {
+      border-bottom-color: @SECONDARY_COLOR;
+    }
+  }
+  .sapMITBFilterDefault {
+    color: @SECONDARY_COLOR;
+  }
+  .sapMITBFilterIcon {
+    border: 1px solid @SECONDARY_COLOR;
+  }
+  
 }
