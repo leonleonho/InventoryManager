@@ -24,7 +24,7 @@ sap.ui.define(["../../util/Service"],
                deferred.resolve(models);
             }).bind(this)).fail((function(data) {
                   deferred.reject(data);
-                  console.error("fail");
+                  console.error("EventsModel.RetrieveAll failed");
             }));
          return deferred;
       };

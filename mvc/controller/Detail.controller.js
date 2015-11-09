@@ -11,18 +11,35 @@ sap.ui.define([
          * Standard UI5 Controller callback. Do most of the one-time controller
          * setup here.
          */
-        onInit: function (evt) {
-            console.log("evt:" + evt.detailID);
+        onInit: function () {
+            this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            this.oRouter.attachRoutePatternMatched(this.handleRouteMatched, this);
+
+            this.eventBus = sap.ui.getCore().getEventBus();
+            this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
+        },
+
+        handleRouteMatched : function(evt) {
+            if (evt.getParameter("name") !== "detail") {
+                return;
+            }
+            var params = evt.getParameters();
+            this.eventID = params.arguments.detailID;
+            this.bindModel();
+        },
+
+        bindModel: function() {
             this.eventsViewsModel = new sap.ui.model.json.JSONModel();
             this.getView().setModel(this.eventsViewsModel);
-            EventsViews.Retrieve(1).done((function(data){
+            EventsViews.Retrieve(this.eventID).done((function(data){
                 this.eventsViewsModel.setData(data);
                 this.eventsViewsModel.refresh();
+                //console.log(this.eventsViewsModel);
             }).bind(this));
         },
 
-        handlePress: function(evt) {
-            MessageToast.show(evt.getSource().getId() + "Pressed");
+        loggedin: function() {
+            this.bindModel();
         }
 
         

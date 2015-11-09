@@ -21,10 +21,14 @@ sap.ui.define(function () {
    Service.prototype.ajax = function(request) {
       request.url = request.serviceUrl ?  request.serviceUrl : serviceUrl + request.path;
       request.dataType = request.dataType ? request.dataType : "json";
+      request.contentType = request.contentType ? request.contentType : "application/json";
       var _auth = request.auth ? request.auth : auth;
       request.beforeSend = function(xhr) {
          xhr.setRequestHeader("Authorization", _auth);
          xhr.setRequestHeader("Accept", "application/json");
+         // if (request.method == "POST") {
+         //    xhr.setRequestHeader("X-HTTP-Method", "MERGE");
+         // }
       };
       return $.ajax(request);
    };

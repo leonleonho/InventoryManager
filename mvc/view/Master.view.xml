@@ -31,12 +31,12 @@
             <List items="{path: '/'}" class="appList" id="masterList">
                 <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
                     <FlexBox justifyContent="SpaceBetween">
-                            <items>
-                                <Text text="{eventName}" target="{ProductPicUrl}" />
-                                <Label text="{itemsCheckedOut}"/>
-                            </items>
+                        <items>
+                            <Text text="{fName} {lName}" target="{ProductPicUrl}" />
+                            <Label text="{eventName}"/>
+                        </items>
                     </FlexBox>
-                    <Label text="{leader}"/>
+                    <Label text="{hostName}"/>
                 </CustomListItem>
             </List>
         </content>

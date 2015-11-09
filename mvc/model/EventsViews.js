@@ -1,21 +1,34 @@
-sap.ui.define(["../../util/Service"],
-   function (Service) {
+sap.ui.define(["../../util/Service",
+   "Members"
+   ], function (Service, MembersModel) {
       "use strict";
 
+      this.members = [];
+      this.items = [];
+
       function EventsViewsModel(data) {
-         this.dateCreated = data.dateCreated;
-         this.hostFName = data.hostFName;
-         this.hostLName = data.hostLName;
-         this.eventID = data.eventID;
-         this.eventName = data.eventName;
-         this.location = data.location;
+         this.members.push(new MembersModel({
+            memberID: data.memberID,
+            fName: data.fName,
+            lName: data.lName,
+            address: data.address,
+            email: data.email,
+            phone: data.phone,
+         }));
+         // this.eventID = data.eventID;
+         // this.dateCreated = data.dateCreated;
+         // this.hostFName = data.hostFName;
+         // this.hostLName = data.hostLName;
+         // this.eventName = data.eventName;
+         // this.location = data.location;
       }
 
       EventsViewsModel.Retrieve = function(eventID){
          var deferred = $.Deferred();
 
          Service.ajax({
-               path: "EventsViews?$filter=eventID eq " + eventID
+               path: "EventsViews?$filter=eventID eq " +
+                  eventID + "&$inlinecount=allpages"
             }).success((function(data){
                var models = [];
                data = data.value;

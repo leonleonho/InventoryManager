@@ -3,7 +3,7 @@ sap.ui.define([
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
    "../model/Events"
-], function (Controller, MessageToast, JSONModel, Events, Service) {
+], function (Controller, MessageToast, JSONModel, Events) {
 "use strict";
 return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", {
     /**
@@ -16,7 +16,6 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         this.eventBus = sap.ui.getCore().getEventBus();
         this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
     },
-    
     handlePress: function(evt) {
         var sPath = evt.getSource().getBindingContext().getPath();
         var oObject = this.getView().getModel().getProperty(sPath);
@@ -24,11 +23,10 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         var bReplace = $.device.is.phone ? false : true;
         this.oRouter.navTo("Detail", {
-            from:"Master",
+            from: "Master",
             detailID: oObject.eventID
         }, bReplace);
     },
-
     onMenuPress: function(evt) {
         if(!this._menuPopover) {
             this._menuPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.Menu", this);
@@ -40,7 +38,7 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
         });
     },
     loggedin: function() {
-      Events.RetrieveAll().done((function(data){
+        Events.RetrieveAll().done((function(data){
             this.eventsModel.setData(data);
             this.eventsModel.refresh();
         }).bind(this));
@@ -48,6 +46,5 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
     onNavToProduct: function(evt) {
         var src = evt.getSource();
     }
-
 });
 });
