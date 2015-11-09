@@ -22,10 +22,12 @@ sap.ui.define([
         },
         onRouteMatched: function(evt) {
             var args = evt.getParameters().arguments;
-            var detailID = args.detailID;
-            var itemName = args.itemName;
-            var itemDescription = args.itemDescription;
-            console.log(detailID + " " + itemName + " " + itemDescription);
+            var item = {
+                detailID: args.detailID,
+                itemName: args.itemName,
+                itemDescription: args.itemDescription
+            };
+            this.inventoryModel.setData(item);
         }
     });
 });

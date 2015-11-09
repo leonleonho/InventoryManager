@@ -4,11 +4,11 @@
 		<content>
 			<!-- this CSS class add a standard spacing to all the page content -->
 
-			<ObjectHeader id="title" title="{itemName}" number="{Time}"
-				numberUnit="Hours">
+			<ObjectHeader id="title" title="{/itemName}" number="Number"
+				numberUnit="Checked Out">
 				<attributes>
-					<ObjectAttribute title="Item Name" text="{eventName}" />
-					<ObjectAttribute title="Item Description" text="{temp>/ChangeRequestName}" />
+					<ObjectAttribute title="Item Name" text="{/itemName}" />
+					<ObjectAttribute title="Item Description" text="{/itemDescription}" />
 				</attributes>
 			</ObjectHeader>
 			<IconTabBar expanded="true">
