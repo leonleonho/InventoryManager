@@ -48,9 +48,9 @@ sap.ui.define([
         },
         initModel: function() {
           this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
-              maxDataServiceVersion: '4',
               headers: {
-                "Authorization": APP_CONFIG.state.auth.headers
+                "Authorization": APP_CONFIG.state.auth.headers,
+                "Content-Type": "application/json"
               },
               defaultCountMode: "Inline"
             });
@@ -75,6 +75,34 @@ sap.ui.define([
           //var typeFilter = new Filter("type", sap.ui.model.FilterOperator.Contains, src.getValue());
           var bindings = this.byId("inventoryList").getBinding("items");          
           bindings.filter([orFilter]);
+        },
+        onAddPress: function(evt) {
+          if(!this._addMenu) {
+              this.addFragmentModel = new JSONModel({
+                type: "",
+                itemDescription: "",
+                itemName: ""
+              });
+              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this);
+              this.getView().addDependent(this._addMenu);
+              this.getView().setModel(this.addFragmentModel, "addInventory");
+          }
+          $.sap.delayedCall(0, this, function(){
+              this._addMenu.open();
+          });
+        },
+        addFragmentCancel: function(evt) {
+          this._addMenu.close();
+        },
+        addFragmentCreate: function(evt) {
+          var data = this.addFragmentModel.getJSON();
+          console.log(data);
+          var test = {}
+          test.itemName = "ItemName";
+          test.itemDescription= "itemDescption";
+          this.ODataModel.create("Items", data);
+          this._addMenu.close();
         }
+
     });
 });
