@@ -11,7 +11,7 @@ sap.ui.define(function () {
    Service.prototype.init = function(_serviceUrl, data) {
       serviceUrl = _serviceUrl;
       if(data.useToken) {
-         auth = "Token " + btoa(localStorage.getItem("userName") + ":" + localStorage.getItem("authToken"));
+         auth = "Token " + btoa(data.username + ":" + localStorage.getItem("authToken"));
       } else {
          auth = "Basic " + btoa(data.username + ":" + data.password);
       }

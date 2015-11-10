@@ -22,9 +22,10 @@ sap.ui.define([
           this.getView().setModel(this.inventoryModel);
           this.inventoryList = this.byId("inventoryList");
           this.inventoryList.setBusy(true);
+          this.core = sap.ui.getCore();
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
-            this.initModel();
+            this.loggedin();
           }  
         },
         handlePress: function(evt) {
@@ -44,18 +45,8 @@ sap.ui.define([
             this.initTable();
         },
         loggedin: function(evt) {
-          console.log("Logged in");
-          this.initModel();
-        },
-        initModel: function() {
-            this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
-              maxDataServiceVersion: '4',
-              headers: {
-                "Authorization": APP_CONFIG.state.auth.headers
-              } 
-            });
-            this.oDataModelReady.resolve();
-            this.getView().setModel(this.ODataModel, "oDataModel");
+          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
+          this.oDataModelReady.resolve();
         },
         initTable: function() {
           this.oDataModelReady.done((function() {
@@ -64,7 +55,7 @@ sap.ui.define([
             this.ODataModel.read("InventoryUsages", {
               filters: [filter],
               urlParameters: {
-                $select: 'inventoryID,memberID,fName,lName,condition,purchasedAt'
+                $select: 'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
               },
               success: (function(data){
                 var temp = this.inventoryModel.getData();
@@ -79,7 +70,10 @@ sap.ui.define([
           }).bind(this));
         },
         conditionFormat: function(value) {
-          return (parseFloat(value) / 10) * 5;
+          return parseFloat(value);
+        },
+        priceFormatter: function(value){
+          return "$"+parseFloat(value).toFixed(2);
         },
         _retrieveSize: function(obj, property) {
           var count=0;
@@ -100,6 +94,96 @@ sap.ui.define([
               from: "InventoryDetail"
             });
           }
+        },
+        onAddPress: function(){
+          if(!this._addMenu) {
+              this.addFragmentModel = new JSONModel();
+              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this.getView().getController());
+              this.getView().addDependent(this._addMenu);
+              this.getView().setModel(this.addFragmentModel, "addInventoryItems");
+          }
+          $.sap.delayedCall(0, this, function(){
+              var data = {
+                purchasedAt: "",
+                condition: 5,
+                price: undefined,
+                quantity: 1
+              };
+              this.addFragmentModel.setData(data);
+              this._addMenu.open();
+          });
+        },
+        addFragmentCreate: function() {
+          var data = this.addFragmentModel.getData();
+          this._clearErrorStates();
+          var error = false;
+          if(!data.price || isNaN(data.price)){
+            this.core.byId("addInventoryPrice").setValueState("Error")
+            .setValueStateText("Must be a number");
+            error = true;
+          }
+          if(!data.quantity || isNaN(data.quantity)){
+            this.core.byId("itemQuantity").setValueState("Error")
+            .setValueStateText("Must be a number");
+            error = true;
+          }
+          if(!error) {
+            var payload = {
+              purchasedAt: data.purchasedAt,
+              price: data.price,
+              condition: data.condition,
+              itemID: this.item.itemID,
+              dateAdded: new Date().toISOString().slice(0, 19)
+            };
+            var deferreds = [];
+            for(var i = 0; i < data.quantity; i++) {
+              var deferred = $.Deferred();
+              deferreds.push(deferred);
+              this.ODataModel.create("Inventories", payload, {
+                success: (function(){
+                }).bind(this), error: function() {
+                }
+              });
+            }
+              this.initTable();
+              MessageToast.show("Items Added");
+              this._addMenu.close();
+          }
+        },
+        _clearErrorStates: function() {
+          this.core.byId("addInventoryPrice").setValueState("None")
+            .setValueStateText("Must be a number");
+          this.core.byId("itemQuantity").setValueState("None")
+            .setValueStateText("Must be a number");
+        },
+        onDelete: function() {
+          console.log("Deleted");
+          this.ODataModel.remove("Items("+this.item.itemID+")", {
+            success: function(){
+              console.log("Deleted");
+            }
+          });
+        },
+        nameFormater: function(part1, part2) {
+          if(!part1 && !part2) {
+            return "In Inventory";
+          }
+          return part1 + " " + part2;
+        },
+        addFragmentCancel: function() {
+          this._addMenu.close();
+        },
+        onRowDelete: function(evt) {
+          var bindingCtx = evt.getSource().getParent().getBindingContext();
+          this.ODataModel.remove("Inventories("+bindingCtx.getObject().inventoryID+")", {
+            success: function(){
+              MessageToast.show("Inventory Item Deleted");
+            },
+            error: function() {
+              MessageToast.show("Failed To Delete Item");
+            }
+          });
+          this.initTable();
         }
     });
 });

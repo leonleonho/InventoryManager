@@ -26,6 +26,12 @@
                 press="handlePress"
                 type="Active"/>
                 
+                <swipeContent>
+                    <Button
+                        text="Delete Item"
+                        type="Reject"
+                        press="handleDelete" />
+                </swipeContent>
             </List>
         </content>
         <footer>

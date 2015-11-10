@@ -56,35 +56,38 @@ sap.ui.define([
             }
         }.bind(this));
 
-        var fireLoggedIn = function(token) {
+        var fireLoggedIn = function(token, username) {
             if(rememberMe.getSelected()) {
-                localStorage.setItem("userName", userNameInput.getValue());
                 if(token){
-                    localStorage.setItem("authToken", token);    
+                    localStorage.setItem("authToken", token); 
+                    localStorage.setItem("userName", username);   
                 }
                 if(localStorage.getItem("debug")){
                     localStorage.setItem("password", passwordInput.getValue());
                 }
             } else {
-                localStorage.setItem("userName", "");
+                if(token){
+                    localStorage.setItem("authToken", token);    
+                } else {
+                    localStorage.setItem("userName", "");
+                }
             }
-            setTimeout((function() {
+            setTimeout(function() {
                 APP_CONFIG.state = APP_CONFIG.state ? APP_CONFIG.state : {};
-                APP_CONFIG.state.auth = {
-                    loggedIn: true,
-                    headers: "Token " + btoa(localStorage.getItem("userName") + ":" + localStorage.getItem("authToken"))
-                };
+                APP_CONFIG.state.auth.loggedIn = true;
+                APP_CONFIG.state.auth.headers = "Token " + btoa(APP_CONFIG.state.auth.username + ":" + localStorage.getItem("authToken"));
                 core.getEventBus().publish("app", "loggedin");
-            }).bind(this));
+            });
         };
 
         validate = function() {
             clearErrorState();
             var username = userNameInput.getValue();
             var password = passwordInput.getValue();
+            APP_CONFIG.state.auth.username = username;
             Service.init(APP_CONFIG.oDataService, {
-                username:username,
-                password:password
+                username: username,
+                password: password
             });
             loginDialog.setBusyIndicatorDelay(0);
             loginDialog.setBusy(true);
@@ -95,7 +98,7 @@ sap.ui.define([
                 loginDialog.setBusy(false);
                 if(xhr.status === 200) {
                     loginDialog.close();
-                    fireLoggedIn(xhr.responseText);
+                    fireLoggedIn(xhr.responseText, username);
                 } else {
                     setErrorState();
                 }
@@ -111,7 +114,10 @@ sap.ui.define([
                     loginDialog.setBusy(false);
                     if(xhr.status === 200) {
                         loginDialog.close();
-                        Service.init(APP_CONFIG.oDataService, {"useToken" : true});
+                        APP_CONFIG.state.auth.username = userNameInput.getValue();
+                        Service.init(APP_CONFIG.oDataService, {"useToken": true,
+                            username: userNameInput.getValue()
+                        });
                         fireLoggedIn(xhr.responseText);
                     } else {
                         this.show();

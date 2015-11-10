@@ -3,8 +3,9 @@ sap.ui.define([
    "sap/m/MessageToast",
    "sap/ui/model/json/JSONModel",
    "sap/ui/model/odata/ODataModel",
-   "sap/ui/model/Filter"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter) {
+   "sap/ui/model/Filter",
+   "../../util/Service"
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, Service) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.Inventory", {
@@ -44,29 +45,19 @@ sap.ui.define([
           });
         },
         loggedin: function() {
-          this.initModel();
-        },
-        initModel: function() {
-          this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
-              headers: {
-                "Authorization": APP_CONFIG.state.auth.headers,
-                "Content-Type": "application/json"
-              },
-              defaultCountMode: "Inline"
-            });
-          this.getView().setModel(this.ODataModel, "oDataModel");
+          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
         },
         onSearch: function(evt) {
           var src = evt.getSource();
           var nameFilter = new Filter({
             path: "itemName",
             operator: "Contains",
-            value1: src.getValue(),
+            value1: src.getValue()
           });
           var typeFilter = new Filter({
             path: "type",
             operator: "Contains",
-            value1: src.getValue(),
+            value1: src.getValue()
           });
           var orFilter = new Filter({
             filters: [nameFilter, typeFilter],
@@ -83,7 +74,7 @@ sap.ui.define([
                 itemDescription: "",
                 itemName: ""
               });
-              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this);
+              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddItem", this);
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventory");
           }
@@ -95,13 +86,26 @@ sap.ui.define([
           this._addMenu.close();
         },
         addFragmentCreate: function(evt) {
-          var data = this.addFragmentModel.getJSON();
-          console.log(data);
-          var test = {}
-          test.itemName = "ItemName";
-          test.itemDescription= "itemDescption";
-          this.ODataModel.create("Items", data);
+          var payload = this.addFragmentModel.getData();
+          this._addMenu.setBusyIndicatorDelay(0);
+          this._addMenu.setBusy(true);
+          this.ODataModel.create("Items", payload, {
+            success: function() {
+              MessageToast.show("Item Created");
+            },
+            error: function() {
+              MessageToast.show("Failed to create item, contact an admin if this persists");
+            } 
+          });
           this._addMenu.close();
+        },
+        handleDelete: function(evt) {
+          var oList = evt.getSource().getParent();
+          var swipedItem = oList.getSwipedItem();
+          var swipedCtx = swipedItem.getBindingContext("oDataModel");
+          this.ODataModel.remove("", swipedCtx);
+          oList.removeAggregation("items", oList.getSwipedItem());
+          oList.swipeOut();
         }
 
     });

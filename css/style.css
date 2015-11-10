@@ -13,7 +13,7 @@
   background: white;
 }
 .app .sapMPageHeader::before {
-  border-top: 0.25rem solid #db0000;
+  border-top: 0.3rem solid #db0000;
 }
 .app > .sapMSplitContainerDetail {
   background: white;

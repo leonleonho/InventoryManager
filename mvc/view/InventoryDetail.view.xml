@@ -16,22 +16,29 @@
             </ObjectHeader>
             <IconTabBar expanded="true" class="appIconTabBar">
                 <items>
-                    <IconTabFilter icon="sap-icon://activity-items">
-                        <Table id="inventoryList" inset="false" items="{path: '/Inventory'}">
+                    <IconTabFilter text="Items" icon="sap-icon://activity-items">
+                        <Table id="inventoryList" 
+                            inset="false" 
+                            items="{path: '/Inventory'}"
+                            growing="true"
+                            growingScrollToLoad="true">
                             <columns>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                <Column width="4rem" minScreenWidth="Desktop" demandPopin="true">
                                     <Text text="Inventory ID" />
                                 </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                <Column minScreenWidth="Desktop" demandPopin="true">
                                     <Text text="Checked Out By" />
                                 </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                <Column minScreenWidth="Desktop" demandPopin="true">
 									<Text text="Purchased At" />
                                 </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
                                     <Text text="Condition" />
                                 </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Pricing" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
                                     <Text text="Remove From Inventory" />
                                 </Column>
                             </columns>
@@ -39,12 +46,14 @@
                                 <ColumnListItem>
                                     <cells>
                                         <Text text="{inventoryID}" />
-                                        <Text text="{fName} {lName}" />
+                                        <Text text="{parts:[{path:'fName'}, {path:'lName'}], formatter:'.nameFormater'} " />
                                         <Text text="{purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
                                         	path: 'condition', formatter: '.conditionFormat'}"/>
+                                        <Text text="{path:'price', formatter: '.priceFormatter'}" />
                                         <Button text="Remove"
                                         	icon="sap-icon://delete"
+                                            press="onRowDelete"
                                         	class="appBtn"/>
                                     </cells>
                                 </ColumnListItem>
@@ -57,8 +66,8 @@
         <footer>
             <Toolbar>
                 <ToolbarSpacer />
-                <Button text="Save" press="save" class="appIconBtn" />
-                <Button text="Delete" icon="sap-icon://delete" press="deleteFile" class="appIconBtn" />
+                <Button text="Add Inventory" press="onAddPress" class="appIconBtn" />
+                <Button text="Delete" icon="sap-icon://delete" press="onDelete" class="appIconBtn" />
             </Toolbar>
         </footer>
     </Page>
