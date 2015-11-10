@@ -7,4 +7,5 @@
     [price] MONEY NULL, 
     [purchasedAt] NVARCHAR(50) NULL, 
     CONSTRAINT [FK_Inventory_Item] FOREIGN KEY ([itemID]) REFERENCES [Items]([itemID])
+	ON DELETE CASCADE
 )

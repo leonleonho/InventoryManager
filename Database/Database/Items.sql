@@ -5,3 +5,4 @@
     [itemDescription] NVARCHAR(MAX) NULL, 
     [type] NVARCHAR(50) NULL
 )
+
