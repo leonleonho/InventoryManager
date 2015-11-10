@@ -49,7 +49,8 @@
                                         <Text text="{parts:[{path:'fName'}, {path:'lName'}], formatter:'.nameFormater'} " />
                                         <Text text="{purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                        	path: 'condition', formatter: '.conditionFormat'}"/>
+                                        	path: 'condition', formatter: '.conditionFormat'}"
+                                            change="onRatingPress"/>
                                         <Text text="{path:'price', formatter: '.priceFormatter'}" />
                                         <Button text="Remove"
                                         	icon="sap-icon://delete"

@@ -30,7 +30,6 @@ sap.ui.define([
         },
         initODataModel: function() {
             this.ODataModel = new ODataModel(APP_CONFIG.oDataService, {
-              maxDataServiceVersion: '4',
               headers: {
                 "Authorization": APP_CONFIG.state.auth.headers
               },

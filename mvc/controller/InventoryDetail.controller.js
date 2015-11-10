@@ -184,6 +184,22 @@ sap.ui.define([
             }
           });
           this.initTable();
+        },
+        onRatingPress: function(evt) {
+          var src = evt.getSource();
+          var obj = src.getBindingContext().getObject();
+          var path = "Inventories("+obj.inventoryID+")";
+          var payload = {condition: obj.condition};
+          this.ODataModel.update(path, payload, {
+            success: function() {
+              MessageToast.show("Updated Entry");
+            },
+            error: function(err) {
+              MessageToast.show("Failed to update entry");
+              console.error(err);
+            },
+            merge: true
+          });
         }
     });
 });
