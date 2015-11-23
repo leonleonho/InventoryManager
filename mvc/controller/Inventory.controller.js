@@ -78,6 +78,8 @@ sap.ui.define([
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventory");
           }
+          this._addMenu.setBusy(false); //Reset fragment
+          this.addFragmentModel.setData({}); //Reset Data
           $.sap.delayedCall(0, this, function(){
               this._addMenu.open();
           });
