@@ -1,10 +1,11 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<Popover
+	<ResponsivePopover
 		title="Menu"
 		contentWidth="15rem"
 		placement="Bottom">
+		<content>
 			<List
 				id="list"
 				class="appList">
@@ -27,5 +28,6 @@
 					iconDensityAware="false"
 					iconInset="false" />
 			</List>
-	</Popover>
+		</content>
+	</ResponsivePopover>
 </core:FragmentDefinition>

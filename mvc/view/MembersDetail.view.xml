@@ -1,0 +1,75 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.scout138.inventoryManager.mvc.controller.MembersDetail" xmlns:l="sap.ui.layout">
+    <Page title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
+        <content>
+            <!-- this CSS class add a standard spacing to all the page content -->
+            <ObjectHeader id="title" title="{/fName}" number="{/lName}" numberUnit="In Members">
+                <statuses>
+            <ObjectStatus
+                title="{/fName}"
+                text="Checked Out"
+                state="Warning"/>
+            </statuses>
+                <attributes>
+                    <ObjectAttribute title="Member Id" text="{/memberID}" />
+                    <ObjectAttribute title="Name" text="{/fName} {/lName}" />
+                </attributes>
+            </ObjectHeader>
+            <IconTabBar expanded="true" class="appIconTabBar">
+                <items>
+                    <IconTabFilter text="Items" icon="sap-icon://activity-items">
+                        <Table id="inventoryList" 
+                            inset="false" 
+                            items="{path: '/Inventory'}"
+                            growing="true"
+                            growingScrollToLoad="true">
+                            <columns>
+                                <Column width="4rem" minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Inventory ID" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Checked Out By" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="Purchased At" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Condition" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Pricing" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Remove From Inventory" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{inventoryID}" />
+                                        <Text text="{parts:[{path:'fName'}, {path:'lName'}], formatter:'.nameFormater'} " />
+                                        <Text text="{purchasedAt}" />
+                                        <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
+                                        	path: 'condition', formatter: '.conditionFormat'}"
+                                            change="onRatingPress"/>
+                                        <Text text="{path:'price', formatter: '.priceFormatter'}" />
+                                        <Button text="Remove"
+                                        	icon="sap-icon://delete"
+                                            press="onRowDelete"
+                                        	class="appBtn"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button text="Add Inventory" press="onAddPress" class="appIconBtn" />
+                <Button text="Delete" icon="sap-icon://delete" press="onDelete" class="appIconBtn" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,43 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.scout138.inventoryManager.mvc.controller.Members" xmlns:l="sap.ui.layout">
+    <Page id="page" title="inventoryManager">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://menu2" press="onMenuPress" />
+                </contentLeft>
+                <contentMiddle>
+                    <Label text="Members" />
+                </contentMiddle>
+            </Bar>
+        </customHeader>
+        <subHeader>
+            <Toolbar>
+                <SearchField
+                    search="onSearch"
+                    width="100%" 
+                    class="appSearchBar"/>
+            </Toolbar>
+        </subHeader>
+        <content>
+            <List items="{path: 'oDataModel>/Members'}" class="appList" id="membersList">
+                <StandardListItem
+                title="{oDataModel>fName} {oDataModel>lName}"
+                description="{oDataModel>email}"
+                press="handlePress"
+                type="Active"/>
+                
+                <swipeContent>
+                    <Button
+                        text="Delete Item"
+                        type="Reject"
+                        press="handleDelete" />
+                </swipeContent>
+            </List>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button text="Add" icon="sap-icon://add" press="onAddPress" class="appIconBtn"/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

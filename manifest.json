@@ -86,6 +86,20 @@
 							"targetAggregation": "detailPages"
 						}
 					]
+				}, {
+					"pattern": "Members",
+					"name": "Members",
+					"view": "Members",
+					"targetAggregation": "masterPages",
+					"targetControl": "idAppControl",
+					"subroutes" : [
+						{
+							"pattern": "MembersDetail/{detailID}/{fName}/{lName}",
+							"name": "MembersDetail",
+							"view": "MembersDetail",
+							"targetAggregation": "detailPages"
+						}
+					]
 				}
 			]
 		}
