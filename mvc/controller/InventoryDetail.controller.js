@@ -98,10 +98,18 @@ sap.ui.define([
         onAddPress: function(){
           if(!this._addMenu) {
               this.addFragmentModel = new JSONModel();
+              this.addSuggestionModel = new JSONModel();
+              this.ODataModel.read("PurchasedAt", {
+                success: (function(data){
+                  this.addSuggestionModel.setData(data.results);
+                }).bind(this)
+              });//Retrieve the suggestion model 
+              this.getView().setModel(this.addSuggestionModel, "addSuggestion");
               this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this.getView().getController());
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventoryItems");
           }
+          this.addFragmentModel.setData({});
           $.sap.delayedCall(0, this, function(){
               var data = {
                 purchasedAt: "",

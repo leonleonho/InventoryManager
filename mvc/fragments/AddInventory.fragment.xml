@@ -19,13 +19,10 @@
 							placeholder="Begin typing for auto suggestion"
 							showSuggestion="true"
 							width="100%"
-							suggestionItems="{path: 'oDataModel>/Inventories',
-								parameters: {
-									'select': 'purchasedAt'
-								}}"
+							suggestionItems="{path: 'addSuggestion>/'}"
 							value="{addInventoryItems>/purchasedAt}" >
 							<suggestionItems>
-								<core:Item text="{oDataModel>purchasedAt}" />
+								<core:Item text="{addSuggestion>purchasedAt1}" />
 							</suggestionItems>
 						</Input>
 					</l:VerticalLayout>
