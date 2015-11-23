@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InventoryManagerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EventInventory">
           <Key>
             <PropertyRef Name="eventInventoryID" />
@@ -42,7 +42,7 @@
           <Property Name="dateAdded" Type="datetime" Nullable="false" />
           <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
           <Property Name="price" Type="money" />
-          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
@@ -90,6 +90,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
             <PropertyRef Name="itemID" />
             <PropertyRef Name="dateAdded" />
             <PropertyRef Name="condition" />
+            <PropertyRef Name="purchasedAt" />
             <PropertyRef Name="itemName" />
             <PropertyRef Name="memberFName" />
             <PropertyRef Name="memberLName" />
@@ -103,7 +104,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not 
           <Property Name="dateAdded" Type="datetime" Nullable="false" />
           <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
           <Property Name="price" Type="money" />
-          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="itemName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="itemDescription" Type="nvarchar(max)" />
           <Property Name="type" Type="nvarchar" MaxLength="50" />
@@ -125,19 +126,28 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
             <PropertyRef Name="condition" />
             <PropertyRef Name="dateAdded" />
             <PropertyRef Name="itemID" />
+            <PropertyRef Name="purchasedAt" />
           </Key>
           <Property Name="inventoryID" Type="int" Nullable="false" />
           <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
           <Property Name="dateAdded" Type="datetime" Nullable="false" />
           <Property Name="itemID" Type="int" Nullable="false" />
           <Property Name="price" Type="money" />
-          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="memberID" Type="int" />
           <Property Name="fName" Type="nvarchar" MaxLength="30" />
           <Property Name="lName" Type="nvarchar" MaxLength="30" />
           <Property Name="itemName" Type="nvarchar" MaxLength="50" />
           <Property Name="itemDescription" Type="nvarchar(max)" />
           <Property Name="type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.PurchasedAt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PurchasedAt">
+          <Key>
+            <PropertyRef Name="purchasedAt" />
+          </Key>
+          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_eventInventory_Event">
           <End Role="Events" Type="Self.Events" Multiplicity="1" />
@@ -164,7 +174,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_eventInventory_Members">
-          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
@@ -176,7 +188,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EventMember_Event">
-          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
@@ -212,7 +226,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inventory_Item">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
@@ -273,6 +289,11 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
     [InventoryUsage].[type] AS [type]
     FROM [dbo].[InventoryUsage] AS [InventoryUsage]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="PurchasedAt" EntityType="Self.PurchasedAt" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PurchasedAt].[purchasedAt] AS [purchasedAt]
+    FROM [dbo].[PurchasedAt] AS [PurchasedAt]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventInventory" EntitySet="EventInventory" />
@@ -302,7 +323,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
             <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryManagerDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -351,7 +373,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="EventInventories" Relationship="Self.FK_eventInventory_Inventory" FromRole="Inventory" ToRole="EventInventory" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Inventory_Item" FromRole="Inventory" ToRole="Items" />
         </EntityType>
@@ -403,6 +425,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
             <PropertyRef Name="itemID" />
             <PropertyRef Name="dateAdded" />
             <PropertyRef Name="condition" />
+            <PropertyRef Name="purchasedAt" />
             <PropertyRef Name="itemName" />
             <PropertyRef Name="memberFName" />
             <PropertyRef Name="memberLName" />
@@ -416,7 +439,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -429,6 +452,33 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="hostLName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hostEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hostPhone" Type="Decimal" Precision="15" Scale="0" />
+        </EntityType>
+        <EntityType Name="InventoryUsage">
+          <Key>
+            <PropertyRef Name="inventoryID" />
+            <PropertyRef Name="condition" />
+            <PropertyRef Name="dateAdded" />
+            <PropertyRef Name="itemID" />
+            <PropertyRef Name="purchasedAt" />
+          </Key>
+          <Property Name="inventoryID" Type="Int32" Nullable="false" />
+          <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="memberID" Type="Int32" />
+          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PurchasedAt">
+          <Key>
+            <PropertyRef Name="purchasedAt1" />
+          </Key>
+          <Property Name="purchasedAt1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_eventInventory_Event">
           <End Role="Events" Type="Self.Event" Multiplicity="1" />
@@ -455,7 +505,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_eventInventory_Members">
-          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
@@ -467,7 +519,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EventMember_Event">
-          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="EventMember" Type="Self.EventMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
@@ -503,7 +557,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inventory_Item">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="Items" Type="Self.Item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
@@ -523,6 +579,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="EventsViews" EntityType="Self.EventsView" />
+          <EntitySet Name="InventoryUsages" EntityType="Self.InventoryUsage" />
+          <EntitySet Name="PurchasedAts" EntityType="Self.PurchasedAt" />
           <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventInventory" EntitySet="EventInventories" />
@@ -551,28 +609,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
             <End Role="Items" EntitySet="Items" />
             <End Role="Inventory" EntitySet="Inventories" />
           </AssociationSet>
-          <EntitySet Name="InventoryUsages" EntityType="InventoryManagerDatabaseModel.InventoryUsage" />
         </EntityContainer>
-        <EntityType Name="InventoryUsage">
-          <Key>
-            <PropertyRef Name="inventoryID" />
-            <PropertyRef Name="condition" />
-            <PropertyRef Name="dateAdded" />
-            <PropertyRef Name="itemID" />
-          </Key>
-          <Property Name="inventoryID" Type="Int32" Nullable="false" />
-          <Property Name="condition" Type="Decimal" Nullable="false" Precision="1" Scale="0" />
-          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="itemID" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="memberID" Type="Int32" />
-          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -691,18 +728,25 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <EntitySetMapping Name="InventoryUsages">
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.InventoryUsage">
               <MappingFragment StoreEntitySet="InventoryUsage">
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
-                <ScalarProperty Name="itemName" ColumnName="itemName" />
-                <ScalarProperty Name="lName" ColumnName="lName" />
-                <ScalarProperty Name="fName" ColumnName="fName" />
-                <ScalarProperty Name="memberID" ColumnName="memberID" />
-                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="itemID" ColumnName="itemID" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="condition" ColumnName="condition" />
                 <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchasedAts">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.PurchasedAt">
+              <MappingFragment StoreEntitySet="PurchasedAt">
+                <ScalarProperty Name="purchasedAt1" ColumnName="purchasedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
