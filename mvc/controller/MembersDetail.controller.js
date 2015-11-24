@@ -112,18 +112,16 @@ sap.ui.define([
         },
         onEditPress: function(){
           if(!this._editMenu) {
-              this.editFragmentModel = new JSONModel();
               this._editMenu = sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.EditMember", this.getView().getController());
               this.getView().addDependent(this._editMenu);
-              this.getView().setModel(this.editFragmentModel, "editMember");
           }
           $.sap.delayedCall(0, this, function(){
               //this.editFragmentModel.setData(data);
               this._editMenu.open();
           });
         },
-        editMember_save: function() {
-          var data = this.editFragmentModel.getData();
+        editMember_save: function(evt) {
+          var data = this.memberModel.getData();
           this._clearErrorStates();
           console.warn(data);
           var error = false;
@@ -161,7 +159,7 @@ sap.ui.define([
               phone: data.phone,
               address: data.address
             };
-
+            console.log(payload);
             this.ODataModel.update("Members(" + this.member.memberID + ")", payload, {
               success: (function(){}).bind(this),
               error: function() {}

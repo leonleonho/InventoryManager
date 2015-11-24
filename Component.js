@@ -24,7 +24,7 @@ sap.ui.define([
             window.APP_CONFIG = this.getMetadata().getConfig();
             var login = new LoginDialog(sap.ui.getCore());
             sap.ui.getCore().getEventBus().subscribe("app", "loggedin", this.loggedin, this);
-            login.show();            
+            login.show();
             login.attemptAuth();
             this.getRouter().initialize();
         },
