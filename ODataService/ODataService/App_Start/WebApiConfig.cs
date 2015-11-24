@@ -33,7 +33,9 @@ namespace oDataService
             builder.EntitySet<Inventory>("Inventories");
             builder.EntitySet<Member>("Members");
             builder.EntitySet<EventsView>("EventsViews");
+            builder.EntitySet<TypesView>("TypesViews");
             builder.EntitySet<Item>("Items");
+            builder.EntitySet<PurchasedAt>("PurchasedAt");
             config.Routes.MapODataServiceRoute("odata", "/", builder.GetEdmModel());
             config.MapHttpAttributeRoutes();
 

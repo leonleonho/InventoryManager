@@ -126,16 +126,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\InventoryManager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
       <LastGenOutput>InventoryManager.Context.cs</LastGenOutput>
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\InventoryManager.edmx.diagram">
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Content>
     <Content Include="Models\InventoryManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>InventoryManager.cs</LastGenOutput>
       <DependentUpon>InventoryManager.edmx</DependentUpon>
+      <LastGenOutput>InventoryManager.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -154,7 +151,9 @@
     <Compile Include="Controllers\InventoryUsagesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\PurchasedAtController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\TypesViewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,18 +174,18 @@
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryManager.Context.cs">
-      <DependentUpon>InventoryManager.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryManager.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryManager.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryManager.Designer.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>InventoryManager.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryUsage.cs">
@@ -196,6 +195,12 @@
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs">
+      <DependentUpon>InventoryManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchasedAt.cs">
+      <DependentUpon>InventoryManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypesView.cs">
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -212,6 +217,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>InventoryManager.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\InventoryManager.edmx.diagram">
+      <DependentUpon>InventoryManager.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Web.Debug.config">
