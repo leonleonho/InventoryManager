@@ -35,5 +35,6 @@ namespace oDataService.Models
         public virtual DbSet<EventsView> EventsViews { get; set; }
         public virtual DbSet<InventoryUsage> InventoryUsages { get; set; }
         public virtual DbSet<PurchasedAt> PurchasedAts { get; set; }
+        public virtual DbSet<TypesView> TypesViews { get; set; }
     }
 }

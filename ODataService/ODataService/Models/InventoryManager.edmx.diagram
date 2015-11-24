@@ -22,6 +22,7 @@
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_EventMember_Members" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_Events_Users" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_Inventory_Item" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.TypesView" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

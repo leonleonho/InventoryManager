@@ -153,6 +153,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PurchasedAtController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\TypesViewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +198,9 @@
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchasedAt.cs">
+      <DependentUpon>InventoryManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypesView.cs">
       <DependentUpon>InventoryManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
