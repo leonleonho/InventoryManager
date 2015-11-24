@@ -21,7 +21,7 @@ sap.ui.define([
           this.inventoryModel = new sap.ui.model.json.JSONModel();
           this.getView().setModel(this.inventoryModel);
           this.inventoryList = this.byId("inventoryList");
-          this.inventoryList.setBusy(true);
+          //this.inventoryList.setBusy(true);
           this.core = sap.ui.getCore();
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
@@ -51,8 +51,8 @@ sap.ui.define([
         initTable: function() {
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
-            this.inventoryList.setBusy(true);
-            this.ODataModel.read("InventoryUsages", {
+            //this.inventoryList.setBusy(true);
+            this.ODataModel.read("/InventoryUsages", {
               filters: [filter],
               urlParameters: {
                 $select: 'inventoryID,memberID,fName,lName,condition,purchasedAt,price'

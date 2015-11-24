@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "./util/LoginDialog",
-    "sap/ui/model/odata/ODataModel"
+    "sap/ui/model/odata/v2/ODataModel"
 ], function (UIComponent, LoginDialog, ODataModel) {
     "use strict";
     return UIComponent.extend("com.scout138.inventoryManager.Component", {
@@ -33,7 +33,11 @@ sap.ui.define([
               headers: {
                 "Authorization": APP_CONFIG.state.auth.headers
               },
-              defaultCountMode: "Inline"
+              useBatch: false,
+              defaultCountMode: "Inline",
+              skipMetadataAnnotationParsing: true,
+              maxDataServiceVersion: '3.0',
+              json: false
             });
           this.setModel(this.ODataModel, "oDataModel");
         },
