@@ -35,7 +35,7 @@
 		},
 		"config": {
 		  	"oDataServiceMock": "http://localhost/InventoryManager/mock/events.json",
-		  	"oDataService": "http://odata.inventory.leonho.ca",
+		  	"oDataService": "/remote/",
 		  	"state": {
 		  		"auth": {
 		  			"loggedin": false
