@@ -26,7 +26,7 @@ sap.ui.define([
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
             this.loggedin();
-          }  
+          }
         },
         handlePress: function(evt) {
             var src = evt.getSource();
@@ -196,18 +196,24 @@ sap.ui.define([
         onRatingPress: function(evt) {
           var src = evt.getSource();
           var obj = src.getBindingContext().getObject();
-          var path = "Inventories("+obj.inventoryID+")";
-          var payload = {condition: obj.condition};
-          this.ODataModel.update(path, payload, {
-            success: function() {
-              MessageToast.show("Updated Entry");
+          var path = APP_CONFIG.oDataService + "Inventories("+obj.inventoryID+")";
+          var payload = {
+            condition: evt.getParameter("value").toString()
+          };
+          OData.request({ //OData model update doesnt work for some reason
+            requestUri: path,
+            headers: {Authorization: APP_CONFIG.state.auth.headers},
+            method: "PATCH",
+            data: payload // json object with the new entry
             },
-            error: function(err) {
+            function(insertedItem) {
+                MessageToast.show("Updated Entry");
+            },
+            function(err) {
               MessageToast.show("Failed to update entry");
               console.error(err);
-            },
-            merge: true
-          });
+            }
+          );  
         }
     });
 });
