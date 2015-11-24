@@ -75,6 +75,13 @@ sap.ui.define([
                 itemName: ""
               });
               this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddItem", this);
+              this.suggestionModel = new JSONModel();
+              this.ODataModel.read("TypesViews", {
+                success: (function(data){
+                  this.suggestionModel.setData(data.results);
+                }).bind(this)
+              });
+              this.getView().setModel(this.suggestionModel, "addSuggestionModel");
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventory");
           }
