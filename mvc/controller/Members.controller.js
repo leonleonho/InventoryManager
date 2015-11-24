@@ -28,9 +28,7 @@ sap.ui.define([
             console.log(obj);
             this.oRouter.navTo("MembersDetail", {
               from: "Members",
-              detailID: obj.memberID,
-              fName: obj.fName,
-              lName: obj.lName
+              detailID: obj.memberID
             });
         },
         onMenuPress: function(evt) {

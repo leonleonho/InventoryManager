@@ -94,7 +94,7 @@
 					"targetControl": "idAppControl",
 					"subroutes" : [
 						{
-							"pattern": "MembersDetail/{detailID}/{fName}/{lName}",
+							"pattern": "MembersDetail/{detailID}",
 							"name": "MembersDetail",
 							"view": "MembersDetail",
 							"targetAggregation": "detailPages"

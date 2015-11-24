@@ -35,14 +35,29 @@ sap.ui.define([
             MessageToast.show(evt.getSource().getId() + "Pressed");
         },
         onRouteMatched: function(evt) {
-            var args = evt.getParameters().arguments;
-            this.member = {
-                memberID: args.detailID,
-                fName: args.fName,
-                lName: args.lName
-            };
-            this.memberModel.setData(this.member);
-            this.initTable();
+          var args = evt.getParameters().arguments;
+          this.member = {
+              memberID: args.detailID
+          };
+
+
+
+          this.oDataModelReady.done((function() {
+            var filter = new Filter("memberID", sap.ui.model.FilterOperator.EQ, this.member.memberID);  
+            this.ODataModel.read("Members", {
+              filters: [filter],
+              success: (function(data){
+                this.memberModel.setData(data.results[0]);
+                console.warn(this.memberModel.oData);
+              }).bind(this)
+            });
+          }).bind(this));
+
+
+
+
+          //this.memberModel.setData(this.member);
+          this.initTable();
         },
         loggedin: function() {
           this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
@@ -51,11 +66,11 @@ sap.ui.define([
         initTable: function() {
           this.oDataModelReady.done((function() {
             var filter = new Filter("memberID", sap.ui.model.FilterOperator.EQ, this.member.memberID);  
-            this.membersList.setBusy(true);
+            this.inventoryList.setBusy(true);
             this.ODataModel.read("InventoryUsages", {
               filters: [filter],
               urlParameters: {
-                $select: 'inventoryID, memberID, fName, lName, condition, purchasedAt, price'
+                $select: "inventoryID, condition, purchasedAt, price"
               },
               success: (function(data){
                 var temp = this.memberModel.getData();
@@ -63,7 +78,7 @@ sap.ui.define([
                 temp.checkedOut = checkedOut;
                 temp.Inventory = data.results;
                 temp.total = data.results.length;
-                this.inventoryModel.setData(temp);
+                this.memberModel.setData(temp);
                 this.inventoryList.setBusy(false);
               }).bind(this)
             });
@@ -95,67 +110,81 @@ sap.ui.define([
             });
           }
         },
-        onAddPress: function(){
-          if(!this._addMenu) {
-              this.addFragmentModel = new JSONModel();
-              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this.getView().getController());
-              this.getView().addDependent(this._addMenu);
-              this.getView().setModel(this.addFragmentModel, "addInventoryItems");
+        onEditPress: function(){
+          if(!this._editMenu) {
+              this.editFragmentModel = new JSONModel();
+              this._editMenu = sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.EditMember", this.getView().getController());
+              this.getView().addDependent(this._editMenu);
+              this.getView().setModel(this.editFragmentModel, "editMember");
           }
           $.sap.delayedCall(0, this, function(){
-              var data = {
-                purchasedAt: "",
-                condition: 5,
-                price: undefined,
-                quantity: 1
-              };
-              this.addFragmentModel.setData(data);
-              this._addMenu.open();
+              //this.editFragmentModel.setData(data);
+              this._editMenu.open();
           });
         },
-        addFragmentCreate: function() {
-          var data = this.addFragmentModel.getData();
+        editMember_save: function() {
+          var data = this.editFragmentModel.getData();
           this._clearErrorStates();
+          console.warn(data);
           var error = false;
-          if(!data.price || isNaN(data.price)){
-            this.core.byId("addInventoryPrice").setValueState("Error")
-            .setValueStateText("Must be a number");
+          if(!data.fName){
+            this.core.byId("fName").setValueState("Error")
+            .setValueStateText("Must enter a first name");
             error = true;
           }
-          if(!data.quantity || isNaN(data.quantity)){
-            this.core.byId("itemQuantity").setValueState("Error")
-            .setValueStateText("Must be a number");
+          if(!data.lName){
+            this.core.byId("lName").setValueState("Error")
+            .setValueStateText("Must enter a last name");
             error = true;
           }
+          if(!data.email){
+            this.core.byId("email").setValueState("Error")
+            .setValueStateText("Must enter an email address");
+            error = true;
+          }
+          if(!data.phone){
+            this.core.byId("phone").setValueState("Error")
+            .setValueStateText("Must enter a phone number");
+            error = true;
+          }
+          if(!data.address){
+            this.core.byId("address").setValueState("Error")
+            .setValueStateText("Must enter a home address");
+            error = true;
+          }
+
           if(!error) {
             var payload = {
-              purchasedAt: data.purchasedAt,
-              price: data.price,
-              condition: data.condition,
-              itemID: this.item.itemID,
-              dateAdded: new Date().toISOString().slice(0, 19)
+              fName: data.fName,
+              lName: data.lName,
+              email: data.email,
+              phone: data.phone,
+              address: data.address
             };
-            var deferreds = [];
-            for(var i = 0; i < data.quantity; i++) {
-              var deferred = $.Deferred();
-              deferreds.push(deferred);
-              this.ODataModel.create("Inventories", payload, {
-                success: (function(){
-                }).bind(this), error: function() {
-                }
-              });
-            }
-              this.initTable();
-              MessageToast.show("Items Added");
-              this._addMenu.close();
+
+            this.ODataModel.update("Members(" + this.member.memberID + ")", payload, {
+              success: (function(){}).bind(this),
+              error: function() {}
+            });
+            
+            this.initTable();
+            MessageToast.show("Member Updated");
+            this._editMenu.close();
           }
         },
         _clearErrorStates: function() {
-          this.core.byId("addInventoryPrice").setValueState("None")
-            .setValueStateText("Must be a number");
-          this.core.byId("itemQuantity").setValueState("None")
-            .setValueStateText("Must be a number");
+          this.core.byId("fName").setValueState("None")
+            .setValueStateText("Must enter a first name");
+          this.core.byId("lName").setValueState("None")
+            .setValueStateText("Must enter a last name");
+          this.core.byId("phone").setValueState("None")
+            .setValueStateText("Must enter a phone number");
+          this.core.byId("address").setValueState("None")
+            .setValueStateText("Must enter a home address");
+          this.core.byId("email").setValueState("None")
+            .setValueStateText("Must enter an email address");
         },
+        /*
         onDelete: function() {
           console.log("Deleted");
           this.ODataModel.remove("Items("+this.item.itemID+")", {
@@ -164,14 +193,15 @@ sap.ui.define([
             }
           });
         },
+        */
         nameFormater: function(part1, part2) {
           if(!part1 && !part2) {
             return "In Inventory";
           }
           return part1 + " " + part2;
         },
-        addFragmentCancel: function() {
-          this._addMenu.close();
+        editFragmentCancel: function() {
+          this._editMenu.close();
         },
         onRowDelete: function(evt) {
           var bindingCtx = evt.getSource().getParent().getBindingContext();
@@ -184,22 +214,6 @@ sap.ui.define([
             }
           });
           this.initTable();
-        },
-        onRatingPress: function(evt) {
-          var src = evt.getSource();
-          var obj = src.getBindingContext().getObject();
-          var path = "Inventories("+obj.inventoryID+")";
-          var payload = {condition: obj.condition};
-          this.ODataModel.update(path, payload, {
-            success: function() {
-              MessageToast.show("Updated Entry");
-            },
-            error: function(err) {
-              MessageToast.show("Failed to update entry");
-              console.error(err);
-            },
-            merge: true
-          });
         }
     });
 });

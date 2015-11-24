@@ -27,9 +27,6 @@
                                     <Text text="Inventory ID" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true">
-                                    <Text text="Checked Out By" />
-                                </Column>
-                                <Column minScreenWidth="Desktop" demandPopin="true">
 									<Text text="Purchased At" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
@@ -46,7 +43,6 @@
                                 <ColumnListItem>
                                     <cells>
                                         <Text text="{inventoryID}" />
-                                        <Text text="{parts:[{path:'fName'}, {path:'lName'}], formatter:'.nameFormater'} " />
                                         <Text text="{purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
                                         	path: 'condition', formatter: '.conditionFormat'}"
@@ -67,8 +63,7 @@
         <footer>
             <Toolbar>
                 <ToolbarSpacer />
-                <Button text="Add Inventory" press="onAddPress" class="appIconBtn" />
-                <Button text="Delete" icon="sap-icon://delete" press="onDelete" class="appIconBtn" />
+                <Button text="Edit Member" icon="sap-icon://edit" press="onEditPress" class="appIconBtn" />
             </Toolbar>
         </footer>
     </Page>

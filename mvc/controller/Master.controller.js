@@ -19,7 +19,6 @@ return Controller.extend("com.scout138.inventoryManager.mvc.controller.Master", 
     handlePress: function(evt) {
         var sPath = evt.getSource().getBindingContext().getPath();
         var oObject = this.getView().getModel().getProperty(sPath);
-        console.log(oObject.eventID + " pressed");
         this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         var bReplace = $.device.is.phone ? false : true;
         this.oRouter.navTo("Detail", {
