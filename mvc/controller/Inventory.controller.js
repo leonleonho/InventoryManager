@@ -18,9 +18,6 @@ sap.ui.define([
           this.eventBus = this.core.getEventBus();
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-          if(APP_CONFIG.state.auth.loggedIn) {
-            //this.initModel();
-          }  
         },
 
         handlePress: function(evt) {
