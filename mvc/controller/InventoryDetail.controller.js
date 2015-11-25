@@ -55,8 +55,6 @@ sap.ui.define([
           this.oDataModelReady.resolve();
         },
         initTable: function() {
-            this.destroy();
-          
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
             this.inventoryList.setBusy(true);

@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<ResponsivePopover
 		title="Member Info"
-		placement="Top">
+		placement="Vertical">
 		<content>
 			<VBox
 				class="sapUiSmallMargin">
