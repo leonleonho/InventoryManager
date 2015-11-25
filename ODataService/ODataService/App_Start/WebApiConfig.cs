@@ -38,7 +38,6 @@ namespace oDataService
             builder.EntitySet<PurchasedAt>("PurchasedAt");
             config.Routes.MapODataServiceRoute("odata", "/", builder.GetEdmModel());
             config.MapHttpAttributeRoutes();
-
         }
     }
 }
