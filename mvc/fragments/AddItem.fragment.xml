@@ -25,14 +25,10 @@
 							placeholder="Begin typing for auto suggestion"
 							showSuggestion="true"
 							width="100%"
-							suggestionItems="{path: 'oDataModel>/Items',
-								parameters: {
-									'select': 'type',
-									'$groupby': 'type'
-								}}"
+							suggestionItems="{path: 'addSuggestionModel>/'}"
 							value="{addInventory>/type}" >
 							<suggestionItems>
-								<core:Item text="{oDataModel>type}" />
+								<core:Item text="{addSuggestionModel>type}" />
 							</suggestionItems>
 						</Input>
 					</l:VerticalLayout>

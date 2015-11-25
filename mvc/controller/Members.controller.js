@@ -18,7 +18,7 @@ sap.ui.define([
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
           if(APP_CONFIG.state.auth.loggedIn) {
-            this.initModel();
+            //this.initModel();
           }  
         },
 
@@ -115,6 +115,12 @@ sap.ui.define([
           this.ODataModel.remove("", swipedCtx);
           oList.removeAggregation("members", oList.getSwipedItem());
           oList.swipeOut();
+        },
+        onMenuItemPress: function(evt) {
+          var viewName = evt.getSource().data().navView;
+          if(viewName == "Members")
+            return;
+          this.oRouter.navTo(viewName);
         }
 
     });

@@ -26,7 +26,7 @@ sap.ui.define([
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
             this.loggedin();
-          }  
+          }
         },
         handlePress: function(evt) {
             var src = evt.getSource();
@@ -49,6 +49,8 @@ sap.ui.define([
           this.oDataModelReady.resolve();
         },
         initTable: function() {
+            this.destroy();
+          
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
             this.inventoryList.setBusy(true);
@@ -98,10 +100,18 @@ sap.ui.define([
         onAddPress: function(){
           if(!this._addMenu) {
               this.addFragmentModel = new JSONModel();
+              this.addSuggestionModel = new JSONModel();
+              this.ODataModel.read("PurchasedAt", {
+                success: (function(data){
+                  this.addSuggestionModel.setData(data.results);
+                }).bind(this)
+              });//Retrieve the suggestion model 
+              this.getView().setModel(this.addSuggestionModel, "addSuggestion");
               this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this.getView().getController());
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventoryItems");
           }
+          this.addFragmentModel.setData({});
           $.sap.delayedCall(0, this, function(){
               var data = {
                 purchasedAt: "",
@@ -159,9 +169,12 @@ sap.ui.define([
         onDelete: function() {
           console.log("Deleted");
           this.ODataModel.remove("Items("+this.item.itemID+")", {
-            success: function(){
-              console.log("Deleted");
-            }
+            success: (function(){
+              MessageToast.show("Delete Item");
+              this.oRouter.navTo("Inventory", {
+                from: "InventoryDetail"
+              });
+            }).bind(this)
           });
         },
         nameFormater: function(part1, part2) {
@@ -188,18 +201,24 @@ sap.ui.define([
         onRatingPress: function(evt) {
           var src = evt.getSource();
           var obj = src.getBindingContext().getObject();
-          var path = "Inventories("+obj.inventoryID+")";
-          var payload = {condition: obj.condition};
-          this.ODataModel.update(path, payload, {
-            success: function() {
-              MessageToast.show("Updated Entry");
+          var path = APP_CONFIG.oDataService + "Inventories("+obj.inventoryID+")";
+          var payload = {
+            condition: evt.getParameter("value").toString()
+          };
+          OData.request({ //OData model update doesnt work for some reason
+            requestUri: path,
+            headers: {Authorization: APP_CONFIG.state.auth.headers},
+            method: "PATCH",
+            data: payload // json object with the new entry
             },
-            error: function(err) {
+            function(insertedItem) {
+                MessageToast.show("Updated Entry");
+            },
+            function(err) {
               MessageToast.show("Failed to update entry");
               console.error(err);
-            },
-            merge: true
-          });
+            }
+          );  
         }
     });
 });

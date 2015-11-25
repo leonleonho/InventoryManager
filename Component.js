@@ -35,7 +35,7 @@ sap.ui.define([
               },
               defaultCountMode: "Inline"
             });
-          this.setModel(this.ODataModel, "oDataModel");
+            this.setModel(this.ODataModel, "oDataModel");
         },
         loggedin: function(){
            this.initODataModel();

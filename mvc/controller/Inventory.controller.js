@@ -19,7 +19,7 @@ sap.ui.define([
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
           if(APP_CONFIG.state.auth.loggedIn) {
-            this.initModel();
+            //this.initModel();
           }  
         },
 
@@ -75,9 +75,18 @@ sap.ui.define([
                 itemName: ""
               });
               this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddItem", this);
+              this.suggestionModel = new JSONModel();
+              this.ODataModel.read("TypesViews", {
+                success: (function(data){
+                  this.suggestionModel.setData(data.results);
+                }).bind(this)
+              });
+              this.getView().setModel(this.suggestionModel, "addSuggestionModel");
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventory");
           }
+          this._addMenu.setBusy(false); //Reset fragment
+          this.addFragmentModel.setData({}); //Reset Data
           $.sap.delayedCall(0, this, function(){
               this._addMenu.open();
           });
@@ -106,6 +115,12 @@ sap.ui.define([
           this.ODataModel.remove("", swipedCtx);
           oList.removeAggregation("items", oList.getSwipedItem());
           oList.swipeOut();
+        },
+        onMenuItemPress: function(evt) {
+          var viewName = evt.getSource().data().navView;
+          if(viewName == "Inventory")
+            return;
+          this.oRouter.navTo(viewName);
         }
 
     });
