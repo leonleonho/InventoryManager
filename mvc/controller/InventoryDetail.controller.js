@@ -35,14 +35,20 @@ sap.ui.define([
             MessageToast.show(evt.getSource().getId() + "Pressed");
         },
         onRouteMatched: function(evt) {
-            var args = evt.getParameters().arguments;
-            this.item = {
-                itemID: args.detailID,
-                itemName: args.itemName,
-                itemDescription: args.itemDescription
-            };
-            this.inventoryModel.setData(this.item);
-            this.initTable();
+          var params = evt.getParameters();
+          if(params.name != "InventoryDetail") {
+            this.byId("inventoryDetailPage").setVisible(false);
+          }else {
+            this.byId("inventoryDetailPage").setVisible(true);
+          }
+          var args = params.arguments;
+          this.item = {
+              itemID: args.detailID,
+              itemName: args.itemName,
+              itemDescription: args.itemDescription
+          };
+          this.inventoryModel.setData(this.item);
+          this.initTable();
         },
         loggedin: function(evt) {
           this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
@@ -219,6 +225,16 @@ sap.ui.define([
               console.error(err);
             }
           );  
+        },
+        onRowPress: function(evt) {
+          if(!this._memberPopover) {
+              this._memberPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.MemberDetailPopOver", this);
+              this.getView().addDependent(this._memberPopover);
+          }
+          var row = evt.getSource();
+          $.sap.delayedCall(0, this, function(){
+              this._memberPopover.openBy(row);
+          });
         }
     });
 });

@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		title="Member Info"
+		placement="Top">
+		<content>
+			<VBox
+				class="sapUiSmallMargin">
+				<Label text="Contact Info"
+					class="sapUiSmallMarginTop"
+					design="Bold" />
+				<Label text="Phone"
+					class="sapUiSmallMarginTop"/>
+				<Text text="604 327 8390" />
+				<Label text="Email"
+					class="sapUiSmallMarginTop"/>
+				<Text text="ho.leon@yahoo.com" />
+			</VBox>
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

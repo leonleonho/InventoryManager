@@ -39,9 +39,6 @@ sap.ui.define([
           this.member = {
               memberID: args.detailID
           };
-
-
-
           this.oDataModelReady.done((function() {
             var filter = new Filter("memberID", sap.ui.model.FilterOperator.EQ, this.member.memberID);  
             this.ODataModel.read("Members", {
