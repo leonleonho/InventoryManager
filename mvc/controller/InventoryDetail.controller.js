@@ -49,6 +49,8 @@ sap.ui.define([
           this.oDataModelReady.resolve();
         },
         initTable: function() {
+            this.destroy();
+          
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
             this.inventoryList.setBusy(true);
@@ -167,9 +169,12 @@ sap.ui.define([
         onDelete: function() {
           console.log("Deleted");
           this.ODataModel.remove("Items("+this.item.itemID+")", {
-            success: function(){
-              console.log("Deleted");
-            }
+            success: (function(){
+              MessageToast.show("Delete Item");
+              this.oRouter.navTo("Inventory", {
+                from: "InventoryDetail"
+              });
+            }).bind(this)
           });
         },
         nameFormater: function(part1, part2) {
