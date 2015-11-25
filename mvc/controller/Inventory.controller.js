@@ -115,6 +115,12 @@ sap.ui.define([
           this.ODataModel.remove("", swipedCtx);
           oList.removeAggregation("items", oList.getSwipedItem());
           oList.swipeOut();
+        },
+        onMenuItemPress: function(evt) {
+          var viewName = evt.getSource().data().navView;
+          if(viewName == "Inventory")
+            return;
+          this.oRouter.navTo(viewName);
         }
 
     });

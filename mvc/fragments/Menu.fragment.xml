@@ -1,6 +1,7 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
-	xmlns:core="sap.ui.core">
+	xmlns:core="sap.ui.core"
+	xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
 	<Popover
 		title="Menu"
 		contentWidth="15rem"
@@ -11,19 +12,22 @@
 				<StandardListItem
 					title="Events"
 					type="Active"
-					press="onNavToProduct"
+					data:navView="Events"
+					press="onMenuItemPress"
 					iconDensityAware="false"
 					iconInset="false" />
 					<StandardListItem
 					title="Inventory"
 					type="Active"
-					press="onNavToProduct"
+					data:navView="Inventory"
+					press="onMenuItemPress"
 					iconDensityAware="false"
 					iconInset="false" />
 					<StandardListItem
 					title="Members"
 					type="Active"
-					press="onNavToProduct"
+					data:navView="Members"
+					press="onMenuItemPress"
 					iconDensityAware="false"
 					iconInset="false" />
 			</List>
