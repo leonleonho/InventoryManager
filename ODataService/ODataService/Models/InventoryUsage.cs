@@ -28,5 +28,6 @@ namespace oDataService.Models
         public string itemName { get; set; }
         public string itemDescription { get; set; }
         public string type { get; set; }
+        public Nullable<int> eventInventoryID { get; set; }
     }
 }
