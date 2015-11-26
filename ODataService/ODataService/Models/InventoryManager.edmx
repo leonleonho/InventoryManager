@@ -141,6 +141,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="itemName" Type="nvarchar" MaxLength="50" />
           <Property Name="itemDescription" Type="nvarchar(max)" />
           <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventInventoryID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.PurchasedAt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -183,9 +184,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_eventInventory_Members">
-          <End Role="Members" Type="Self.Members" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
           <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
@@ -295,7 +294,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
     [InventoryUsage].[lName] AS [lName], 
     [InventoryUsage].[itemName] AS [itemName], 
     [InventoryUsage].[itemDescription] AS [itemDescription], 
-    [InventoryUsage].[type] AS [type]
+    [InventoryUsage].[type] AS [type], 
+    [InventoryUsage].[eventInventoryID] AS [eventInventoryID]
     FROM [dbo].[InventoryUsage] AS [InventoryUsage]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PurchasedAt" EntityType="Self.PurchasedAt" store:Type="Views" store:Schema="dbo">
@@ -486,6 +486,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventInventoryID" Type="Int32" />
         </EntityType>
         <EntityType Name="PurchasedAt">
           <Key>
@@ -748,6 +749,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <EntitySetMapping Name="InventoryUsages">
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.InventoryUsage">
               <MappingFragment StoreEntitySet="InventoryUsage">
+                <ScalarProperty Name="eventInventoryID" ColumnName="eventInventoryID" />
                 <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
                 <ScalarProperty Name="condition" ColumnName="condition" />
                 <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />

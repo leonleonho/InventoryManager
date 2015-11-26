@@ -10,7 +10,8 @@
 		mem.lName,
 		item.itemName,
 		item.itemDescription,
-		item.type
+		item.type,
+		ei.eventInventoryID
 		FROM Inventory inv
 			LEFT JOIN EventInventory ei
 				ON ei.inventoryID = inv.inventoryID

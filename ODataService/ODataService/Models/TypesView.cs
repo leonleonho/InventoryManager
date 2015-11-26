@@ -11,11 +11,9 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TypesView
     {
-        [Key]
         public string type { get; set; }
     }
 }

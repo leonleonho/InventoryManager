@@ -11,11 +11,9 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class InventoryUsage
     {
-        [Key]
         public int inventoryID { get; set; }
         public decimal condition { get; set; }
         public System.DateTime dateAdded { get; set; }
@@ -28,5 +26,6 @@ namespace oDataService.Models
         public string itemName { get; set; }
         public string itemDescription { get; set; }
         public string type { get; set; }
+        public Nullable<int> eventInventoryID { get; set; }
     }
 }
