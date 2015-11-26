@@ -2,16 +2,19 @@
     <Page title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
         <content>
             <!-- this CSS class add a standard spacing to all the page content -->
-            <ObjectHeader id="title" title="{/fName}" number="{/lName}" numberUnit="In Members">
+            <ObjectHeader id="title" title="{/fName} {/lName}">
                 <statuses>
             <ObjectStatus
-                title="{/fName}"
+                title="{/checkedOut}"
                 text="Checked Out"
                 state="Warning"/>
             </statuses>
                 <attributes>
                     <ObjectAttribute title="Member Id" text="{/memberID}" />
                     <ObjectAttribute title="Name" text="{/fName} {/lName}" />
+                    <ObjectAttribute title="Address" text="{/address}" />
+                    <ObjectAttribute title="Email" text="{/email}" />
+                    <ObjectAttribute title="Phone" text="{/phone}" />
                 </attributes>
             </ObjectHeader>
             <IconTabBar expanded="true" class="appIconTabBar">
@@ -19,7 +22,11 @@
                     <IconTabFilter text="Items" icon="sap-icon://activity-items">
                         <Table id="inventoryList" 
                             inset="false" 
-                            items="{path: '/Inventory'}"
+                            busyIndicatorDelay="0"
+                            items="{path: 'oDataModel>/InventoryUsages',
+                                parameters : {
+                                        select:'inventoryID, condition, purchasedAt, price, itemName'
+                                }}"
                             growing="true"
                             growingScrollToLoad="true">
                             <columns>
@@ -27,7 +34,7 @@
                                     <Text text="Inventory ID" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="Purchased At" />
+									<Text text="Item Name" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
                                     <Text text="Condition" />
@@ -42,12 +49,12 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <Text text="{inventoryID}" />
-                                        <Text text="{purchasedAt}" />
+                                        <Text text="{oDataModel>inventoryID}" />
+                                        <Text text="{oDataModel>itemName}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                        	path: 'condition', formatter: '.conditionFormat'}"
+                                        	path: 'oDataModel>condition', formatter: '.conditionFormat'}"
                                             change="onRatingPress"/>
-                                        <Text text="{path:'price', formatter: '.priceFormatter'}" />
+                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
                                         <Button text="Remove"
                                         	icon="sap-icon://delete"
                                             press="onRowDelete"

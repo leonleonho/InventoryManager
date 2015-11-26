@@ -234,15 +234,7 @@ sap.ui.define([
           this._memberPopover.openBy(row)
           this.ODataModel.read("Members("+data.memberID+")", {
               success: (function(data){
-                console.log(data);
-                var temp = {
-                  address: data.address,
-                  email: data.email,
-                  fName: data.fName,
-                  lName: data.lName,
-                  phone: data.phone
-                }
-                this.memberInfo.setData(temp);
+                this.memberInfo.setData(data);
                 this._memberPopover.setBusy(false);
               }).bind(this),
               error: (function(data){
