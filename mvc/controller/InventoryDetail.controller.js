@@ -21,18 +21,11 @@ sap.ui.define([
           this.inventoryModel = new sap.ui.model.json.JSONModel();
           this.getView().setModel(this.inventoryModel);
           this.inventoryList = this.byId("inventoryList");
-          this.inventoryList.setBusy(true);
           this.core = sap.ui.getCore();
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
             this.loggedin();
           }
-        },
-        handlePress: function(evt) {
-            var src = evt.getSource();
-            var obj = src.getBindingContext().getObject();
-            console.log(obj);
-            MessageToast.show(evt.getSource().getId() + "Pressed");
         },
         onRouteMatched: function(evt) {
           var params = evt.getParameters();
@@ -55,24 +48,10 @@ sap.ui.define([
           this.oDataModelReady.resolve();
         },
         initTable: function() {
+          
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
-            this.inventoryList.setBusy(true);
-            this.ODataModel.read("InventoryUsages", {
-              filters: [filter],
-              urlParameters: {
-                $select: 'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
-              },
-              success: (function(data){
-                var temp = this.inventoryModel.getData();
-                var checkedOut = this._retrieveSize(data.results, "memberID");
-                temp.checkedOut = checkedOut;
-                temp.Inventory = data.results;
-                temp.total = data.results.length;
-                this.inventoryModel.setData(temp);
-                this.inventoryList.setBusy(false);
-              }).bind(this)
-            });
+            this.inventoryList.getBinding("items").filter(filter);
           }).bind(this));
         },
         conditionFormat: function(value) {
@@ -104,13 +83,6 @@ sap.ui.define([
         onAddPress: function(){
           if(!this._addMenu) {
               this.addFragmentModel = new JSONModel();
-              this.addSuggestionModel = new JSONModel();
-              this.ODataModel.read("PurchasedAt", {
-                success: (function(data){
-                  this.addSuggestionModel.setData(data.results);
-                }).bind(this)
-              });//Retrieve the suggestion model 
-              this.getView().setModel(this.addSuggestionModel, "addSuggestion");
               this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddInventory", this.getView().getController());
               this.getView().addDependent(this._addMenu);
               this.getView().setModel(this.addFragmentModel, "addInventoryItems");
@@ -191,7 +163,7 @@ sap.ui.define([
           this._addMenu.close();
         },
         onRowDelete: function(evt) {
-          var bindingCtx = evt.getSource().getParent().getBindingContext();
+          var bindingCtx = evt.getSource().getParent().getBindingContext("oDataModel");
           this.ODataModel.remove("Inventories("+bindingCtx.getObject().inventoryID+")", {
             success: function(){
               MessageToast.show("Inventory Item Deleted");
@@ -204,7 +176,7 @@ sap.ui.define([
         },
         onRatingPress: function(evt) {
           var src = evt.getSource();
-          var obj = src.getBindingContext().getObject();
+          var obj = src.getBindingContext("oDataModel").getObject();
           var path = APP_CONFIG.oDataService + "Inventories("+obj.inventoryID+")";
           var payload = {
             condition: evt.getParameter("value").toString()

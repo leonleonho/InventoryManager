@@ -17,9 +17,13 @@
             <IconTabBar expanded="true" class="appIconTabBar">
                 <items>
                     <IconTabFilter text="Items" icon="sap-icon://activity-items">
-                        <Table id="inventoryList" 
+                        <Table id="inventoryList"
+                            busyIndicatorDelay="0"
                             inset="false" 
-                            items="{path: '/Inventory'}"
+                            items="{path: 'oDataModel>/InventoryUsages',
+                                parameters : {
+                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                            }}"
                             growing="true"
                             growingScrollToLoad="true">
                             <columns>
@@ -46,13 +50,17 @@
                                 <ColumnListItem press="onRowPress"
                                     type="Active">
                                     <cells>
-                                        <Text text="{inventoryID}" />
-                                        <Text text="{parts:[{path:'fName'}, {path:'lName'}], formatter:'.nameFormater'} " />
-                                        <Text text="{purchasedAt}" />
+                                        <Text text="{oDataModel>inventoryID}" />
+                                        <Text text="{parts:[
+                                                {path:'oDataModel>fName'}, 
+                                                {path:'oDataModel>lName'}
+                                            ], 
+                                            formatter:'.nameFormater'} " />
+                                        <Text text="{oDataModel>purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                        	path: 'condition', formatter: '.conditionFormat'}"
+                                        	path: 'oDataModel>condition', formatter: '.conditionFormat'}"
                                             change="onRatingPress"/>
-                                        <Text text="{path:'price', formatter: '.priceFormatter'}" />
+                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
                                         <Button text="Remove"
                                         	icon="sap-icon://delete"
                                             press="onRowDelete"
