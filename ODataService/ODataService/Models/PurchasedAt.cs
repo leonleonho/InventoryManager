@@ -11,9 +11,11 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PurchasedAt
     {
+        [Key]
         public string purchasedAt1 { get; set; }
     }
 }
