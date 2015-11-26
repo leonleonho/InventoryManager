@@ -11,15 +11,13 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class EventsView
     {
         public int eventID { get; set; }
         public string location { get; set; }
         public System.DateTime dateCreated { get; set; }
         public string eventName { get; set; }
-        [Key]
         public int inventoryID { get; set; }
         public int itemID { get; set; }
         public System.DateTime dateAdded { get; set; }

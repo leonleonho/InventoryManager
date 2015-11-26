@@ -184,9 +184,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_eventInventory_Members">
-          <End Role="Members" Type="Self.Members" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
           <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">

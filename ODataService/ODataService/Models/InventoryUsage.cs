@@ -11,11 +11,9 @@ namespace oDataService.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class InventoryUsage
     {
-        [Key]
         public int inventoryID { get; set; }
         public decimal condition { get; set; }
         public System.DateTime dateAdded { get; set; }

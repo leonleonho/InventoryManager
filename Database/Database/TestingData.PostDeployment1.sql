@@ -9,7 +9,7 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-/*
+
 MERGE INTO Users AS Target 
 USING (VALUES 
         (1, 'askho', 'password', 'ho.leon@yahoo.com', 6043278390, 1, 'Leon', 'Ho'),
@@ -231,4 +231,4 @@ AS Source (eventMemberID, memberID, eventID)
 ON Target.eventMemberID = Source.eventMemberID 
 WHEN NOT MATCHED BY TARGET THEN 
 INSERT (memberID, eventID) 
-VALUES (memberID, eventID);*/
+VALUES (memberID, eventID);
