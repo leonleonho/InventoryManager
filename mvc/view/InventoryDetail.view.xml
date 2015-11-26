@@ -5,9 +5,10 @@
             <ObjectHeader id="title" title="{/itemName}" number="{/total}" numberUnit="In Inventory">
                 <statuses>
             <ObjectStatus
-                title="{/checkedOut}"
-                text="Checked Out"
-                state="Warning" />
+                title="{= ${/total} - ${/checkedOut}}"
+                text="Checked Out "
+                state="Warning"
+                visible="{= !isNaN((${/total} - ${/checkedOut}))}" />
             </statuses>
                 <attributes>
                     <ObjectAttribute title="Item Id" text="{/itemID}" />

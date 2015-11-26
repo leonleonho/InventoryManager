@@ -4,8 +4,9 @@ sap.ui.define([
    "sap/ui/model/json/JSONModel",
    "sap/ui/model/odata/ODataModel",
    "sap/ui/model/Filter",
-   "sap/ui/core/routing/History"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History) {
+   "sap/ui/core/routing/History",
+   "../../util/Service"
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History, Service) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.InventoryDetail", {
@@ -22,6 +23,7 @@ sap.ui.define([
           this.getView().setModel(this.inventoryModel);
           this.inventoryList = this.byId("inventoryList");
           this.core = sap.ui.getCore();
+          this.service = Service;
           this.oDataModelReady = $.Deferred();
           if(APP_CONFIG.state.auth.loggedIn) {
             this.loggedin();
@@ -52,6 +54,28 @@ sap.ui.define([
           this.oDataModelReady.done((function() {
             var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
             this.inventoryList.getBinding("items").filter(filter);
+            var path = "InventoryUsages"
+            this.service.ajax({
+              path: path+"?$inlinecount=allpages&$top=0&$filter=(itemID+eq+"+this.item.itemID+")"
+            }).done((function(data){
+              var temp = this.inventoryModel.getData();
+              temp.total = data["odata.count"];
+              this.inventoryModel.setData(temp);
+              this.inventoryModel.refresh();
+            }).bind(this)).fail(function(reason){
+              console.error(reason);
+            });
+              path: 
+            this.service.ajax({
+              path: path+"?$inlinecount=allpages&$top=0&$filter=(fName+ne+null)and(fName+ne+null)and(itemID+eq+"+this.item.itemID+")"
+            }).done((function(data){
+              var temp = this.inventoryModel.getData();
+              temp.checkedOut = data["odata.count"];
+              this.inventoryModel.setData(temp);
+              this.inventoryModel.refresh();
+            }).bind(this)).fail(function(reason){
+              console.error(reason);
+            });
           }).bind(this));
         },
         conditionFormat: function(value) {
@@ -199,12 +223,33 @@ sap.ui.define([
         onRowPress: function(evt) {
           if(!this._memberPopover) {
               this._memberPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.MemberDetailPopOver", this);
+              this._memberPopover.setBusyIndicatorDelay(0);
+              this.memberInfo = new JSONModel({});
+              this.getView().setModel(this.memberInfo, "memberInfo");
               this.getView().addDependent(this._memberPopover);
           }
           var row = evt.getSource();
-          $.sap.delayedCall(0, this, function(){
-              this._memberPopover.openBy(row);
-          });
+          var data = row.getBindingContext("oDataModel").getObject();
+          this._memberPopover.setBusy(true);
+          this._memberPopover.openBy(row)
+          this.ODataModel.read("Members("+data.memberID+")", {
+              success: (function(data){
+                console.log(data);
+                var temp = {
+                  address: data.address,
+                  email: data.email,
+                  fName: data.fName,
+                  lName: data.lName,
+                  phone: data.phone
+                }
+                this.memberInfo.setData(temp);
+                this._memberPopover.setBusy(false);
+              }).bind(this),
+              error: (function(data){
+                MessageToast.show("Failed to retrieve member info");
+                this._memberPopover.close()
+              }).bind(this)
+            });
         }
     });
 });

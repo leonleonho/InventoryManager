@@ -2,7 +2,7 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<ResponsivePopover
-		title="Member Info"
+		title="{memberInfo>/fName} {memberInfo>/lName}"
 		placement="Vertical">
 		<content>
 			<VBox
@@ -12,10 +12,13 @@
 					design="Bold" />
 				<Label text="Phone"
 					class="sapUiSmallMarginTop"/>
-				<Text text="604 327 8390" />
+				<Text text="{memberInfo>/phone}" />
 				<Label text="Email"
 					class="sapUiSmallMarginTop"/>
-				<Text text="ho.leon@yahoo.com" />
+				<Text text="{memberInfo>/email}" />
+				<Label text="Address"
+					class="sapUiSmallMarginTop"/>
+				<Text text="{memberInfo>/address}" />
 			</VBox>
 		</content>
 	</ResponsivePopover>
