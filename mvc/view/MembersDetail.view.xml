@@ -25,7 +25,7 @@
                             busyIndicatorDelay="0"
                             items="{path: 'oDataModel>/InventoryUsages',
                                 parameters : {
-                                        select:'inventoryID, condition, purchasedAt, price, itemName'
+                                        select:'inventoryID, condition, purchasedAt, price, itemName, eventInventoryID'
                                 }}"
                             growing="true"
                             growingScrollToLoad="true">
@@ -43,7 +43,7 @@
                                     <Text text="Pricing" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                                    <Text text="Remove From Inventory" />
+                                    <Text text="Check In" />
                                 </Column>
                             </columns>
                             <items>
@@ -55,9 +55,9 @@
                                         	path: 'oDataModel>condition', formatter: '.conditionFormat'}"
                                             change="onRatingPress"/>
                                         <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
-                                        <Button text="Remove"
-                                        	icon="sap-icon://delete"
-                                            press="onRowDelete"
+                                        <Button text="Check In"
+                                        	icon="sap-icon://accept"
+                                            press="onRowCheckin"
                                         	class="appBtn"/>
                                     </cells>
                                 </ColumnListItem>

@@ -189,17 +189,39 @@ sap.ui.define([
         editFragmentCancel: function() {
             this._editMenu.close();
         },
-        onRowDelete: function(evt) {
-            var bindingCtx = evt.getSource().getParent().getBindingContext();
-            this.ODataModel.remove("Inventories(" + bindingCtx.getObject().inventoryID + ")", {
+        onRowCheckin: function(evt) {
+            var bindingCtx = evt.getSource().getParent().getBindingContext("oDataModel");
+            this.ODataModel.remove("EventInventories(" + bindingCtx.getObject().eventInventoryID + ")", {
                 success: function() {
-                    MessageToast.show("Inventory Item Deleted");
+                    MessageToast.show("Item Checked in");
                 },
                 error: function() {
-                    MessageToast.show("Failed To Delete Item");
+                    MessageToast.show("Failed to check in item");
                 }
             });
             this.initTable();
-        }
+        },
+        onRatingPress: function(evt) {
+          var src = evt.getSource();
+          var obj = src.getBindingContext("oDataModel").getObject();
+          var path = APP_CONFIG.oDataService + "Inventories("+obj.inventoryID+")";
+          var payload = {
+            condition: evt.getParameter("value").toString()
+          };
+          OData.request({ //OData model update doesnt work for some reason
+            requestUri: path,
+            headers: {Authorization: APP_CONFIG.state.auth.headers},
+            method: "PATCH",
+            data: payload // json object with the new entry
+            },
+            function(insertedItem) {
+                MessageToast.show("Updated Entry");
+            },
+            function(err) {
+              MessageToast.show("Failed to update entry");
+              console.error(err);
+            }
+          );  
+        },
     });
 });
