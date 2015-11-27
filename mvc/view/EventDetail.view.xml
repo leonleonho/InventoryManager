@@ -1,0 +1,133 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.scout138.inventoryManager.mvc.controller.EventDetail" xmlns:l="sap.ui.layout">
+    <Page id="inventoryDetailPage" title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
+        <content>
+            <!-- this CSS class add a standard spacing to all the page content -->
+            <ObjectHeader id="title" title="{/fName} {/lName}" number="{/total}" numberUnit="Checked Out">
+                <attributes>
+                    <ObjectAttribute title="Leader Name" text="{/hostFName} {/hostLName}" />
+                    <ObjectAttribute title="Email" text="{/hostEmail}" />
+                    <ObjectAttribute title="Phone" text="{/hostPhone}" />
+                </attributes>
+            </ObjectHeader>
+            <IconTabBar expanded="true" class="appIconTabBar">
+                <items>
+                    <IconTabFilter text="Items" icon="sap-icon://activity-items">
+                        <Table id="inventoryList"
+                            busyIndicatorDelay="0"
+                            inset="false" 
+                            items="{path: 'oDataModel>/InventoryUsages',
+                                parameters : {
+                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                            }}"
+                            growing="true"
+                            growingScrollToLoad="true">
+                            <columns>
+                                <Column width="4rem" minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Inventory ID" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Checked Out By" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="Purchased At" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Condition" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Pricing" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Remove From Inventory" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem press="onRowPress"
+                                    type="Active">
+                                    <cells>
+                                        <Text text="{oDataModel>inventoryID}" />
+                                        <Text text="{parts:[
+                                                {path:'oDataModel>fName'}, 
+                                                {path:'oDataModel>lName'}
+                                            ], 
+                                            formatter:'.nameFormater'} " />
+                                        <Text text="{oDataModel>purchasedAt}" />
+                                        <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
+                                        	path: 'oDataModel>condition', formatter: '.conditionFormat'}"
+                                            change="onRatingPress"/>
+                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
+                                        <Button text="Remove"
+                                        	icon="sap-icon://delete"
+                                            press="onRowDelete"
+                                        	class="appBtn"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter text="Members" icon="sap-icon://group">
+                        <Table id="membersList"
+                            busyIndicatorDelay="0"
+                            inset="false" 
+                            items="{path: 'oDataModel>/InventoryUsages',
+                                parameters : {
+                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                            }}"
+                            growing="true"
+                            growingScrollToLoad="true">
+                            <columns>
+                                <Column width="4rem" minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Inventory ID" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Checked Out By" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="Purchased At" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Condition" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Pricing" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Remove From Inventory" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem press="onRowPress"
+                                    type="Active">
+                                    <cells>
+                                        <Text text="{oDataModel>inventoryID}" />
+                                        <Text text="{parts:[
+                                                {path:'oDataModel>fName'}, 
+                                                {path:'oDataModel>lName'}
+                                            ], 
+                                            formatter:'.nameFormater'} " />
+                                        <Text text="{oDataModel>purchasedAt}" />
+                                        <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
+                                            path: 'oDataModel>condition', formatter: '.conditionFormat'}"
+                                            change="onRatingPress"/>
+                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
+                                        <Button text="Remove"
+                                            icon="sap-icon://delete"
+                                            press="onRowDelete"
+                                            class="appBtn"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button text="Add Inventory" press="onAddPress" class="appIconBtn" />
+                <Button text="Delete" icon="sap-icon://delete" press="onDelete" class="appIconBtn" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

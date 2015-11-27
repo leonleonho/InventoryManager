@@ -19,7 +19,7 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: 'oDataModel>/Events'}" class="appList" id="inventoryList">
+            <List items="{path: 'oDataModel>/Events'}" growing="true" class="appList" id="inventoryList">
                 <StandardListItem
                 title="{oDataModel>eventName}"
                 description="{

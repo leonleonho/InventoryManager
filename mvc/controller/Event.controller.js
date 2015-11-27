@@ -23,23 +23,10 @@ sap.ui.define([
         handlePress: function(evt) {
             var src = evt.getSource();
             var obj = src.getBindingContext("oDataModel").getObject();
-            console.log(obj);
-            this.oRouter.navTo("InventoryDetail", {
-              from: "Inventory",
-              detailID: obj.itemID,
-              itemName: obj.itemName,
-              itemDescription: obj.itemDescription
+            this.oRouter.navTo("EventDetail", {
+              from: "EventDetail",
+              detailID: obj.eventID
             });
-        },
-        onMenuPress: function(evt) {
-          if(!this._menuPopover) {
-              this._menuPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.Menu", this);
-              this.getView().addDependent(this._menuPopover);
-          }
-          var button = evt.getSource();
-          $.sap.delayedCall(0, this, function(){
-              this._menuPopover.openBy(button);
-          });
         },
         loggedin: function() {
           this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
@@ -102,9 +89,19 @@ sap.ui.define([
           oList.removeAggregation("items", oList.getSwipedItem());
           oList.swipeOut();
         },
+        onMenuPress: function(evt) {
+          if(!this._menuPopover) {
+              this._menuPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.Menu", this);
+              this.getView().addDependent(this._menuPopover);
+          }
+          var button = evt.getSource();
+          $.sap.delayedCall(0, this, function(){
+              this._menuPopover.openBy(button);
+          });
+        },
         onMenuItemPress: function(evt) {
           var viewName = evt.getSource().data().navView;
-          if(viewName == "Inventory")
+          if(viewName == "Event")
             return;
           this.oRouter.navTo(viewName);
         }
