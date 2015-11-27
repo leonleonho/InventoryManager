@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<Dialog
+		title="Add New Member">
+		<Panel>
+			<content>
+				<l:VerticalLayout
+					width="100%">
+					<l:VerticalLayout>
+						<Label text="First Name"/>
+						<Input
+							value="{addMember>/fName}"
+							width="100%"
+							fieldWidth="60%" 
+							class="sapUiSmallMarginBottom" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Last Name"/>
+						<Input
+							value="{addMember>/lName}"
+							width="100%"
+							fieldWidth="60%" 
+							class="sapUiSmallMarginBottom" />
+					</l:VerticalLayout>
+					<l:VerticalLayout
+						width="100%">
+						<Label text="Address"/>
+						<Input
+							value="{addMember>/address}"
+							width="100%"
+							fieldWidth="60%" 
+							class="sapUiSmallMarginBottom" />
+					</l:VerticalLayout>
+					<l:VerticalLayout
+						width="100%">
+						<Label text="Email"/>
+						<Input
+							value="{addMember>/email}"
+							width="100%"
+							fieldWidth="100%" 
+							class="sapUiSmallMarginBottom" />
+					</l:VerticalLayout>
+					<l:VerticalLayout
+						width="100%">
+						<Label text="Phone"/>
+						<Input
+							value="{addMember>/phone}"
+							width="100%"
+							fieldWidth="100%" 
+							class="sapUiSmallMarginBottom" />
+					</l:VerticalLayout>
+				</l:VerticalLayout>
+			</content>
+		</Panel>
+		<beginButton>
+			<Button text="Create" class="appBtnPrimary" press="addFragmentCreate"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" class="appBtnPrimary" press="addFragmentCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

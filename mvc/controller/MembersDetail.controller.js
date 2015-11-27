@@ -37,6 +37,13 @@ sap.ui.define([
         },
         onRouteMatched: function(evt) {
             var args = evt.getParameters().arguments;
+            var params = evt.getParameters();
+            if(params.name != "MembersDetail") {
+                this.byId("membersDetailPage").setVisible(false);
+                return;
+            } else {
+                this.byId("membersDetailPage").setVisible(true);
+            }
             this.member = {
                 memberID: args.detailID
             };
@@ -105,6 +112,7 @@ sap.ui.define([
                 this._editMenu = sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.EditMember", this.getView().getController());
                 this.getView().addDependent(this._editMenu);
             }
+            this._editMenu.setBusy(false);
             $.sap.delayedCall(0, this, function() {
                 //this.editFragmentModel.setData(data);
                 this._editMenu.open();
@@ -139,23 +147,26 @@ sap.ui.define([
                     .setValueStateText("Must enter a home address");
                 error = true;
             }
-
             if (!error) {
                 var payload = {
+                    memberID : data.memberID,
                     fName: data.fName,
                     lName: data.lName,
                     email: data.email,
                     phone: data.phone,
                     address: data.address
                 };
+                evt.getSource().getParent().getParent().setBusy(true);
                 this.ODataModel.update("Members(" + this.member.memberID + ")", payload, {
-                    success: (function() {}).bind(this),
-                    error: function() {}
+                    success: (function() {
+                        MessageToast.show("Member Updated");
+                        this._editMenu.close();
+                    }).bind(this),
+                    error: function() {
+                        MessageToast.show("Failed to update member");
+                    }
                 });
-
-                this.initTable();
-                MessageToast.show("Member Updated");
-                this._editMenu.close();
+                
             }
         },
         _clearErrorStates: function() {

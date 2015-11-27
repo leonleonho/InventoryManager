@@ -42,7 +42,7 @@ sap.ui.define([
           this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
         },
         onSearch: function(evt) {
-          /*
+          
           var src = evt.getSource();
           var fNameFilter = new Filter({
             path: "fName",
@@ -54,36 +54,22 @@ sap.ui.define([
             operator: "Contains",
             value1: src.getValue()
           });
-          var emailFilter = new Filter({
-            path: "email",
-            operator: "Contains",
-            value1: src.getValue()
-          });
-          var typeFilter = new Filter({
-            path: "type",
-            operator: "Contains",
-            value1: src.getValue()
-          });
           var orFilter = new Filter({
-            filters: [fNameFilter, lNameFilter, emailFilter, typeFilter],
+            filters: [fNameFilter, lNameFilter],
             and: false
           });
-          //var typeFilter = new Filter("type", sap.ui.model.FilterOperator.Contains, src.getValue());
           var bindings = this.byId("membersList").getBinding("items");          
-          bindings.filter([orFilter]);
-          */
+          bindings.filter(orFilter);
+          
         },
         onAddPress: function() {
           if(!this._addMenu) {
-              this.addFragmentModel = new JSONModel({
-                type: "",
-                itemDescription: "",
-                itemName: ""
-              });
-              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddItem", this);
+              this.addFragmentModel = new JSONModel({});
+              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddMember", this);
               this.getView().addDependent(this._addMenu);
-              this.getView().setModel(this.addFragmentModel, "addInventory");
+              this.getView().setModel(this.addFragmentModel, "addMember");
           }
+          this.addFragmentModel.setData({});
           $.sap.delayedCall(0, this, function(){
               this._addMenu.open();
           });
@@ -103,6 +89,7 @@ sap.ui.define([
               MessageToast.show("Failed to add member, contact an admin if this persists");
             } 
           });
+          this._addMenu.setBusy(false);
           this._addMenu.close();
         },
         handleDelete: function(evt) {

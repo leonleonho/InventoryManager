@@ -33,6 +33,7 @@ sap.ui.define([
           var params = evt.getParameters();
           if(params.name != "InventoryDetail") {
             this.byId("inventoryDetailPage").setVisible(false);
+            return;
           }else {
             this.byId("inventoryDetailPage").setVisible(true);
           }
