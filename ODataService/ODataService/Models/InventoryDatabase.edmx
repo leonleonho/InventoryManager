@@ -58,8 +58,7 @@
             <PropertyRef Name="memberID" />
           </Key>
           <Property Name="memberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="lName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="phone" Type="numeric" Precision="15" Scale="0" />
@@ -80,44 +79,16 @@
           <Property Name="authDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="EventsView">
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsItemUsage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EventsItemUsage">
           <Key>
             <PropertyRef Name="eventID" />
-            <PropertyRef Name="dateCreated" />
-            <PropertyRef Name="eventName" />
-            <PropertyRef Name="inventoryID" />
-            <PropertyRef Name="itemID" />
-            <PropertyRef Name="dateAdded" />
-            <PropertyRef Name="condition" />
-            <PropertyRef Name="purchasedAt" />
             <PropertyRef Name="itemName" />
-            
-            <PropertyRef Name="memberFName" />
-            <PropertyRef Name="memberLName" />
           </Key>
           <Property Name="eventID" Type="int" Nullable="false" />
-          <Property Name="location" Type="nvarchar(max)" />
-          <Property Name="dateCreated" Type="datetime" Nullable="false" />
-          <Property Name="eventName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="inventoryID" Type="int" Nullable="false" />
-          <Property Name="itemID" Type="int" Nullable="false" />
-          <Property Name="dateAdded" Type="datetime" Nullable="false" />
-          <Property Name="condition" Type="numeric" Precision="1" Scale="0" Nullable="false" />
-          <Property Name="price" Type="money" />
-          <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="itemName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="itemDescription" Type="nvarchar(max)" />
-          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="memberFName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="memberLName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="memberAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="memberEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="memberPhone" Type="numeric" Precision="15" Scale="0" />
-          <Property Name="hostFName" Type="nvarchar" MaxLength="50" />
-          <Property Name="hostLName" Type="nvarchar" MaxLength="50" />
-          <Property Name="hostEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="hostPhone" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="CheckedOut" Type="int" />
+          <Property Name="price" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -136,8 +107,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="price" Type="money" />
           <Property Name="purchasedAt" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="memberID" Type="int" />
-          <Property Name="fName" Type="nvarchar" MaxLength="30" />
-          <Property Name="lName" Type="nvarchar" MaxLength="30" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
           <Property Name="itemName" Type="nvarchar" MaxLength="50" />
           <Property Name="itemDescription" Type="nvarchar(max)" />
           <Property Name="type" Type="nvarchar" MaxLength="50" />
@@ -255,31 +225,13 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EventsView" EntityType="Self.EventsView" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="EventsItemUsage" EntityType="Self.EventsItemUsage" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [EventsView].[eventID] AS [eventID], 
-    [EventsView].[location] AS [location], 
-    [EventsView].[dateCreated] AS [dateCreated], 
-    [EventsView].[eventName] AS [eventName], 
-    [EventsView].[inventoryID] AS [inventoryID], 
-    [EventsView].[itemID] AS [itemID], 
-    [EventsView].[dateAdded] AS [dateAdded], 
-    [EventsView].[condition] AS [condition], 
-    [EventsView].[price] AS [price], 
-    [EventsView].[purchasedAt] AS [purchasedAt], 
-    [EventsView].[itemName] AS [itemName], 
-    [EventsView].[itemDescription] AS [itemDescription], 
-    [EventsView].[type] AS [type], 
-    [EventsView].[memberFName] AS [memberFName], 
-    [EventsView].[memberLName] AS [memberLName], 
-    [EventsView].[memberAddress] AS [memberAddress], 
-    [EventsView].[memberEmail] AS [memberEmail], 
-    [EventsView].[memberPhone] AS [memberPhone], 
-    [EventsView].[hostFName] AS [hostFName], 
-    [EventsView].[hostLName] AS [hostLName], 
-    [EventsView].[hostEmail] AS [hostEmail], 
-    [EventsView].[hostPhone] AS [hostPhone]
-    FROM [dbo].[EventsView] AS [EventsView]</DefiningQuery>
+    [EventsItemUsage].[eventID] AS [eventID], 
+    [EventsItemUsage].[itemName] AS [itemName], 
+    [EventsItemUsage].[CheckedOut] AS [CheckedOut], 
+    [EventsItemUsage].[price] AS [price]
+    FROM [dbo].[EventsItemUsage] AS [EventsItemUsage]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="InventoryUsage" EntityType="Self.InventoryUsage" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -290,8 +242,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
     [InventoryUsage].[price] AS [price], 
     [InventoryUsage].[purchasedAt] AS [purchasedAt], 
     [InventoryUsage].[memberID] AS [memberID], 
-    [InventoryUsage].[fName] AS [fName], 
-    [InventoryUsage].[lName] AS [lName], 
+    [InventoryUsage].[name] AS [name], 
     [InventoryUsage].[itemName] AS [itemName], 
     [InventoryUsage].[itemDescription] AS [itemDescription], 
     [InventoryUsage].[type] AS [type], 
@@ -405,8 +356,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <PropertyRef Name="memberID" />
           </Key>
           <Property Name="memberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="Decimal" Precision="15" Scale="0" />
@@ -429,43 +379,6 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <Property Name="authDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Users" FromRole="Users" ToRole="Events" />
         </EntityType>
-        <EntityType Name="EventsView">
-          <Key>
-            <PropertyRef Name="eventID" />
-            <PropertyRef Name="dateCreated" />
-            <PropertyRef Name="eventName" />
-            <PropertyRef Name="inventoryID" />
-            <PropertyRef Name="itemID" />
-            <PropertyRef Name="dateAdded" />
-            <PropertyRef Name="condition" />
-            <PropertyRef Name="purchasedAt" />
-            <PropertyRef Name="itemName" />
-            <PropertyRef Name="memberFName" />
-            <PropertyRef Name="memberLName" />
-          </Key>
-          <Property Name="eventID" Type="Int32" Nullable="false" />
-          <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="inventoryID" Type="Int32" Nullable="false" />
-          <Property Name="itemID" Type="Int32" Nullable="false" />
-          <Property Name="dateAdded" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="condition" Type="Decimal" Precision="1" Scale="0" Nullable="false" />
-          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="memberFName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="memberLName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="memberAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="memberEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="memberPhone" Type="Decimal" Precision="15" Scale="0" />
-          <Property Name="hostFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hostLName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hostEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hostPhone" Type="Decimal" Precision="15" Scale="0" />
-        </EntityType>
         <EntityType Name="InventoryUsage">
           <Key>
             <PropertyRef Name="inventoryID" />
@@ -481,8 +394,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="purchasedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="memberID" Type="Int32" />
-          <Property Name="fName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="lName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="itemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -493,6 +405,12 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <PropertyRef Name="purchasedAt1" />
           </Key>
           <Property Name="purchasedAt1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypesView">
+          <Key>
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_eventInventory_Event">
           <End Role="Events" Type="Self.Event" Multiplicity="1" />
@@ -519,9 +437,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_eventInventory_Members">
-          <End Role="Members" Type="Self.Member" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
           <End Role="EventInventory" Type="Self.EventInventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
@@ -592,9 +508,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="EventsViews" EntityType="Self.EventsView" />
           <EntitySet Name="InventoryUsages" EntityType="Self.InventoryUsage" />
           <EntitySet Name="PurchasedAts" EntityType="Self.PurchasedAt" />
+          <EntitySet Name="TypesViews" EntityType="Self.TypesView" />
           <AssociationSet Name="FK_eventInventory_Event" Association="Self.FK_eventInventory_Event">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventInventory" EntitySet="EventInventories" />
@@ -623,13 +539,17 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <End Role="Items" EntitySet="Items" />
             <End Role="Inventory" EntitySet="Inventories" />
           </AssociationSet>
-          <EntitySet Name="TypesViews" EntityType="InventoryManagerDatabaseModel.TypesView" />
+          <EntitySet Name="EventsItemUsages" EntityType="InventoryManagerDatabaseModel.EventsItemUsage" />
         </EntityContainer>
-        <EntityType Name="TypesView">
+        <EntityType Name="EventsItemUsage">
           <Key>
-            <PropertyRef Name="type" />
+            <PropertyRef Name="itemName" />
+            <PropertyRef Name="eventID" />
           </Key>
-          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckedOut" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -694,8 +614,7 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.Member">
               <MappingFragment StoreEntitySet="Members">
                 <ScalarProperty Name="memberID" ColumnName="memberID" />
-                <ScalarProperty Name="fName" ColumnName="fName" />
-                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
@@ -718,38 +637,9 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EventsViews">
-            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventsView">
-              <MappingFragment StoreEntitySet="EventsView">
-                <ScalarProperty Name="eventID" ColumnName="eventID" />
-                <ScalarProperty Name="location" ColumnName="location" />
-                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-                <ScalarProperty Name="eventName" ColumnName="eventName" />
-                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
-                <ScalarProperty Name="itemID" ColumnName="itemID" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="condition" ColumnName="condition" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
-                <ScalarProperty Name="itemName" ColumnName="itemName" />
-                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="memberFName" ColumnName="memberFName" />
-                <ScalarProperty Name="memberLName" ColumnName="memberLName" />
-                <ScalarProperty Name="memberAddress" ColumnName="memberAddress" />
-                <ScalarProperty Name="memberEmail" ColumnName="memberEmail" />
-                <ScalarProperty Name="memberPhone" ColumnName="memberPhone" />
-                <ScalarProperty Name="hostFName" ColumnName="hostFName" />
-                <ScalarProperty Name="hostLName" ColumnName="hostLName" />
-                <ScalarProperty Name="hostEmail" ColumnName="hostEmail" />
-                <ScalarProperty Name="hostPhone" ColumnName="hostPhone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="InventoryUsages">
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.InventoryUsage">
               <MappingFragment StoreEntitySet="InventoryUsage">
-                <ScalarProperty Name="eventInventoryID" ColumnName="eventInventoryID" />
                 <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
                 <ScalarProperty Name="condition" ColumnName="condition" />
                 <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
@@ -757,11 +647,11 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="purchasedAt" ColumnName="purchasedAt" />
                 <ScalarProperty Name="memberID" ColumnName="memberID" />
-                <ScalarProperty Name="fName" ColumnName="fName" />
-                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="itemName" ColumnName="itemName" />
                 <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
                 <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="eventInventoryID" ColumnName="eventInventoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -776,6 +666,16 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.TypesView">
               <MappingFragment StoreEntitySet="TypesView">
                 <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventsItemUsages">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventsItemUsage">
+              <MappingFragment StoreEntitySet="EventsItemUsage">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="CheckedOut" ColumnName="CheckedOut" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

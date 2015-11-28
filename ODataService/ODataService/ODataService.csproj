@@ -124,15 +124,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\InventoryManager.Context.tt">
+    <Content Include="Models\InventoryDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
-      <LastGenOutput>InventoryManager.Context.cs</LastGenOutput>
+      <DependentUpon>InventoryDatabase.edmx</DependentUpon>
+      <LastGenOutput>InventoryDatabase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\InventoryManager.tt">
+    <Content Include="Models\InventoryDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
-      <LastGenOutput>InventoryManager.cs</LastGenOutput>
+      <DependentUpon>InventoryDatabase.edmx</DependentUpon>
+      <LastGenOutput>InventoryDatabase.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -146,7 +146,7 @@
     <Compile Include="Controllers\EventInventoriesController.cs" />
     <Compile Include="Controllers\EventMembersController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
-    <Compile Include="Controllers\EventsViewsController.cs" />
+    <Compile Include="Controllers\EventsItemUsagesController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\InventoryUsagesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -159,52 +159,52 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventInventory.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventMember.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EventsView.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+    <Compile Include="Models\EventsItemUsage.cs">
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventory.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InventoryManager.Context.cs">
+    <Compile Include="Models\InventoryDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManager.Context.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InventoryManager.cs">
+    <Compile Include="Models\InventoryDatabase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InventoryManager.Designer.cs">
+    <Compile Include="Models\InventoryDatabase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
+      <DependentUpon>InventoryDatabase.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryUsage.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchasedAt.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypesView.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>InventoryManager.tt</DependentUpon>
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -213,12 +213,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="ConnectionString.config" />
-    <EntityDeploy Include="Models\InventoryManager.edmx">
+    <EntityDeploy Include="Models\InventoryDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InventoryManager.Designer.cs</LastGenOutput>
+      <LastGenOutput>InventoryDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\InventoryManager.edmx.diagram">
-      <DependentUpon>InventoryManager.edmx</DependentUpon>
+    <Content Include="Models\InventoryDatabase.edmx.diagram">
+      <DependentUpon>InventoryDatabase.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />

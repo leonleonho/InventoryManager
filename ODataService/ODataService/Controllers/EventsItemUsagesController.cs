@@ -12,31 +12,39 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using oDataService.Models;
-using oDataService.Classes;
 
 namespace oDataService.Controllers
 {
-    [AuthAction]
-    public class EventsViewsController : ODataController
+    /*
+    The WebApiConfig class may require additional changes to add a route for this controller. Merge these statements into the Register method of the WebApiConfig class as applicable. Note that OData URLs are case sensitive.
+
+    using System.Web.Http.OData.Builder;
+    using System.Web.Http.OData.Extensions;
+    using oDataService.Models;
+    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+    builder.EntitySet<EventsItemUsage>("EventsItemUsages");
+    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+    */
+    public class EventsItemUsagesController : ODataController
     {
         private InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
 
-        // GET: odata/EventsViews
+        // GET: odata/EventsItemUsages
         [EnableQuery]
-        public IQueryable<EventsView> GetEventsViews()
+        public IQueryable<EventsItemUsage> GetEventsItemUsages()
         {
-            return db.EventsViews;
+            return db.EventsItemUsages;
         }
 
-        // GET: odata/EventsViews(5)
+        // GET: odata/EventsItemUsages(5)
         [EnableQuery]
-        public SingleResult<EventsView> GetEventsView([FromODataUri] int key)
+        public SingleResult<EventsItemUsage> GetEventsItemUsage([FromODataUri] string key)
         {
-            return SingleResult.Create(db.EventsViews.Where(eventsView => eventsView.eventID == key));
+            return SingleResult.Create(db.EventsItemUsages.Where(eventsItemUsage => eventsItemUsage.itemName == key));
         }
 
-        // PUT: odata/EventsViews(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<EventsView> patch)
+        // PUT: odata/EventsItemUsages(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] string key, Delta<EventsItemUsage> patch)
         {
             Validate(patch.GetEntity());
 
@@ -45,13 +53,13 @@ namespace oDataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            EventsView eventsView = await db.EventsViews.FindAsync(key);
-            if (eventsView == null)
+            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
+            if (eventsItemUsage == null)
             {
                 return NotFound();
             }
 
-            patch.Put(eventsView);
+            patch.Put(eventsItemUsage);
 
             try
             {
@@ -59,7 +67,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventsViewExists(key))
+                if (!EventsItemUsageExists(key))
                 {
                     return NotFound();
                 }
@@ -69,18 +77,18 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Updated(eventsView);
+            return Updated(eventsItemUsage);
         }
 
-        // POST: odata/EventsViews
-        public async Task<IHttpActionResult> Post(EventsView eventsView)
+        // POST: odata/EventsItemUsages
+        public async Task<IHttpActionResult> Post(EventsItemUsage eventsItemUsage)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.EventsViews.Add(eventsView);
+            db.EventsItemUsages.Add(eventsItemUsage);
 
             try
             {
@@ -88,7 +96,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EventsViewExists(eventsView.eventID))
+                if (EventsItemUsageExists(eventsItemUsage.itemName))
                 {
                     return Conflict();
                 }
@@ -98,12 +106,12 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Created(eventsView);
+            return Created(eventsItemUsage);
         }
 
-        // PATCH: odata/EventsViews(5)
+        // PATCH: odata/EventsItemUsages(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<EventsView> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] string key, Delta<EventsItemUsage> patch)
         {
             Validate(patch.GetEntity());
 
@@ -112,13 +120,13 @@ namespace oDataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            EventsView eventsView = await db.EventsViews.FindAsync(key);
-            if (eventsView == null)
+            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
+            if (eventsItemUsage == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(eventsView);
+            patch.Patch(eventsItemUsage);
 
             try
             {
@@ -126,7 +134,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventsViewExists(key))
+                if (!EventsItemUsageExists(key))
                 {
                     return NotFound();
                 }
@@ -136,19 +144,19 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Updated(eventsView);
+            return Updated(eventsItemUsage);
         }
 
-        // DELETE: odata/EventsViews(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
+        // DELETE: odata/EventsItemUsages(5)
+        public async Task<IHttpActionResult> Delete([FromODataUri] string key)
         {
-            EventsView eventsView = await db.EventsViews.FindAsync(key);
-            if (eventsView == null)
+            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
+            if (eventsItemUsage == null)
             {
                 return NotFound();
             }
 
-            db.EventsViews.Remove(eventsView);
+            db.EventsItemUsages.Remove(eventsItemUsage);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -163,9 +171,9 @@ namespace oDataService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool EventsViewExists(int key)
+        private bool EventsItemUsageExists(string key)
         {
-            return db.EventsViews.Count(e => e.eventID == key) > 0;
+            return db.EventsItemUsages.Count(e => e.itemName == key) > 0;
         }
     }
 }

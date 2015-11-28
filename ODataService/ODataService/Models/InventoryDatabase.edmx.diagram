@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a0d3b91b17634aa6a9deb49f884e2964" Name="Diagram1">
+      <Diagram DiagramId="70a6236cc26e4faf84b2fb0584733e47" Name="Diagram1">
         <EntityTypeShape EntityType="InventoryManagerDatabaseModel.EventInventory" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerDatabaseModel.EventMember" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Event" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Inventory" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Item" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Member" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Inventory" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Item" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.Member" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagerDatabaseModel.User" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.EventsView" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.InventoryUsage" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.PurchasedAt" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.InventoryUsage" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.PurchasedAt" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.TypesView" Width="1.5" PointX="7.75" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_eventInventory_Event" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_eventInventory_Inventory" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_eventInventory_Members" ManuallyRouted="false" />
@@ -22,7 +22,7 @@
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_EventMember_Members" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_Events_Users" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryManagerDatabaseModel.FK_Inventory_Item" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.TypesView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InventoryManagerDatabaseModel.EventsItemUsage" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -32,9 +32,9 @@ namespace oDataService.Models
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<EventsView> EventsViews { get; set; }
         public virtual DbSet<InventoryUsage> InventoryUsages { get; set; }
         public virtual DbSet<PurchasedAt> PurchasedAts { get; set; }
         public virtual DbSet<TypesView> TypesViews { get; set; }
+        public virtual DbSet<EventsItemUsage> EventsItemUsages { get; set; }
     }
 }

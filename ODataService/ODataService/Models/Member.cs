@@ -22,8 +22,7 @@ namespace oDataService.Models
         }
     
         public int memberID { get; set; }
-        public string fName { get; set; }
-        public string lName { get; set; }
+        public string name { get; set; }
         public string address { get; set; }
         public string email { get; set; }
         public Nullable<decimal> phone { get; set; }
