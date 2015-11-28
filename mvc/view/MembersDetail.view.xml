@@ -2,7 +2,7 @@
     <Page id="membersDetailPage" title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
         <content>
             <!-- this CSS class add a standard spacing to all the page content -->
-            <ObjectHeader id="title" title="{/fName} {/lName}">
+            <ObjectHeader id="title" title="{name}">
                 <statuses>
             <ObjectStatus
                 title="{/checkedOut}"
@@ -11,7 +11,7 @@
             </statuses>
                 <attributes>
                     <ObjectAttribute title="Member Id" text="{/memberID}" />
-                    <ObjectAttribute title="Name" text="{/fName} {/lName}" />
+                    <ObjectAttribute title="Name" text="{/name}" />
                     <ObjectAttribute title="Address" text="{/address}" />
                     <ObjectAttribute title="Email" text="{/email}" />
                     <ObjectAttribute title="Phone" text="{/phone}" />

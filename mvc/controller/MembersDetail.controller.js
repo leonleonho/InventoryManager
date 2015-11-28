@@ -117,14 +117,9 @@ sap.ui.define([
             var data = this.memberModel.getData();
             this._clearErrorStates();
             var error = false;
-            if (!data.fName) {
-                this.core.byId("fName").setValueState("Error")
-                    .setValueStateText("Must enter a first name");
-                error = true;
-            }
-            if (!data.lName) {
-                this.core.byId("lName").setValueState("Error")
-                    .setValueStateText("Must enter a last name");
+            if (!data.name) {
+                this.core.byId("name").setValueState("Error")
+                    .setValueStateText("Must enter a name");
                 error = true;
             }
             if (!data.email) {
@@ -145,8 +140,7 @@ sap.ui.define([
             if (!error) {
                 var payload = {
                     memberID : data.memberID,
-                    fName: data.fName,
-                    lName: data.lName,
+                    name: data.name,
                     email: data.email,
                     phone: data.phone,
                     address: data.address
@@ -161,14 +155,11 @@ sap.ui.define([
                         MessageToast.show("Failed to update member");
                     }
                 });
-                
             }
         },
         _clearErrorStates: function() {
-            this.core.byId("fName").setValueState("None")
-                .setValueStateText("Must enter a first name");
-            this.core.byId("lName").setValueState("None")
-                .setValueStateText("Must enter a last name");
+            this.core.byId("name").setValueState("None")
+                .setValueStateText("Must enter a name");
             this.core.byId("phone").setValueState("None")
                 .setValueStateText("Must enter a phone number");
             this.core.byId("address").setValueState("None")

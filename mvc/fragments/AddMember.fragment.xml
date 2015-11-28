@@ -8,20 +8,13 @@
 			<content>
 				<l:VerticalLayout
 					width="100%">
-					<l:VerticalLayout>
-						<Label text="First Name"/>
+					<l:VerticalLayout
+						width="100%">
+						<Label text="Name"/>
 						<Input
-							value="{addMember>/fName}"
+							value="{addMember>/name}"
 							width="100%"
-							fieldWidth="60%" 
-							class="sapUiSmallMarginBottom" />
-					</l:VerticalLayout>
-					<l:VerticalLayout>
-						<Label text="Last Name"/>
-						<Input
-							value="{addMember>/lName}"
-							width="100%"
-							fieldWidth="60%" 
+							fieldWidth="100%" 
 							class="sapUiSmallMarginBottom" />
 					</l:VerticalLayout>
 					<l:VerticalLayout
@@ -30,7 +23,7 @@
 						<Input
 							value="{addMember>/address}"
 							width="100%"
-							fieldWidth="60%" 
+							fieldWidth="100%" 
 							class="sapUiSmallMarginBottom" />
 					</l:VerticalLayout>
 					<l:VerticalLayout

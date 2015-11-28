@@ -2,7 +2,7 @@
     <Page id="inventoryDetailPage" title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
         <content>
             <!-- this CSS class add a standard spacing to all the page content -->
-            <ObjectHeader id="title" title="{/fName} {/lName}" number="{/total}" numberUnit="Checked Out">
+            <ObjectHeader id="title" title="{/name}" number="{/total}" numberUnit="Checked Out">
                 <attributes>
                     <ObjectAttribute title="Leader Name" text="{/hostFName} {/hostLName}" />
                     <ObjectAttribute title="Email" text="{/hostEmail}" />
@@ -15,9 +15,9 @@
                         <Table id="inventoryList"
                             busyIndicatorDelay="0"
                             inset="false" 
-                            items="{path: 'oDataModel>/InventoryUsages',
+                            items="{path: 'oDataModel>/EventsViews',
                                 parameters : {
-                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                                    select:'itemName,itemID,name,condition,purchasedAt,price'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">
@@ -46,10 +46,8 @@
                                     type="Active">
                                     <cells>
                                         <Text text="{oDataModel>inventoryID}" />
-                                        <Text text="{parts:[
-                                                {path:'oDataModel>fName'}, 
-                                                {path:'oDataModel>lName'}
-                                            ], 
+                                        <Text text="{
+                                            path:'oDataModel>name'}, 
                                             formatter:'Formatters.nameFormater'} " />
                                         <Text text="{oDataModel>purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
@@ -73,7 +71,7 @@
                             inset="false" 
                             items="{path: 'oDataModel>/InventoryUsages',
                                 parameters : {
-                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                                    select:'inventoryID,memberID,name,condition,purchasedAt,price'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">
@@ -102,10 +100,8 @@
                                     type="Active">
                                     <cells>
                                         <Text text="{oDataModel>inventoryID}" />
-                                        <Text text="{parts:[
-                                                {path:'oDataModel>fName'}, 
-                                                {path:'oDataModel>lName'}
-                                            ], 
+                                        <Text text=" {
+                                            path:'oDataModel>name',
                                             formatter:'Formatters.nameFormater'} " />
                                         <Text text="{oDataModel>purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{

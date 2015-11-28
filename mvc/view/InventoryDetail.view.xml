@@ -5,10 +5,10 @@
             <ObjectHeader id="title" title="{/itemName}" number="{/total}" numberUnit="In Inventory">
                 <statuses>
             <ObjectStatus
-                title="{= ${/total} - ${/checkedOut}}"
+                title="{/checkedOut}"
                 text="Checked Out "
                 state="Warning"
-                visible="{= !isNaN((${/total} - ${/checkedOut}))}" />
+                visible="{= !isNaN(${/checkedOut})}" />
             </statuses>
                 <attributes>
                     <ObjectAttribute title="Item Id" text="{/itemID}" />
@@ -23,7 +23,7 @@
                             inset="false" 
                             items="{path: 'oDataModel>/InventoryUsages',
                                 parameters : {
-                                    select:'inventoryID,memberID,fName,lName,condition,purchasedAt,price'
+                                    select:'inventoryID,memberID,name,condition,purchasedAt,price'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">
@@ -52,10 +52,8 @@
                                     type="Active">
                                     <cells>
                                         <Text text="{oDataModel>inventoryID}" />
-                                        <Text text="{parts:[
-                                                {path:'oDataModel>fName'}, 
-                                                {path:'oDataModel>lName'}
-                                            ], 
+                                        <Text text="{
+                                                path:'oDataModel>name', 
                                             formatter:'Formatters.nameFormater'} " />
                                         <Text text="{oDataModel>purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{

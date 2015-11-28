@@ -44,22 +44,13 @@ sap.ui.define([
         onSearch: function(evt) {
           
           var src = evt.getSource();
-          var fNameFilter = new Filter({
-            path: "fName",
+          var nameFilter = new Filter({
+            path: "name",
             operator: "Contains",
             value1: src.getValue()
-          });
-          var lNameFilter = new Filter({
-            path: "lName",
-            operator: "Contains",
-            value1: src.getValue()
-          });
-          var orFilter = new Filter({
-            filters: [fNameFilter, lNameFilter],
-            and: false
           });
           var bindings = this.byId("membersList").getBinding("items");          
-          bindings.filter(orFilter);
+          bindings.filter(nameFilter);
           
         },
         onAddPress: function() {

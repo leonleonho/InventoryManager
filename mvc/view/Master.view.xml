@@ -32,7 +32,7 @@
                 <CustomListItem class="appEventListItem" press="handlePress" type="Active" >
                     <FlexBox justifyContent="SpaceBetween">
                         <items>
-                            <Text text="{fName} {lName}" target="{ProductPicUrl}" />
+                            <Text text="{name}" target="{ProductPicUrl}" />
                             <Label text="{eventName}"/>
                         </items>
                     </FlexBox>

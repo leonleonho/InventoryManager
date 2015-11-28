@@ -11,24 +11,14 @@
 				<l:VerticalLayout
 					width="100%">
 
-					<l:HorizontalLayout>
-						<l:VerticalLayout>
-							<Label for="fName" text="First Name"/>
-							<Input
-								id="fName"
-								type="Text"
-								value="{/fName}" >
-							</Input>
-						</l:VerticalLayout>
-						<l:VerticalLayout>
-							<Label for="lName" text="Last Name"/>
-							<Input
-								id="lName"
-								type="Text"
-								value="{/lName}" >
-							</Input>
-						</l:VerticalLayout>
-					</l:HorizontalLayout>
+					<l:VerticalLayout>
+						<Label for="name" text="Name"/>
+						<Input
+							id="name"
+							type="Text"
+							value="{/name}" >
+						</Input>
+					</l:VerticalLayout>
 
 					<l:VerticalLayout>
 						<Label for="email" text="Email"/>

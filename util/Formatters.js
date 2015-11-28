@@ -6,11 +6,11 @@ sap.ui.define(function() {
         priceFormatter: function(value) {
             return "$" + parseFloat(value).toFixed(2);
         },
-        nameFormater: function(part1, part2) {
-            if (!part1 && !part2) {
+        nameFormater: function(part1) {
+            if (!part1) {
                 return "In Inventory";
             }
-            return part1 + " " + part2;
+            return part1;
         },
     };
 

@@ -69,7 +69,7 @@ sap.ui.define([
             });
               path: 
             this.service.ajax({
-              path: path+"?$inlinecount=allpages&$top=0&$filter=(fName+ne+null)and(fName+ne+null)and(itemID+eq+"+this.item.itemID+")"
+              path: path+"?$inlinecount=allpages&$top=0&$filter=(name+ne+null)and(itemID+eq+"+this.item.itemID+")"
             }).done((function(data){
               var temp = this.inventoryModel.getData();
               temp.checkedOut = data["odata.count"];
