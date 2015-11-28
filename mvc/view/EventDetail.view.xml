@@ -106,12 +106,12 @@
                                                 {path:'oDataModel>fName'}, 
                                                 {path:'oDataModel>lName'}
                                             ], 
-                                            formatter:'.nameFormater'} " />
+                                            formatter:'Formatters.nameFormater'} " />
                                         <Text text="{oDataModel>purchasedAt}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                            path: 'oDataModel>condition', formatter: '.conditionFormat'}"
+                                            path: 'oDataModel>condition', formatter: 'Formatters.conditionFormat'}"
                                             change="onRatingPress"/>
-                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
+                                        <Text text="{path:'oDataModel>price', formatter: 'Formatters.priceFormatter'}" />
                                         <Button text="Remove"
                                             icon="sap-icon://delete"
                                             press="onRowDelete"

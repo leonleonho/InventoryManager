@@ -7,7 +7,8 @@ sap.ui.define([
    "sap/ui/core/routing/History",
    "../../util/Service",
    "../../util/Formatters"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History, Service, Formatters) {    "use strict";
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History, Service, Formatters) {    
+  "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.EventDetail", {
         /**
