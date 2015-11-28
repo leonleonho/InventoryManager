@@ -2,11 +2,11 @@
     <Page id="inventoryDetailPage" title="Inventory Manager" showNavButton="{device>/isPhone}" navButtonPress="handleNavBack">
         <content>
             <!-- this CSS class add a standard spacing to all the page content -->
-            <ObjectHeader id="title" title="{/name}" number="{/total}" numberUnit="Checked Out">
+            <ObjectHeader id="title" title="{/eventName}" number="{/total}" numberUnit="Checked Out">
                 <attributes>
-                    <ObjectAttribute title="Leader Name" text="{/hostFName} {/hostLName}" />
-                    <ObjectAttribute title="Email" text="{/hostEmail}" />
-                    <ObjectAttribute title="Phone" text="{/hostPhone}" />
+                    <ObjectAttribute title="Leader Name" text="{/User/fName} {/User/lName}" />
+                    <ObjectAttribute title="Email" text="{/User/email}" />
+                    <ObjectAttribute title="Phone" text="{/User/phone}" />
                 </attributes>
             </ObjectHeader>
             <IconTabBar expanded="true" class="appIconTabBar">
@@ -15,49 +15,45 @@
                         <Table id="inventoryList"
                             busyIndicatorDelay="0"
                             inset="false" 
-                            items="{path: 'oDataModel>/EventsViews',
+                            items="{path: 'oDataModel>/EventsItemUsages',
                                 parameters : {
-                                    select:'itemName,itemID,name,condition,purchasedAt,price'
+                                    select:'itemName,eventID,price, CheckedOut'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">
                             <columns>
-                                <Column width="4rem" minScreenWidth="Desktop" demandPopin="true">
-                                    <Text text="Inventory ID" />
-                                </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true">
-                                    <Text text="Checked Out By" />
-                                </Column>
-                                <Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="Purchased At" />
+                                    <Text text="Item Name" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                                    <Text text="Condition" />
+                                    <Text text="Quantity" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                                    <Text text="Pricing" />
+									<Text text="Avg Price" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                                    <Text text="Remove From Inventory" />
+                                    <Text text="Subtotal" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Distribute" />
                                 </Column>
                             </columns>
                             <items>
                                 <ColumnListItem press="onRowPress"
                                     type="Active">
                                     <cells>
-                                        <Text text="{oDataModel>inventoryID}" />
-                                        <Text text="{
-                                            path:'oDataModel>name'}, 
-                                            formatter:'Formatters.nameFormater'} " />
-                                        <Text text="{oDataModel>purchasedAt}" />
-                                        <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                        	path: 'oDataModel>condition', 
-                                            formatter: 'Formatters.conditionFormat'}"
-                                            change="onRatingPress"/>
+                                        <Text text="{oDataModel>itemName}" />
+                                        <Text text="{oDataModel>CheckedOut}" />
                                         <Text text="{path:'oDataModel>price', 
                                             formatter: 'Formatters.priceFormatter'}" />
-                                        <Button text="Remove"
-                                        	icon="sap-icon://delete"
+                                        <Text text="{
+                                            parts: [
+                                                {path:'oDataModel>price'},
+                                                {path:'oDataModel>CheckedOut'}
+                                            ],
+                                            formatter: 'Formatters.subTotalFormatter'}" />
+                                        <Button text="Distribute"
+                                        	icon="sap-icon://paper-plane"
                                             press="onRowDelete"
                                         	class="appBtn"/>
                                     </cells>

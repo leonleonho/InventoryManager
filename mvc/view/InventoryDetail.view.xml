@@ -23,7 +23,8 @@
                             inset="false" 
                             items="{path: 'oDataModel>/InventoryUsages',
                                 parameters : {
-                                    select:'inventoryID,memberID,name,condition,purchasedAt,price'
+                                    select:'inventoryID,memberID,name,condition,purchasedAt,price',
+                                    orderby: 'name'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">

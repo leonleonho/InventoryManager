@@ -12,8 +12,12 @@ sap.ui.define(function() {
             }
             return part1;
         },
+        subTotalFormatter: function(price, checkedOut) {
+            var price = parseFloat(price);
+            var checkedOut = parseInt(checkedOut);
+            return "$" + (price * checkedOut);
+        }
     };
 
     return Formatters;
 });
-//$.sap.declare("util.com.scout138.inventoryManager.Formatter");
