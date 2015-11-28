@@ -5,8 +5,9 @@ sap.ui.define([
    "sap/ui/model/odata/ODataModel",
    "sap/ui/model/Filter",
    "sap/ui/core/routing/History",
-   "../../util/Service"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History, Service) {
+   "../../util/Service",
+   "../../util/Formatters"
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, History, Service, Formatters) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.InventoryDetail", {
@@ -78,12 +79,6 @@ sap.ui.define([
               console.error(reason);
             });
           }).bind(this));
-        },
-        conditionFormat: function(value) {
-          return parseFloat(value);
-        },
-        priceFormatter: function(value){
-          return "$"+parseFloat(value).toFixed(2);
         },
         _retrieveSize: function(obj, property) {
           var count=0;
@@ -178,12 +173,7 @@ sap.ui.define([
             }).bind(this)
           });
         },
-        nameFormater: function(part1, part2) {
-          if(!part1 && !part2) {
-            return "In Inventory";
-          }
-          return part1 + " " + part2;
-        },
+        
         addFragmentCancel: function() {
           this._addMenu.close();
         },

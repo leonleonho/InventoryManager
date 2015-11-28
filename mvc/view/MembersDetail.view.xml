@@ -52,9 +52,11 @@
                                         <Text text="{oDataModel>inventoryID}" />
                                         <Text text="{oDataModel>itemName}" />
                                         <RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{
-                                        	path: 'oDataModel>condition', formatter: '.conditionFormat'}"
+                                        	path: 'oDataModel>condition', 
+                                            formatter: 'Formatters.conditionFormat'}"
                                             change="onRatingPress"/>
-                                        <Text text="{path:'oDataModel>price', formatter: '.priceFormatter'}" />
+                                        <Text text="{path:'oDataModel>price', 
+                                            formatter: 'Formatters.priceFormatter'}" />
                                         <Button text="Check In"
                                         	icon="sap-icon://accept"
                                             press="onRowCheckin"
