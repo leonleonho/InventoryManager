@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\xampp\htdocs\InventoryManager\oDataService\oDataService\Models\InventoryDatabase.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Leon Ho\Desktop\InventoryManager\ODataService\oDataService\Models\InventoryDatabase.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

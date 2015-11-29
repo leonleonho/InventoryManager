@@ -87,7 +87,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsItemUsage' does
           </Key>
           <Property Name="eventID" Type="int" Nullable="false" />
           <Property Name="itemName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CheckedOut" Type="int" />
+          <Property Name="checkedOut" Type="int" />
+          <Property Name="distributedToMember" Type="int" />
           <Property Name="price" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -229,7 +230,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <DefiningQuery>SELECT 
     [EventsItemUsage].[eventID] AS [eventID], 
     [EventsItemUsage].[itemName] AS [itemName], 
-    [EventsItemUsage].[CheckedOut] AS [CheckedOut], 
+    [EventsItemUsage].[checkedOut] AS [checkedOut], 
+    [EventsItemUsage].[distributedToMember] AS [distributedToMember], 
     [EventsItemUsage].[price] AS [price]
     FROM [dbo].[EventsItemUsage] AS [EventsItemUsage]</DefiningQuery>
           </EntitySet>
@@ -547,9 +549,10 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <PropertyRef Name="eventID" />
           </Key>
           <Property Name="itemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CheckedOut" Type="Int32" />
           <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="eventID" Type="Int32" Nullable="false" />
+          <Property Name="checkedOut" Type="Int32" />
+          <Property Name="distributedToMember" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -672,9 +675,10 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <EntitySetMapping Name="EventsItemUsages">
             <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventsItemUsage">
               <MappingFragment StoreEntitySet="EventsItemUsage">
+                <ScalarProperty Name="distributedToMember" ColumnName="distributedToMember" />
+                <ScalarProperty Name="checkedOut" ColumnName="checkedOut" />
                 <ScalarProperty Name="eventID" ColumnName="eventID" />
                 <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="CheckedOut" ColumnName="CheckedOut" />
                 <ScalarProperty Name="itemName" ColumnName="itemName" />
               </MappingFragment>
             </EntityTypeMapping>

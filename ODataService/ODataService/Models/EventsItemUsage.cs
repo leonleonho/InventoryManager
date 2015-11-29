@@ -17,8 +17,9 @@ namespace oDataService.Models
     {
         [Key]
         public string itemName { get; set; }
-        public Nullable<int> CheckedOut { get; set; }
         public Nullable<decimal> price { get; set; }
         public int eventID { get; set; }
+        public Nullable<int> checkedOut { get; set; }
+        public Nullable<int> distributedToMember { get; set; }
     }
 }
