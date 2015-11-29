@@ -19,7 +19,7 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: 'oDataModel>/Members'}" class="appList" id="membersList">
+            <List items="{path: 'oDataModel>/Members'}" class="appList" id="membersList" growing="true" growingScrollToLoad="true">
                 <StandardListItem
                 title="{oDataModel>name}"
                 description="{oDataModel>email}"

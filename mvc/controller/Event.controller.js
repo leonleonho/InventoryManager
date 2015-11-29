@@ -54,9 +54,9 @@ sap.ui.define([
         onAddPress: function(evt) {
           if(!this._addMenu) {
               this.addFragmentModel = new JSONModel({});
-              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddItem", this);
+              this._addMenu=sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.AddEvent", this);
               this.getView().addDependent(this._addMenu);
-              this.getView().setModel(this.addFragmentModel, "addInventory");
+              this.getView().setModel(this.addFragmentModel, "addEvent");
           }
           this._addMenu.setBusy(false); //Reset fragment
           this.addFragmentModel.setData({}); //Reset Data
@@ -69,14 +69,16 @@ sap.ui.define([
         },
         addFragmentCreate: function(evt) {
           var payload = this.addFragmentModel.getData();
+          payload.eventDate = (new Date(payload.eventDate)).toISOString().slice(0, 19)
+          debugger;
           this._addMenu.setBusyIndicatorDelay(0);
           this._addMenu.setBusy(true);
-          this.ODataModel.create("Items", payload, {
+          this.ODataModel.create("Events", payload, {
             success: function() {
-              MessageToast.show("Item Created");
+              MessageToast.show("Event Created");
             },
             error: function() {
-              MessageToast.show("Failed to create item, contact an admin if this persists");
+              MessageToast.show("Failed to create event, contact an admin if this persists");
             } 
           });
           this._addMenu.close();
