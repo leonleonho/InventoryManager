@@ -79,6 +79,17 @@
           <Property Name="authDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventItemsDistributed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EventItemsDistributed">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="int" Nullable="false" />
+          <Property Name="memberID" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
+          <Property Name="checkedOut" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.EventsItemUsage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EventsItemUsage">
           <Key>
@@ -113,6 +124,18 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.InventoryUsage' does 
           <Property Name="itemDescription" Type="nvarchar(max)" />
           <Property Name="type" Type="nvarchar" MaxLength="50" />
           <Property Name="eventInventoryID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'InventoryManagerDatabase.dbo.ItemsCheckedOut' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ItemsCheckedOut">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="memberID" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="itemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="inventoryID" Type="int" />
+          <Property Name="eventID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'InventoryManagerDatabase.dbo.PurchasedAt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -226,6 +249,14 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventItemsDistributed" EntityType="Self.EventItemsDistributed" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EventItemsDistributed].[eventID] AS [eventID], 
+    [EventItemsDistributed].[memberID] AS [memberID], 
+    [EventItemsDistributed].[name] AS [name], 
+    [EventItemsDistributed].[checkedOut] AS [checkedOut]
+    FROM [dbo].[EventItemsDistributed] AS [EventItemsDistributed]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="EventsItemUsage" EntityType="Self.EventsItemUsage" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [EventsItemUsage].[eventID] AS [eventID], 
@@ -250,6 +281,15 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
     [InventoryUsage].[type] AS [type], 
     [InventoryUsage].[eventInventoryID] AS [eventInventoryID]
     FROM [dbo].[InventoryUsage] AS [InventoryUsage]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ItemsCheckedOut" EntityType="Self.ItemsCheckedOut" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ItemsCheckedOut].[memberID] AS [memberID], 
+    [ItemsCheckedOut].[name] AS [name], 
+    [ItemsCheckedOut].[itemName] AS [itemName], 
+    [ItemsCheckedOut].[inventoryID] AS [inventoryID], 
+    [ItemsCheckedOut].[eventID] AS [eventID]
+    FROM [dbo].[ItemsCheckedOut] AS [ItemsCheckedOut]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PurchasedAt" EntityType="Self.PurchasedAt" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -542,6 +582,8 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
             <End Role="Inventory" EntitySet="Inventories" />
           </AssociationSet>
           <EntitySet Name="EventsItemUsages" EntityType="InventoryManagerDatabaseModel.EventsItemUsage" />
+          <EntitySet Name="EventItemsDistributeds" EntityType="InventoryManagerDatabaseModel.EventItemsDistributed" />
+          <EntitySet Name="ItemsCheckedOuts" EntityType="InventoryManagerDatabaseModel.ItemsCheckedOut" />
         </EntityContainer>
         <EntityType Name="EventsItemUsage">
           <Key>
@@ -553,6 +595,25 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
           <Property Name="eventID" Type="Int32" Nullable="false" />
           <Property Name="checkedOut" Type="Int32" />
           <Property Name="distributedToMember" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EventItemsDistributed">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <Property Name="memberID" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="checkedOut" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ItemsCheckedOut">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="memberID" Type="Int32" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="itemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="inventoryID" Type="Int32" />
+          <Property Name="eventID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -680,6 +741,27 @@ warning 6002: The table/view 'InventoryManagerDatabase.dbo.TypesView' does not h
                 <ScalarProperty Name="eventID" ColumnName="eventID" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="itemName" ColumnName="itemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventItemsDistributeds">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.EventItemsDistributed">
+              <MappingFragment StoreEntitySet="EventItemsDistributed">
+                <ScalarProperty Name="checkedOut" ColumnName="checkedOut" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemsCheckedOuts">
+            <EntityTypeMapping TypeName="InventoryManagerDatabaseModel.ItemsCheckedOut">
+              <MappingFragment StoreEntitySet="ItemsCheckedOut">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="inventoryID" ColumnName="inventoryID" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

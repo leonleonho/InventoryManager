@@ -144,11 +144,13 @@
     <Compile Include="App_Start\Classes\Auth.cs" />
     <Compile Include="App_Start\Classes\PasswordHash.cs" />
     <Compile Include="Controllers\EventInventoriesController.cs" />
+    <Compile Include="Controllers\EventItemsDistributedController.cs" />
     <Compile Include="Controllers\EventMembersController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\EventsItemUsagesController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\InventoryUsagesController.cs" />
+    <Compile Include="Controllers\ItemsCheckedOutController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PurchasedAtController.cs" />
@@ -162,6 +164,9 @@
       <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventInventory.cs">
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EventItemsDistributed.cs">
       <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventMember.cs">
@@ -192,6 +197,9 @@
       <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
+      <DependentUpon>InventoryDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemsCheckedOut.cs">
       <DependentUpon>InventoryDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs">

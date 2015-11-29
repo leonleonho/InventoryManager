@@ -16,37 +16,27 @@ using oDataService.Classes;
 
 namespace oDataService.Controllers
 {
-    /*
-    The WebApiConfig class may require additional changes to add a route for this controller. Merge these statements into the Register method of the WebApiConfig class as applicable. Note that OData URLs are case sensitive.
-
-    using System.Web.Http.OData.Builder;
-    using System.Web.Http.OData.Extensions;
-    using oDataService.Models;
-    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<EventsItemUsage>("EventsItemUsages");
-    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
-    */
     [AuthAction]
-    public class EventsItemUsagesController : ODataController
+    public class EventItemsDistributedController : ODataController
     {
         private InventoryManagerDatabaseEntities db = new InventoryManagerDatabaseEntities();
 
-        // GET: odata/EventsItemUsages
+        // GET: odata/EventItemsDistributed
         [EnableQuery]
-        public IQueryable<EventsItemUsage> GetEventsItemUsages()
+        public IQueryable<EventItemsDistributed> GetEventItemsDistributed()
         {
-            return db.EventsItemUsages;
+            return db.EventItemsDistributeds;
         }
 
-        // GET: odata/EventsItemUsages(5)
+        // GET: odata/EventItemsDistributed(5)
         [EnableQuery]
-        public SingleResult<EventsItemUsage> GetEventsItemUsage([FromODataUri] string key)
+        public SingleResult<EventItemsDistributed> GetEventItemsDistributed([FromODataUri] int key)
         {
-            return SingleResult.Create(db.EventsItemUsages.Where(eventsItemUsage => eventsItemUsage.itemName == key));
+            return SingleResult.Create(db.EventItemsDistributeds.Where(eventItemsDistributed => eventItemsDistributed.eventID == key));
         }
 
-        // PUT: odata/EventsItemUsages(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] string key, Delta<EventsItemUsage> patch)
+        // PUT: odata/EventItemsDistributed(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<EventItemsDistributed> patch)
         {
             Validate(patch.GetEntity());
 
@@ -55,13 +45,13 @@ namespace oDataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
-            if (eventsItemUsage == null)
+            EventItemsDistributed eventItemsDistributed = await db.EventItemsDistributeds.FindAsync(key);
+            if (eventItemsDistributed == null)
             {
                 return NotFound();
             }
 
-            patch.Put(eventsItemUsage);
+            patch.Put(eventItemsDistributed);
 
             try
             {
@@ -69,7 +59,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventsItemUsageExists(key))
+                if (!EventItemsDistributedExists(key))
                 {
                     return NotFound();
                 }
@@ -79,18 +69,18 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Updated(eventsItemUsage);
+            return Updated(eventItemsDistributed);
         }
 
-        // POST: odata/EventsItemUsages
-        public async Task<IHttpActionResult> Post(EventsItemUsage eventsItemUsage)
+        // POST: odata/EventItemsDistributed
+        public async Task<IHttpActionResult> Post(EventItemsDistributed eventItemsDistributed)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.EventsItemUsages.Add(eventsItemUsage);
+            db.EventItemsDistributeds.Add(eventItemsDistributed);
 
             try
             {
@@ -98,7 +88,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EventsItemUsageExists(eventsItemUsage.itemName))
+                if (EventItemsDistributedExists(eventItemsDistributed.eventID))
                 {
                     return Conflict();
                 }
@@ -108,12 +98,12 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Created(eventsItemUsage);
+            return Created(eventItemsDistributed);
         }
 
-        // PATCH: odata/EventsItemUsages(5)
+        // PATCH: odata/EventItemsDistributed(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] string key, Delta<EventsItemUsage> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<EventItemsDistributed> patch)
         {
             Validate(patch.GetEntity());
 
@@ -122,13 +112,13 @@ namespace oDataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
-            if (eventsItemUsage == null)
+            EventItemsDistributed eventItemsDistributed = await db.EventItemsDistributeds.FindAsync(key);
+            if (eventItemsDistributed == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(eventsItemUsage);
+            patch.Patch(eventItemsDistributed);
 
             try
             {
@@ -136,7 +126,7 @@ namespace oDataService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventsItemUsageExists(key))
+                if (!EventItemsDistributedExists(key))
                 {
                     return NotFound();
                 }
@@ -146,19 +136,19 @@ namespace oDataService.Controllers
                 }
             }
 
-            return Updated(eventsItemUsage);
+            return Updated(eventItemsDistributed);
         }
 
-        // DELETE: odata/EventsItemUsages(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] string key)
+        // DELETE: odata/EventItemsDistributed(5)
+        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            EventsItemUsage eventsItemUsage = await db.EventsItemUsages.FindAsync(key);
-            if (eventsItemUsage == null)
+            EventItemsDistributed eventItemsDistributed = await db.EventItemsDistributeds.FindAsync(key);
+            if (eventItemsDistributed == null)
             {
                 return NotFound();
             }
 
-            db.EventsItemUsages.Remove(eventsItemUsage);
+            db.EventItemsDistributeds.Remove(eventItemsDistributed);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -173,9 +163,9 @@ namespace oDataService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool EventsItemUsageExists(string key)
+        private bool EventItemsDistributedExists(int key)
         {
-            return db.EventsItemUsages.Count(e => e.itemName == key) > 0;
+            return db.EventItemsDistributeds.Count(e => e.eventID == key) > 0;
         }
     }
 }

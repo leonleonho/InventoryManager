@@ -70,6 +70,8 @@
     <Build Include="PurchasedAt.sql" />
     <Build Include="TypesView.sql" />
     <Build Include="EventItemUsage.sql" />
+    <Build Include="EventItemsDistributed.sql" />
+    <Build Include="ItemsCheckedOut.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

@@ -31,10 +31,12 @@ namespace oDataService
             builder.EntitySet<Event>("Events");
             builder.EntitySet<InventoryUsage>("InventoryUsages");
             builder.EntitySet<Inventory>("Inventories");
+            builder.EntitySet<EventItemsDistributed>("EventItemsDistributed");
             builder.EntitySet<EventsItemUsage>("EventsItemUsages");
             builder.EntitySet<Member>("Members");
             builder.EntitySet<TypesView>("TypesViews");
             builder.EntitySet<Item>("Items");
+            builder.EntitySet<ItemsCheckedOut>("ItemsCheckedOut");
             builder.EntitySet<PurchasedAt>("PurchasedAt");
             config.Routes.MapODataServiceRoute("odata", "/", builder.GetEdmModel());
             config.MapHttpAttributeRoutes();
