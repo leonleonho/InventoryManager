@@ -212,6 +212,12 @@ sap.ui.define([
           );  
         },
         onRowPress: function(evt) {
+          var row = evt.getSource();
+          var data = row.getBindingContext("oDataModel").getObject();
+          if(data.memberID === null) {
+            MessageToast.show("Item in inventory no member could be found");
+            return;
+          }
           if(!this._memberPopover) {
               this._memberPopover =sap.ui.xmlfragment("com.scout138.inventoryManager.mvc.fragments.MemberDetailPopOver", this);
               this._memberPopover.setBusyIndicatorDelay(0);
@@ -219,8 +225,6 @@ sap.ui.define([
               this.getView().setModel(this.memberInfo, "memberInfo");
               this.getView().addDependent(this._memberPopover);
           }
-          var row = evt.getSource();
-          var data = row.getBindingContext("oDataModel").getObject();
           this._memberPopover.setBusy(true);
           this._memberPopover.openBy(row)
           this.ODataModel.read("Members("+data.memberID+")", {

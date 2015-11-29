@@ -2,7 +2,7 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<ResponsivePopover
-		title="{memberInfo>/fName} {memberInfo>/lName}"
+		title="{memberInfo>/name}"
 		placement="Vertical">
 		<content>
 			<VBox

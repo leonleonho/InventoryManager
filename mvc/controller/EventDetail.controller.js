@@ -20,8 +20,8 @@ sap.ui.define([
           this.oRouter.attachRoutePatternMatched(this.onRouteMatched, this);
           this.eventBus = sap.ui.getCore().getEventBus();
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);        
-          this.inventoryModel = new sap.ui.model.json.JSONModel();
-          this.getView().setModel(this.inventoryModel);
+          this.eventModel = new sap.ui.model.json.JSONModel();
+          this.getView().setModel(this.eventModel);
           this.inventoryList = this.byId("inventoryList");
           this.core = sap.ui.getCore();
           this.service = Service;
@@ -39,12 +39,10 @@ sap.ui.define([
             this.byId("inventoryDetailPage").setVisible(true);
           }
           var args = params.arguments;
-          this.item = {
-              itemID: args.detailID,
-              itemName: args.itemName,
-              itemDescription: args.itemDescription
+          this.event = {
+              eventID: args.detailID,
           };
-          this.inventoryModel.setData(this.item);
+          this.eventModel.setData(this.item);
           this.initTable();
         },
         loggedin: function(evt) {
@@ -54,30 +52,28 @@ sap.ui.define([
         initTable: function() {
           
           this.oDataModelReady.done((function() {
-            var filter = new Filter("itemID", sap.ui.model.FilterOperator.EQ, this.item.itemID);  
+            var filter = new Filter("eventID", sap.ui.model.FilterOperator.EQ, this.event.eventID);  
             this.inventoryList.getBinding("items").filter(filter);
-            var path = "InventoryUsages"
+            var path = "Events";
             this.service.ajax({
-              path: path+"?$inlinecount=allpages&$top=0&$filter=(itemID+eq+"+this.item.itemID+")"
+              path: path+"("+this.event.eventID+")?$expand=User"
             }).done((function(data){
-              var temp = this.inventoryModel.getData();
-              temp.total = data["odata.count"];
-              this.inventoryModel.setData(temp);
-              this.inventoryModel.refresh();
+              this.eventModel.setData(data, true);
+              console.log(this.eventModel.getData());
             }).bind(this)).fail(function(reason){
               console.error(reason);
             });
-              path: 
-            this.service.ajax({
-              path: path+"?$inlinecount=allpages&$top=0&$filter=(fName+ne+null)and(fName+ne+null)and(itemID+eq+"+this.item.itemID+")"
-            }).done((function(data){
-              var temp = this.inventoryModel.getData();
-              temp.checkedOut = data["odata.count"];
-              this.inventoryModel.setData(temp);
-              this.inventoryModel.refresh();
-            }).bind(this)).fail(function(reason){
-              console.error(reason);
-            });
+            //   path: 
+            // this.service.ajax({
+            //   path: path+"?$inlinecount=allpages&$top=0&$filter=(fName+ne+null)and(fName+ne+null)and(itemID+eq+"+this.item.itemID+")"
+            // }).done((function(data){
+            //   var temp = this.eventModel.getData();
+            //   temp.checkedOut = data["odata.count"];
+            //   this.eventModel.setData(temp);
+            //   this.eventModel.refresh();
+            // }).bind(this)).fail(function(reason){
+            //   console.error(reason);
+            // });
           }).bind(this));
         },
         _retrieveSize: function(obj, property) {
