@@ -1,8 +1,8 @@
 ﻿CREATE VIEW [dbo].[EventsItemUsage]
-	AS SELECT 
-		ei.eventID,
+	AS SELECT ei.eventID,
 		ISNULL(it.itemName,'Unknown') itemName,
-		COUNT(*) AS CheckedOut,
+		COUNT(*) AS checkedOut,
+		COUNT(ei.memberID) AS distributedToMember,
 		AVG(inv.price) AS price
 	FROM EventInventory ei
 		LEFT JOIN Inventory inv
