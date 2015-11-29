@@ -4,8 +4,9 @@ sap.ui.define([
    "sap/ui/model/json/JSONModel",
    "sap/ui/model/odata/ODataModel",
    "sap/ui/model/Filter",
+   "sap/ui/model/Sorter",
    "../../util/Service"
-], function (Controller, MessageToast, JSONModel, ODataModel, Filter, Service) {
+], function (Controller, MessageToast, JSONModel, ODataModel, Filter, Sorter, Service) {
     "use strict";
 
     return Controller.extend("com.scout138.inventoryManager.mvc.controller.Event", {
@@ -18,8 +19,14 @@ sap.ui.define([
           this.eventBus = this.core.getEventBus();
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          this.eventList = this.byId("eventList");
+          
         },
-
+        loggedin: function(evt){
+          var sorter = new Sorter("dateCreated", true);  
+          this.byId("eventList").getBinding("items").sort([sorter]);
+          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
+        },
         handlePress: function(evt) {
             var src = evt.getSource();
             var obj = src.getBindingContext("oDataModel").getObject();
@@ -28,28 +35,25 @@ sap.ui.define([
               detailID: obj.eventID
             });
         },
-        loggedin: function() {
-          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
-        },
         onSearch: function(evt) {
-          var src = evt.getSource();
-          var nameFilter = new Filter({
-            path: "itemName",
-            operator: "Contains",
-            value1: src.getValue()
-          });
-          var typeFilter = new Filter({
-            path: "type",
-            operator: "Contains",
-            value1: src.getValue()
-          });
-          var orFilter = new Filter({
-            filters: [nameFilter, typeFilter],
-            and: false
-          });
-          //var typeFilter = new Filter("type", sap.ui.model.FilterOperator.Contains, src.getValue());
-          var bindings = this.byId("inventoryList").getBinding("items");          
-          bindings.filter([orFilter]);
+          // var src = evt.getSource();
+          // var nameFilter = new Filter({
+          //   path: "itemName",
+          //   operator: "Contains",
+          //   value1: src.getValue()
+          // });
+          // var typeFilter = new Filter({
+          //   path: "type",
+          //   operator: "Contains",
+          //   value1: src.getValue()
+          // });
+          // var orFilter = new Filter({
+          //   filters: [nameFilter, typeFilter],
+          //   and: false
+          // });
+          // //var typeFilter = new Filter("type", sap.ui.model.FilterOperator.Contains, src.getValue());
+          // var bindings = this.byId("eventList").getBinding("items");          
+          // bindings.filter([orFilter]);
         },
         onAddPress: function(evt) {
           if(!this._addMenu) {
@@ -69,8 +73,7 @@ sap.ui.define([
         },
         addFragmentCreate: function(evt) {
           var payload = this.addFragmentModel.getData();
-          payload.eventDate = (new Date(payload.eventDate)).toISOString().slice(0, 19)
-          debugger;
+          payload.dateCreated = new Date();
           this._addMenu.setBusyIndicatorDelay(0);
           this._addMenu.setBusy(true);
           this.ODataModel.create("Events", payload, {

@@ -19,7 +19,16 @@
             </Toolbar>
         </subHeader>
         <content>
-            <List items="{path: 'oDataModel>/Events'}" growing="true" class="appList" id="inventoryList">
+            <List 
+                id="eventList"
+                items="{
+                    path: 'oDataModel>/Events',
+                    parameters: {
+                        orderby: 'dateCreated desc'
+                    }
+                }"
+                growing="true"
+                class="appList">
                 <StandardListItem
                 title="{oDataModel>eventName}"
                 description="{
