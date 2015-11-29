@@ -17,7 +17,7 @@
                             inset="false" 
                             items="{path: 'oDataModel>/EventsItemUsages',
                                 parameters : {
-                                    select:'itemName,eventID,price, CheckedOut'
+                                    select:'itemName,eventID,price, checkedOut, distributedToMember'
                             }}"
                             growing="true"
                             growingScrollToLoad="true">
@@ -27,6 +27,9 @@
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
                                     <Text text="Quantity" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                                    <Text text="Distributed" />
                                 </Column>
                                 <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
 									<Text text="Avg Price" />
@@ -39,17 +42,18 @@
                                 </Column>
                             </columns>
                             <items>
-                                <ColumnListItem press="onRowPress"
+                                <ColumnListItem
                                     type="Active">
                                     <cells>
                                         <Text text="{oDataModel>itemName}" />
-                                        <Text text="{oDataModel>CheckedOut}" />
+                                        <Text text="{oDataModel>checkedOut}" />
+                                        <Text text="{oDataModel>distributedToMember}" />
                                         <Text text="{path:'oDataModel>price', 
                                             formatter: 'Formatters.priceFormatter'}" />
                                         <Text text="{
                                             parts: [
                                                 {path:'oDataModel>price'},
-                                                {path:'oDataModel>CheckedOut'}
+                                                {path:'oDataModel>checkedOut'}
                                             ],
                                             formatter: 'Formatters.subTotalFormatter'}" />
                                         <Button text="Distribute"
