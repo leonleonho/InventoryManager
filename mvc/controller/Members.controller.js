@@ -17,6 +17,7 @@ sap.ui.define([
           this.eventBus = this.core.getEventBus();
           this.eventBus.subscribe("app", "loggedin", this.loggedin, this);
           this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
         },
 
         handlePress: function(evt) {
@@ -39,7 +40,7 @@ sap.ui.define([
           });
         },
         loggedin: function() {
-          this.ODataModel = this.getOwnerComponent().getModel("oDataModel");
+          
         },
         onSearch: function(evt) {
           
