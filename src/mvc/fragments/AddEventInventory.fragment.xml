@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<Dialog
+		id="addInventoryFrag"
+		title="Add To Inventory">
+		<Panel
+			width="100%">
+			<content>
+				<l:VerticalLayout
+					width="100%">
+					<l:VerticalLayout
+						width="100%">
+						<Label text="Inventory ID"/>
+						<Input 
+							id="inventoryID"
+							type="Text"
+							placeholder="Begin typing for auto suggestion"
+							showSuggestion="true"
+							width="100%"
+							suggestionItems="{path: 'oDataModel>/ItemsNotCheckedOut'}"
+							value="{addInventoryItems>/inventoryID}" >
+							<suggestionItems>
+								<core:Item text="{oDataModel>inventoryID}" />
+							</suggestionItems>
+						</Input>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text=""/>
+						<Input
+							id="addInventoryPrice"
+							type="Number"
+							class="sapUiSmallMarginBottom"
+							placeholder=""
+							value="{addInventoryItems>/price}" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Quantity"/>
+						<Input
+							type="Number"
+							id="itemQuantity"
+							class="sapUiSmallMarginBottom"
+							value="{addInventoryItems>/quantity}" />
+					</l:VerticalLayout>
+				</l:VerticalLayout>
+			</content>
+		</Panel>
+		<beginButton>
+			<Button text="Create" class="appBtnPrimary" press="addFragmentCreate"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" class="appBtnPrimary" press="addFragmentCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

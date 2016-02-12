@@ -213,3 +213,5 @@ ModelManifest.xml
 
 ConnectionString.config
 .DS_Store
+
+/www
